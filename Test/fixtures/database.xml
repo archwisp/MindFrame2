@@ -1,0 +1,23 @@
+<database name="Test_Database">
+	<table name="User">
+      <field name="User_Id" type="int" length="11" is_auto_increment="true" />
+      <field name="Username" type="varchar" length="16" />
+      <field name="Display_Name" type="varchar" length="16" allow_null="true" />
+      <field name="Email_Address" type="varchar" length="128" />
+      <field name="Last_Login" type="datetime" allow_null="true" />
+      <field name="Login_Count" type="smallint" length="5" default_value="0" />
+      <field name="Status" type="bit" length="1" default_value="1" />
+      <field name="Fk_User_Id_Supervisor" type="int" length="11" allow_null="true" />
+      <primary_key type="primary" fields="User_Id" />
+		<index type="unique" name="Ix_Unique_Username" fields="Username" />
+		<index name="Ix_Supervisor" fields="Fk_User_Id_Supervisor" />
+		<foreign_key name="Fk_Supervisor" foreign_key_fields="Fk_User_Id_Supervisor"
+			primary_key_table="User" primary_key_fields="User_Id" label_field="Username" />
+    </table>
+    <table name="Password">
+      <field name="Username" type="varchar" length="255" />
+      <field name="Ciphertext" type="varchar" length="255" />
+      <field name="Iv" type="varchar" length="255" />
+      <primary_key type="primary" fields="Username" />
+    </table>
+</database>

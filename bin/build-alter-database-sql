@@ -1,0 +1,56 @@
+#!/usr/bin/php
+<?php // vim:ts=3:sts=3:sw=3:et:
+
+chdir(dirname($argv[0]));
+
+ini_set('display_errors', 1);
+
+set_include_path('..' . PATH_SEPARATOR . get_include_path());
+
+require_once '../MindFrame2/AutoLoad.php';
+
+$config = new Config();
+$config_loader = new ConfigLoader($config);
+$config_loader->loadErrorHandler();
+$adapter = $config_loader->getDatabaseModelAdapter();
+$dbi = $config_loader->getLocalDbi();
+$tables = $config_loader->getDatabaseModel()->getTables();
+
+foreach ($tables as $table)
+{
+   $show_create_table_sql = $adapter->buildShowCreateTableSql($table->getName());
+
+   try
+   {
+      $result = $dbi->query($show_create_table_sql, NULL);
+      $record = $result->fetch(MindFrame2_Dbms_Result::FETCH_ASSOC);
+
+      $create_table_sql = $record['Create Table'];
+
+      $alter_table_sql = $adapter->buildAlterTableSql($table->getName(), $create_table_sql);
+      
+      if ($alter_table_sql !== FALSE)
+      {
+         echo "\n\n" . $alter_table_sql;
+      }
+   }
+   catch (PDOException $exception)
+   {
+      $adapter_class = get_class($adapter);
+
+      if ((int)$exception->errorInfo[1]
+         !== $adapter_class::CODE_TABLE_DOESNT_EXIST)
+      {
+         throw $exception;
+      }
+      
+      $create_table_sql = $adapter->buildCreateTableSql($table->getName());
+      
+      if ($create_table_sql !== FALSE)
+      {
+         echo "\n\n" . $create_table_sql;
+      }
+   }
+}
+
+echo "\n";

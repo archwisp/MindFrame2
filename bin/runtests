@@ -1,0 +1,13 @@
+#!/bin/bash
+
+WD="`/usr/bin/dirname $0`/../../";
+echo Changing to working directory: $WD;
+cd $WD;
+
+if [ -z $1 ]; then
+	TARGET="MindFrame2";
+else
+	TARGET="MindFrame2/$1";
+fi
+
+phpunit --bootstrap MindFrame2/Test/Bootstrap.php $TARGET;

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!ELEMENT database (table*)>
+<!ELEMENT table (field+, primary_key?, index*, foreign_key*)>
+<!ELEMENT field EMPTY>
+<!ELEMENT primary_key EMPTY>
+<!ELEMENT index EMPTY>
+<!ELEMENT foreign_key EMPTY>
+
+<!ATTLIST database
+   name ID #REQUIRED>
+
+<!ATTLIST table
+   name ID #REQUIRED>
+
+<!ATTLIST field
+   name CDATA #REQUIRED
+   type CDATA #REQUIRED
+   length CDATA #IMPLIED
+   default_value CDATA #IMPLIED
+   allow_null CDATA #IMPLIED
+   is_auto_increment CDATA #IMPLIED>
+
+<!ATTLIST primary_key
+   type CDATA #REQUIRED
+   fields CDATA #REQUIRED>
+
+<!ATTLIST index
+   name CDATA #REQUIRED
+   type CDATA #IMPLIED
+   fields CDATA #REQUIRED>
+
+<!ATTLIST foreign_key
+   name CDATA #REQUIRED
+   foreign_key_fields CDATA #REQUIRED
+   primary_key_table CDATA #REQUIRED
+   primary_key_fields CDATA #REQUIRED
+   label_field CDATA #REQUIRED>

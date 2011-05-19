@@ -1,0 +1,34 @@
+#!/usr/bin/php
+<?php // vim:ts=3:sts=3:sw=3:et:
+
+if ($argc !== 5)
+{
+   echo "Reads the specified XML file and builds the SQL statements "
+      . "which will create the scema for the specified DBMS\n\n";
+
+   printf("Usage: %s <xml-file> <dbms> <username> <password>\n", $argv[0]);
+   exit;
+}
+
+$file_name = realpath($argv[1]);
+$dbms = $argv[2];
+$usrname = $argv[3];
+$password = $argv[4];
+
+ini_set('display_errors', 1);
+set_include_path(getcwd() . PATH_SEPARATOR . get_include_path());
+chdir(dirname($argv[0]));
+set_include_path('..' . PATH_SEPARATOR . get_include_path());
+
+require_once '../AutoLoad.php';
+
+$loader = new MindFrame2_Dbms_Schema_Builder_FromXml_Database();
+$model = $loader->loadFromFile($file_name);
+
+$adapter_class = 'MindFrame2_Dbms_Schema_Adapter_ToSql_' . ucfirst($dbms);
+$adapter = new $adapter_class($model, ':', array());
+
+// echo $adapter->buildDropDatabaseSql();
+echo $adapter->buildCreateDatabaseSql();
+echo "\n\n" . $adapter->buildGrantAllSql($usrname, $password);
+echo "\n";

@@ -1,0 +1,27 @@
+#!/usr/bin/php
+<?php // vim:ts=3:sts=3:sw=3:et:
+
+chdir(dirname($argv[0]));
+
+ini_set('display_errors', 1);
+
+set_include_path('..' . PATH_SEPARATOR . get_include_path());
+
+require_once '../MindFrame2/AutoLoad.php';
+
+$config = new Config();
+$config_loader = new ConfigLoader($config);
+$config_loader->loadErrorHandler();
+
+$connection = new MindFrame2_Dbms_Connection_Rpc('localhost',
+   sprintf('https://%s/?module=Dbi', '127.0.0.1'),
+   $config->getXmlRpcUsername(),
+   $config->getXmlRpcPassword());
+
+$dbi = new MindFrame2_Dbms_Dbi_Single($connection);
+
+$sql = 'SELECT * FROM mysql.user;';
+
+$data = $dbi->query($sql, MindFrame2_Dbms_Result::FETCH_ASSOC);
+
+new MindFrame2_Debug($data);

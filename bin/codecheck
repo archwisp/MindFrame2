@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [ -z $1 ]; then
+	DIR='.';
+else
+	DIR=$1;
+fi
+
+phpmd $DIR text codesize,unusedcode,naming,design
+phpcs --standard=MindFrame2 --ignore=doxygen $DIR
