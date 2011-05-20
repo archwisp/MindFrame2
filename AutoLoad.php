@@ -22,8 +22,21 @@ class MindFrame2_AutoLoad
     */
    public static function load($class_name)
    {
+      if (class_exists($class_name))
+      {
+         return TRUE;
+      }
+
       $file_name = self::parseNameToPath($class_name);
+
+      if (!file_exists($file_name))
+      {
+         return FALSE;
+      }
+      
       include_once $file_name;
+   
+      return TRUE;
    }
 
    public static function install()
