@@ -221,10 +221,17 @@ abstract class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_AbstractSchema
     */
    protected function buildFieldDefaultValueSql(MindFrame2_Dbms_Schema_Field $field)
    {
+      $sql = NULL;
       $default_value = $field->getDefaultValue();
 
-      $sql = (!is_null($default_value) && $default_value !== '')
-         ? " DEFAULT '". $default_value ."'" : NULL;
+      if (!is_null($default_value) && $default_value !== '')
+      {
+         if (!is_numeric($default_value))
+         {
+            $default_value = "'". $default_value ."'";
+         }
+         $sql = " DEFAULT ". $default_value;
+      }
 
       return $sql;
    }

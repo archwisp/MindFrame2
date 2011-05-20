@@ -18,8 +18,8 @@ CREATE TABLE `Test_Database`.`User` (
   `Display_Name` TEXT DEFAULT NULL,
   `Email_Address` TEXT NOT NULL,
   `Last_Login` TEXT DEFAULT NULL,
-  `Login_Count` INTEGER NOT NULL DEFAULT '0',
-  `Status` INTEGER NOT NULL DEFAULT '1',
+  `Login_Count` INTEGER NOT NULL DEFAULT 0,
+  `Status` INTEGER NOT NULL DEFAULT 1,
   `Fk_User_Id_Supervisor` INTEGER DEFAULT NULL
 );
 CREATE UNIQUE INDEX `Test_Database`.`Ix_Unique_Username` ON `User` (`Username`);
