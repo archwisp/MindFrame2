@@ -69,9 +69,6 @@ abstract class MindFrame2_Dbms_Record_Mapper_Abstract extends MindFrame2_Object
       $this->_pool = $pool;
 
       $this->init();
-
-      $this->assertPropertyIsNotEmpty('model_class');
-      $this->assertPropertyIsNotEmpty('table_name');
    }
 
    /**
