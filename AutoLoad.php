@@ -29,14 +29,22 @@ class MindFrame2_AutoLoad
 
       $file_name = self::parseNameToPath($class_name);
 
-      if (!file_exists($file_name))
+      $include_paths = explode(PATH_SEPARATOR, get_include_path());
+
+      foreach ($include_paths as $include_path)
       {
-         return FALSE;
+         $full_path = $include_path . '/'. $file_name;
+
+         if (file_exists($full_path))
+         {
+            include_once $file_name;
+            return TRUE;
+         }
+         // end if // (file_exists($full_path)) //
       }
+      // end foreach // ($include_paths as $include_path) //
       
-      include_once $file_name;
-   
-      return TRUE;
+      return FALSE;
    }
 
    public static function install()
