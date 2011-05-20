@@ -37,18 +37,18 @@ class MindFrame2_TextImage
       $column_count = $this->_calculateColumnCount();
       $line_count = $this->_calculateLineCount();
 
-      // If there is more than one line worth of text to render, we need to 
-      // break it into chunks that will fit into the column count for each 
+      // If there is more than one line worth of text to render, we need to
+      // break it into chunks that will fit into the column count for each
       // line.  We'll then count the number of chunks we have and subtract half
-      // of that number times the height of a character (to get pixels) from 
-      // the normal Y position (middle). We'll then write each line and 
-      // increment the Y position by the height of a character each time so 
+      // of that number times the height of a character (to get pixels) from
+      // the normal Y position (middle). We'll then write each line and
+      // increment the Y position by the height of a character each time so
       // each line is written on a new line.
 
       if (strlen($text) >= $column_count)
       {
          $chunks = str_split($text, $column_count);
-         
+
          $y_position = $this->_calculateYPosition();
          $y_position -= round(count($chunks) / 2) * $this->_char_height;
 
@@ -69,7 +69,7 @@ class MindFrame2_TextImage
       }
 
       imagepng($image, $this->_file_name);
-      
+
       imagecolordeallocate($image, $black);
       imagecolordeallocate($image, $white);
       imagedestroy($image);
@@ -79,7 +79,7 @@ class MindFrame2_TextImage
    {
       return round($this->_width/$this->_char_width, 0) - ($this->_padding * 2) - 1;
    }
-      
+
    private function _calculateLineCount()
    {
       return round($this->_height/$this->_char_height, 0) - ($this->_padding * 2) - 1;
@@ -102,7 +102,7 @@ class MindFrame2_TextImage
 
          $position = $middle_pixel - $text_middle_pixel;
       }
-      
+
       return $position;
    }
 

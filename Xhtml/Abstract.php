@@ -72,7 +72,7 @@ abstract class MindFrame2_Xhtml_Abstract implements MindFrame2_Xhtml_Interface
          return $this->options[$name];
       }
 
-      return FALSE; 
+      return FALSE;
    }
 
    /**

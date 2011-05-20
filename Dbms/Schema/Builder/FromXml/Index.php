@@ -17,7 +17,7 @@ class MindFrame2_Dbms_Schema_Builder_FromXml_Index extends MindFrame2_Dbms_Schem
     * Create a MindFrame2_Dbms_Schema_Index object from an XML definition
     *
     * @param SimpleXMLElement $xml XML index definition
-    * @param MindFrame2_Dbms_Schema_Table $table Table model in which the referenced 
+    * @param MindFrame2_Dbms_Schema_Table $table Table model in which the referenced
     * field objects exist
     *
     * @return MindFrame2_Dbms_Schema_Index

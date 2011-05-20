@@ -26,6 +26,11 @@ class MindFrame2_AutoLoad
       include_once $file_name;
    }
 
+   public static function install()
+   {
+      spl_autoload_register('self::load');
+   }
+
    /**
     * Maps the class name to the appropriate file
     *
@@ -38,16 +43,4 @@ class MindFrame2_AutoLoad
       $path = str_replace('_', '/', $class_name) . '.php';
       return($path);
    }
-}
-
-/**
- * Register the autoloader
- *
- * @param string $class_name The name of the class to be loaded
- *
- * @return void
- */
-function __autoload($class_name)
-{
-   MindFrame2_AutoLoad::load($class_name);
 }

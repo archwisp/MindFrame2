@@ -48,7 +48,7 @@ abstract class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_AbstractQuery
          case MindFrame2_Dbms_Query::FUNCTION_STDDEV:
 
             return sprintf('STDDEV(%s)', $input);
-         
+
          case MindFrame2_Dbms_Query::FUNCTION_SUM:
 
             return sprintf('SUM(%s)', $input);
@@ -125,7 +125,7 @@ abstract class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_AbstractQuery
       {
          if ($parameter instanceof MindFrame2_Dbms_Query_GroupBy)
          {
-            $table = is_null($parameter->Table) ? NULL : 
+            $table = is_null($parameter->Table) ? NULL :
                $this->getSharedModule()->
                escapeDbElementName($parameter->Table);
 
@@ -136,7 +136,7 @@ abstract class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_AbstractQuery
             {
                $field = $table . '.' . $field;
             }
-               
+
             $field = $this->wrapWithFunction($field, $parameter->Function);
 
             $sql[] = $field;
@@ -221,10 +221,10 @@ abstract class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_AbstractQuery
       {
          if ($condition instanceof MindFrame2_Dbms_Query_Where)
          {
-            $table = is_null($condition->Table) ? NULL : 
+            $table = is_null($condition->Table) ? NULL :
                $this->getSharedModule()->
                escapeDbElementName($condition->Table);
-            
+
             $alias = $this->getSharedModule()->
                escapeDbElementName($condition->Alias);
 

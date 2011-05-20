@@ -38,7 +38,7 @@ class MindFrame2_Dbms_Schema_Adapter_ToForm extends MindFrame2_Dbms_Schema_Adapt
       $fieldset->addContent($dl = new MindFrame2_Xhtml_Dl(NULL, array()));
 
       $fields = $this->getDatabase()->getTableFields($table_name);
-      
+
       $fk_field_names = $this->getDatabase()->
          getTableForeignKeyFieldNames($table_name);
 

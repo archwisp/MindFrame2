@@ -71,7 +71,7 @@ class MindFrame2_Dbms_Connection_Ip
       return sprintf('%s:host=%s;port=%d',
          $this->_dbms, $this->_host, $this->_port);
    }
-   
+
    /**
     * Retreives the DBMS identifier portion of the DSN
     *

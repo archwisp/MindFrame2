@@ -51,12 +51,12 @@ class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_Mysql_Schema
       'varchar' => 'varchar',
       'year' => 'year'
    );
-   
+
    protected $index_keyword = 'KEY';
 
    protected $index_type_map = array(
       'fulltext' => 'FULLTEXT',
-      'index' => nULL,
+      'index' => NULL,
       'primary' => 'PRIMARY',
       'spatial' => 'SPATIAL',
       'unique' => 'UNIQUE'
@@ -151,7 +151,7 @@ class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_Mysql_Schema
 
       return $alter_table_sql;
    }
-   
+
    protected function buildCreateTableSqlPrimaryKeyDefinition($table_name)
    {
       $primary_key = $this->getSharedModule()->

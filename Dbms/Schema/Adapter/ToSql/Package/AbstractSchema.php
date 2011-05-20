@@ -55,7 +55,7 @@ abstract class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_AbstractSchema
 
       return $sql;
    }
-   
+
    /**
     * Builds SQL DROP statements for the entire database model
     *
@@ -71,8 +71,8 @@ abstract class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_AbstractSchema
    }
 
    /**
-    * Builds an SQL CREATE TABLE statement for the table specified. If the 
-    * database parameter is NULL, the table name will not be fully-qualified 
+    * Builds an SQL CREATE TABLE statement for the table specified. If the
+    * database parameter is NULL, the table name will not be fully-qualified
     * (MySQL behavior).
     *
     * @param string $table_name Table to create
@@ -124,22 +124,22 @@ abstract class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_AbstractSchema
 
       return $field_definitions;
    }
-   
+
    protected function buildCreateTableSqlIndexDefinitions($table_name)
    {
       $indexes = $this->getSharedModule()->
          getDatabase()->getTableIndexes($table_name);
 
       $index_definitions = array();
-      
+
       foreach ($indexes as $index)
       {
          $index_definitions[] = $this->buildTableLevelIndexDefinitionSql($index);
       }
-      
+
       return $index_definitions;
    }
-   
+
    protected function buildCreateTableSqlPrimaryKeyDefinition($table_name)
    {
       $primary_key = $this->getSharedModule()->
@@ -184,7 +184,7 @@ abstract class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_AbstractSchema
       $type = $index->getType();
       $mapped_type = (empty($type)) ? NULL : $this->mapIndexType($type);
 
-      $type_sql = !empty($mapped_type) 
+      $type_sql = !empty($mapped_type)
          ? $mapped_type . ' ' . $this->index_keyword : $this->index_keyword;
 
       $sql = sprintf('  %s %s.%s ON %s (%s)',
@@ -210,7 +210,7 @@ abstract class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_AbstractSchema
    {
       return $field->getIsAutoIncrement() ? " $this->auto_increment_keyword" : NULL;
    }
-   
+
    /**
     * Builds the default value portion of an SQL field definition
     *
@@ -317,7 +317,7 @@ abstract class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_AbstractSchema
       $type = $index->getType();
       $mapped_type = (empty($type)) ? NULL : $this->mapIndexType($type);
 
-      $type_sql = !empty($mapped_type) 
+      $type_sql = !empty($mapped_type)
          ? $mapped_type . ' ' . $this->index_keyword : $this->index_keyword;
 
       $sql = sprintf('  %s %s (%s)',
@@ -404,9 +404,9 @@ abstract class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_AbstractSchema
          throw new InvalidArgumentException(
             sprintf('Unknown index type "%s"', $type));
       }
-      
+
       return $this->index_type_map[$lower_type];
-   } 
+   }
 
    /**
     * Returns the field types that shouldn't have a length specified

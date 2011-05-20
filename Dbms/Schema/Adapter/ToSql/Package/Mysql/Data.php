@@ -36,7 +36,7 @@ class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_Mysql_Data
    }
 
    /**
-    * Covers the specified value to the corresponding value that the DBMS is 
+    * Covers the specified value to the corresponding value that the DBMS is
     * expecting.
     *
     * @param mixed $value Value

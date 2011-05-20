@@ -43,7 +43,7 @@ abstract class MindFrame2_Log_Abstract
    public abstract function fetchLine();
 
    /**
-    * Checks to be sure that the pointer is not already open before attempting 
+    * Checks to be sure that the pointer is not already open before attempting
     * to open
     * the stream
     *

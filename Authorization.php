@@ -7,9 +7,9 @@
 
 /**
  * Handles all authorization routines for the framework. This class operates in
- * a similar manner as a file system. An ACL is created for each object as 
- * necessary and permission entries are added to the ACL. This class also 
- * supports cascading permission for parent/child objects. Permissions granted 
+ * a similar manner as a file system. An ACL is created for each object as
+ * necessary and permission entries are added to the ACL. This class also
+ * supports cascading permission for parent/child objects. Permissions granted
  * to a parent object will apply to all of its children.
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
@@ -237,7 +237,7 @@ class MindFrame2_Authorization
    }
 
    /**
-    * Checks to see if a permission with the specified name has been assigned 
+    * Checks to see if a permission with the specified name has been assigned
     * to the object. This function was merely created for abstraction purposes.
     * Permissions checks should be made with hasPermissionByNameRecursive().
     *

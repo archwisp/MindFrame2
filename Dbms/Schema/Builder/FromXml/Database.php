@@ -30,11 +30,11 @@ class MindFrame2_Dbms_Schema_Builder_FromXml_Database extends MindFrame2_Dbms_Sc
    }
 
    /**
-    * Loads the tables from the specified XML and adds them to the specified 
+    * Loads the tables from the specified XML and adds them to the specified
     * object
     *
     * @param SimpleXmlElement $xml XML to be parsed
-    * @param MindFrame2_Dbms_Schema_Database $database Database model object to which the 
+    * @param MindFrame2_Dbms_Schema_Database $database Database model object to which the
     * tables will be added
     *
     * @return void

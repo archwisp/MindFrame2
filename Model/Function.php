@@ -72,13 +72,13 @@ class MindFrame2_Model_Function implements MindFrame2_Dbms_Record_Interface
    }
 
    /**
-    * This function is merely a sanity check. If it is called, it throws a 
+    * This function is merely a sanity check. If it is called, it throws a
     * runtime exception because this model uses constant values.
     *
     * @param double $value Database identifier
     *
     * @return void
-    * 
+    *
     * @throws RuntimeException Because this field is read-only
     */
    public function setPrimaryKey($value)

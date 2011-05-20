@@ -35,7 +35,7 @@ class MindFrame2_Array
 
    public static function implodeUrlParameters($first_delimiter, array $parameters)
    {
-      $query_string = NULL; 
+      $query_string = NULL;
       $delimiter = $first_delimiter;
 
       foreach ($parameters as $key => $value)

@@ -123,7 +123,7 @@ class MindFrame2_Dbms_Schema_Table
     *
     * @return MindFrame2_Dbms_Schema_Field
     *
-    * @throws InvalidArgumentException If the field is not defined in the table 
+    * @throws InvalidArgumentException If the field is not defined in the table
     * model
     */
    public function getFieldByName($field_name)

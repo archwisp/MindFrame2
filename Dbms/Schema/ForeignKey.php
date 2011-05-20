@@ -42,16 +42,16 @@ class MindFrame2_Dbms_Schema_ForeignKey
     * Builds the object
     *
     * @param string $name Name of the key
-    * @param array $foreign_key_fields Field models for the fields that make up 
+    * @param array $foreign_key_fields Field models for the fields that make up
     * the foreign key
-    * @param MindFrame2_Dbms_Schema_Field $primary_key_table Table where the 
+    * @param MindFrame2_Dbms_Schema_Field $primary_key_table Table where the
     * primary key fields exist
-    * @param array $primary_key_fields Fiel models for the fields that make up 
+    * @param array $primary_key_fields Fiel models for the fields that make up
     * the primary key
-    * @param MindFrame2_Dbms_Schema_Field $label_field Field containing primary 
+    * @param MindFrame2_Dbms_Schema_Field $label_field Field containing primary
     * key's text description
     *
-    * @throws InvalidArgumentException If field array elements are not 
+    * @throws InvalidArgumentException If field array elements are not
     * MindFrame2_Dbms_Schema_Field objects
     */
    public function __construct($name,
@@ -100,7 +100,7 @@ class MindFrame2_Dbms_Schema_ForeignKey
    }
 
    /**
-    * Returns an array of the field models of the fields that make up the 
+    * Returns an array of the field models of the fields that make up the
     * foreign key
     *
     * @return array
@@ -111,7 +111,7 @@ class MindFrame2_Dbms_Schema_ForeignKey
    }
 
    /**
-    * Returns an array containing the names of the fields that make up the 
+    * Returns an array containing the names of the fields that make up the
     * foreign key
     *
     * @return array
@@ -149,7 +149,7 @@ class MindFrame2_Dbms_Schema_ForeignKey
    }
 
    /**
-    * Returns an array containing the names of the fields that make up the 
+    * Returns an array containing the names of the fields that make up the
     * primary key
     *
     * @return array
@@ -167,7 +167,7 @@ class MindFrame2_Dbms_Schema_ForeignKey
    }
 
    /**
-    * Returns the table table model for the table in which the primary key 
+    * Returns the table table model for the table in which the primary key
     * fields exist
     *
     * @return MindFrame2_Dbms_Schema_Table

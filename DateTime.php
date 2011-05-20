@@ -17,15 +17,15 @@ class MindFrame2_DateTime
    const ONE_HOUR = 3600;
 
    /**
-    * Builds an array containing the values from 0-23 but ordered so that the 
-    * current hour is the last element and any overflowing values are 
+    * Builds an array containing the values from 0-23 but ordered so that the
+    * current hour is the last element and any overflowing values are
     * pre-pended.
     *
     * Examples:
     *
     *    If the current hour is 23, the resulting array will be:
     *    (0, 1, 2, ..., 21, 22, 23)
-    * 
+    *
     *    If the current hour is 8, the resulting array will be:
     *    (9, 10, 11, ..., 22, 23, 0, ..., 6, 7, 8)
     *
@@ -46,8 +46,8 @@ class MindFrame2_DateTime
    }
 
    /**
-    * Generates a string composed of a unix timestamp followed by a decimal 
-    * point and 6 digits representing microseconds. 
+    * Generates a string composed of a unix timestamp followed by a decimal
+    * point and 6 digits representing microseconds.
     *
     * @return string
     */

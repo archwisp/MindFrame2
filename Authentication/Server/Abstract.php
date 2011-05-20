@@ -35,7 +35,7 @@ abstract class MindFrame2_Authentication_Server_Abstract
    private $_password;
 
    /**
-    * Establishes the connection to the authentication host and sets the 
+    * Establishes the connection to the authentication host and sets the
     * resource in the $connection property.
     *
     * @return bool
@@ -43,9 +43,9 @@ abstract class MindFrame2_Authentication_Server_Abstract
    protected abstract function connect();
 
    /**
-    * Initializes the hostname, username, and password for the authentication 
-    * server. The username and password specified here are NOT used for user 
-    * authentication; they are used only to establish a connection the 
+    * Initializes the hostname, username, and password for the authentication
+    * server. The username and password specified here are NOT used for user
+    * authentication; they are used only to establish a connection the
     * authentication server.
     *
     * @param string $hostname Authentication server hostname

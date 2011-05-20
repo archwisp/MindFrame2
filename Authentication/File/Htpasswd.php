@@ -6,7 +6,7 @@
  */
 
 /**
- * Apache htpasswd authentication module. This module currently only supports 
+ * Apache htpasswd authentication module. This module currently only supports
  * DES, the default mode of htpasswd encryption.
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
@@ -82,7 +82,7 @@ class MindFrame2_Authentication_File_Htpasswd
    }
 
    /**
-    * Loads all of the logins as a username => ciphertext associative array 
+    * Loads all of the logins as a username => ciphertext associative array
     * into the logins property of the object.
     *
     * @return void

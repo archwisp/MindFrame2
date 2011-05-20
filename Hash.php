@@ -6,7 +6,7 @@
  */
 
 /**
- * This hash "module" is really just an implementation wrapper for various 
+ * This hash "module" is really just an implementation wrapper for various
  * mhash/mcrypt functions.
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
@@ -15,7 +15,7 @@
 class MindFrame2_Hash
 {
    /**
-    * Generates and authentication token that can be used to verify sessions. 
+    * Generates and authentication token that can be used to verify sessions.
     * For salt values, the generateSalt() function can be used.
     *
     * @param string $key Key to be used to create the hash from

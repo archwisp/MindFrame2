@@ -40,7 +40,7 @@ class MindFrame2_Dbms_Connection_IpTest extends MindFrame2_Test_Abstract
          'mysql:host=foobar;port=3306',
          $this->object->buildDsn());
    }
-   
+
    /**
     * Tests the construct's dbms parameter validation
     *

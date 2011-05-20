@@ -3,11 +3,11 @@
 /**
  * @file
  *
- * Interface for SQL adapter SELECT modules 
+ * Interface for SQL adapter SELECT modules
  */
 
 /**
- * Interface for SQL adapter SELECT modules 
+ * Interface for SQL adapter SELECT modules
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
  * @since 2011-01-24

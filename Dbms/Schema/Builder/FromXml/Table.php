@@ -6,8 +6,8 @@
  */
 
 /**
- * Factory for creating MindFrame2_Dbms_Schema_Table objects from XML definitions. Child 
- * object loaders are created for loading child elements and the resulting 
+ * Factory for creating MindFrame2_Dbms_Schema_Table objects from XML definitions. Child
+ * object loaders are created for loading child elements and the resulting
  * objects are added to the table object.
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
@@ -19,7 +19,7 @@ class MindFrame2_Dbms_Schema_Builder_FromXml_Table extends MindFrame2_Dbms_Schem
     * Create a MindFrame2_Dbms_Schema_Table object from an XML definition
     *
     * @param SimpleXMLElement $xml XML table definition
-    * @param MindFrame2_Dbms_Schema_Database $database Database model in which the 
+    * @param MindFrame2_Dbms_Schema_Database $database Database model in which the
     * referenced objects exist
     *
     * @return MindFrame2_Dbms_Schema_Table
@@ -91,13 +91,13 @@ class MindFrame2_Dbms_Schema_Builder_FromXml_Table extends MindFrame2_Dbms_Schem
    }
 
    /**
-    * Creates foreign key objects from the child XML foreign key definitions 
+    * Creates foreign key objects from the child XML foreign key definitions
     * via the MindFrame2_Dbms_Schema_Builder_FromXml_ForeignKey factory and adds them to the
     * specfied table model.
     *
     * @param SimpleXMLElement $xml XML table definition
     * @param MindFrame2_Dbms_Schema_Table $table Table model
-    * @param MindFrame2_Dbms_Schema_Database $database Database model in which the 
+    * @param MindFrame2_Dbms_Schema_Database $database Database model in which the
     * referenced objects exist
     *
     * @return bool

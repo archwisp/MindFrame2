@@ -35,7 +35,7 @@ class MindFrame2_Dbms_Schema_Index
     * @param string $type Type of index
     * @param array $fields Fields to be indexed
     *
-    * @throws InvalidArgumentException If any of the specified fields are not 
+    * @throws InvalidArgumentException If any of the specified fields are not
     * and instance of MindFrame2_Dbms_Schema_Field
     */
    public function __construct($name, $type, array $fields)
@@ -56,7 +56,7 @@ class MindFrame2_Dbms_Schema_Index
    }
 
    /**
-    * Returns the field models which represent the fields that are part of the 
+    * Returns the field models which represent the fields that are part of the
     * index
     *
     * @return array
@@ -67,7 +67,7 @@ class MindFrame2_Dbms_Schema_Index
    }
 
    /**
-    * Returns an array containing the names of the fields that are part of the 
+    * Returns an array containing the names of the fields that are part of the
     * index
     *
     * @return array

@@ -1,20 +1,40 @@
 #!/usr/bin/php
 <?php // vim:ts=3:sts=3:sw=3:et:
 
-chdir(dirname($argv[0]));
+if ($argc !== 6)
+{
+   echo "Reads the specified XML file and builds the SQL ALTER statements "
+      . "which would update the existing database scema\n\n";
+
+   printf("Usage: %s <xml-file> <dbms> <host> <username> <password>\n", $argv[0]);
+   exit;
+}
+
+$file_name = realpath($argv[1]);
+$dbms = $argv[2];
+$host = $argv[3];
+$username = $argv[4];
+$password = $argv[5];
 
 ini_set('display_errors', 1);
+set_include_path(getcwd() . PATH_SEPARATOR . get_include_path());
+chdir(dirname($argv[0]));
+set_include_path('../..' . PATH_SEPARATOR . get_include_path());
 
-set_include_path('..' . PATH_SEPARATOR . get_include_path());
+require_once '../AutoLoad.php';
 
-require_once '../MindFrame2/AutoLoad.php';
+MindFrame2_AutoLoad::install();
 
-$config = new Config();
-$config_loader = new ConfigLoader($config);
-$config_loader->loadErrorHandler();
-$adapter = $config_loader->getDatabaseModelAdapter();
-$dbi = $config_loader->getLocalDbi();
-$tables = $config_loader->getDatabaseModel()->getTables();
+$loader = new MindFrame2_Dbms_Schema_Builder_FromXml_Database();
+$model = $loader->loadFromFile($file_name);
+
+$adapter_class = 'MindFrame2_Dbms_Schema_Adapter_ToSql_' . ucfirst($dbms);
+$adapter = new $adapter_class($model, ':', array());
+
+$dbi = new MindFrame2_Dbms_Dbi_Single(
+   new MindFrame2_Dbms_Connection_Ip($dbms, $host, 3306, $username, $password));
+
+$tables = $model->getTables();
 
 foreach ($tables as $table)
 {
@@ -44,7 +64,7 @@ foreach ($tables as $table)
          throw $exception;
       }
       
-      $create_table_sql = $adapter->buildCreateTableSql($table->getName());
+      $create_table_sql = $adapter->buildCreateTableSql(NULL, $table->getName());
       
       if ($create_table_sql !== FALSE)
       {

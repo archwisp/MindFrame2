@@ -26,7 +26,7 @@ class MindFrame2_Dbms_Connection_File
 
    /**
     * Construct
-    * 
+    *
     * @param string $dbms DBMS identifier
     * @param string $file_name File in which the database resides
     */

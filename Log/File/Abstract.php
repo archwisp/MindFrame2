@@ -93,7 +93,7 @@ abstract class MindFrame2_Log_File_Abstract extends MindFrame2_Log_Abstract
    }
 
    /**
-    * Checks to be sure that the pointer is not already open before attempting 
+    * Checks to be sure that the pointer is not already open before attempting
     * to open the stream
     *
     * @return bool

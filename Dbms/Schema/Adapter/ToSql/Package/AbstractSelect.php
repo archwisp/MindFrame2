@@ -3,11 +3,11 @@
 /**
  * @file
  *
- * Interface for SQL adapter SELECT modules 
+ * Interface for SQL adapter SELECT modules
  */
 
 /**
- * Interface for SQL adapter SELECT modules 
+ * Interface for SQL adapter SELECT modules
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
  * @since 2011-01-24
@@ -53,28 +53,28 @@ abstract class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_AbstractSelect
             $this->getSharedModule()->getDatabase()->getName()),
          $this->getSharedModule()->escapeDbElementName($table_name));
 
-      // Remove JOIN and WHERE statements because we are now selecting against 
+      // Remove JOIN and WHERE statements because we are now selecting against
       // the merged data which already has those filters applied.
-         
+
       $sql = preg_replace('/\n^.*?JOIN.*?\n.*?$/m', '', $sql);
       $sql = preg_replace('/\n^WHERE\n^.*?$((\n^\s+AND.*$)?)+/m', '', $sql);
 
-      // Change aliased column names to the alias only because that is how they 
+      // Change aliased column names to the alias only because that is how they
       // will be named in the merge table.
 
       $sql = preg_replace('/^(\s+).*?AS (.*?)/m', '\1\2', $sql);
 
       // Change all of the fully qualified names into the relative name because
-      // that is how they will be named in the merge table. This will affect 
+      // that is how they will be named in the merge table. This will affect
       // the FROM statement also, be we will fix that with the next statement.
 
       $sql = preg_replace(
          '/(.*?\s)[`\[\]].*?[`\[\]]\.([`\[\]].*?[`\[\]])/m', '\1\2', $sql);
-      
+
       // Change the FROM statement to the fully-qualified merge table.
 
       $sql = preg_replace('/(FROM\n\s+).*$/m', '\1' . $qualified_table, $sql);
-      
+
       return $sql;
    }
 

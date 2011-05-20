@@ -19,7 +19,7 @@ abstract class MindFrame2_View_Abstract implements MindFrame2_View_Interface
    protected $controller;
 
    /**
-    * Builds the underlying structure for the object. This function is called 
+    * Builds the underlying structure for the object. This function is called
     * from the construct
     *
     * @return void

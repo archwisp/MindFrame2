@@ -1,8 +1,8 @@
 <?php // vim:ts=3:sts=3:sw=3:et:
 
 /**
- * This class grabs the specified number of lines from the target 
- * file and caches them. Multiple searches can be performced 
+ * This class grabs the specified number of lines from the target
+ * file and caches them. Multiple searches can be performced
  * against the cached lines
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
@@ -87,7 +87,7 @@ class MindFrame2_TailGrep
    }
 
 	/**
-	 * Fetches the specified number of lines from the specified file into the 
+	 * Fetches the specified number of lines from the specified file into the
 	 * internal buffer
 	 *
 	 * @return bool
@@ -97,14 +97,14 @@ class MindFrame2_TailGrep
 		$this->openFileOnce();
 
 		$read_length = 8;
-		$buffer = null;
+		$buffer = NULL;
 		$line_count = 0;
 
 		fseek($this->file_pointer, 0, SEEK_END);
-		
+
 		while (($line_count <= ($this->line_count)) && ($read_length > 0))
 		{
-			if ($this->readChunk($read_length, $buffer) === false)
+			if ($this->readChunk($read_length, $buffer) === FALSE)
 			{
 				throw new RuntimeException('Failed to read chunk');
 			}
@@ -117,7 +117,7 @@ class MindFrame2_TailGrep
 		$this->trimBuffer($buffer);
 		$this->buffer = $buffer;
 
-		return true;
+		return TRUE;
 	}
 
 	/**
@@ -131,24 +131,24 @@ class MindFrame2_TailGrep
 	}
 
 	/**
-	 * Checks to see if the internal buffer has been populated before fetching the 
+	 * Checks to see if the internal buffer has been populated before fetching the
 	 * contents from the file
 	 *
 	 * @return bool
 	 */
 	protected function fetchLinesOnce()
 	{
-		if ($this->buffer === null)
+		if ($this->buffer === NULL)
 		{
 			$this->fetchLines();
-			return true;
+			return TRUE;
 		}
 
-		return false;
+		return FALSE;
 	}
 
 	/**
-	 * Seek to the point where we want to start reading, read, then seek back 
+	 * Seek to the point where we want to start reading, read, then seek back
 	 * to the point where we started reading
 	 *
 	 * @param int $read_length How many bytes to read
@@ -162,27 +162,27 @@ class MindFrame2_TailGrep
 		{
 			throw new InvalidArgumentException('Expected integer value for argument #1 (read_length)');
 		}
-		
+
 		fseek($this->file_pointer, -$read_length, SEEK_CUR);
 		$read = fread($this->file_pointer, $read_length);
 		fseek($this->file_pointer, -$read_length, SEEK_CUR);
 
-		if ($read === false)
+		if ($read === FALSE)
 		{
-			return false;
+			return FALSE;
 		}
-		
+
 		$buffer = $read . $buffer;
 
-		return true;
+		return TRUE;
 	}
 
 	/**
-	 * If we haven't reached the half-way point, double the read length to 
-	 * speed things up. If the adjustment ends up being being begger than the file, 
+	 * If we haven't reached the half-way point, double the read length to
+	 * speed things up. If the adjustment ends up being being begger than the file,
 	 * re-adjust
 	 *
-	 * @param int $line_count The current number of lines in the buffer 
+	 * @param int $line_count The current number of lines in the buffer
 	 * @param int $read_length The current number of bytes to read in each chunk
 	 * @param int $buffer_size The current size of the buffer in bytes
 	 *
@@ -194,17 +194,17 @@ class MindFrame2_TailGrep
 		{
 			throw new InvalidArgumentException('Expected integer value for argument #1 (line_count)');
 		}
-		
+
 		if (!is_int($read_length))
 		{
 			throw new InvalidArgumentException('Expected integer value for argument #2 (read_length)');
 		}
-		
+
 		if (!is_int($buffer_size))
 		{
 			throw new InvalidArgumentException('Expected integer value for argument #3 (buffer_size)');
 		}
-		
+
 		$new_read_length = $read_length;
 		$file_size = $this->fetchFileSize();
 
@@ -222,7 +222,7 @@ class MindFrame2_TailGrep
 	}
 
 	/**
-	 * Removes any excess lines from the buffer because reading from the end of a 
+	 * Removes any excess lines from the buffer because reading from the end of a
 	 * file with inconsistent line lengths is not an exact process.
 	 *
 	 * @param string &$buffer The buffer containing the file contents
@@ -234,7 +234,7 @@ class MindFrame2_TailGrep
 		$diff = ($this->countLines($buffer) - $this->line_count);
 
 		$offset = 0;
-		
+
 		if ($diff > 0)
 		{
 			for ($x = 0; $x < $diff; $x++)
@@ -242,18 +242,18 @@ class MindFrame2_TailGrep
 				$offset = strpos($buffer, "\n", $offset) + 1;
 			}
 			// end for // ($x = 0; $x < $diff; $x++) //
-			
+
 			$buffer = substr($buffer, $offset);
 
-			return true;
+			return TRUE;
 		}
 		// end if // ($diff > 0) //
 
-		return false;
+		return FALSE;
 	}
 
 	/**
-	 * Counts the number of newline characters in the specified string. This function 
+	 * Counts the number of newline characters in the specified string. This function
 	 * could be improved to provide cross-platform functionality.
 	 *
 	 * @param string $buffer The buffer containing the file contents
@@ -265,7 +265,7 @@ class MindFrame2_TailGrep
 		$count = 0;
 		$offset = 0;
 
-		while (($offset = strpos($buffer, "\n", $offset + 1)) !== false)
+		while (($offset = strpos($buffer, "\n", $offset + 1)) !== FALSE)
 		{
 			$count++;
 		}
@@ -274,20 +274,20 @@ class MindFrame2_TailGrep
 	}
 
 	/**
-	 * Checks to see if the file pointer has already been opened before making the 
+	 * Checks to see if the file pointer has already been opened before making the
 	 * call to open the file.
 	 *
 	 * @return bool
 	 */
 	protected function openFileOnce()
 	{
-		if ($this->file_pointer === null)
+		if ($this->file_pointer === NULL)
 		{
 			$this->openFile();
-			return true;
+			return TRUE;
 		}
 
-		return false;
+		return FALSE;
 	}
 
 	/**
@@ -308,15 +308,15 @@ class MindFrame2_TailGrep
 		}
 
 		$file_pointer = fopen($this->file_name, 'r');
-		
-		if ($file_pointer === false)
+
+		if ($file_pointer === FALSE)
 		{
 			throw new RunTimeException('Could not open file');
 		}
 
 		$this->file_pointer = $file_pointer;
 
-		return true;
+		return TRUE;
 	}
 
 	/**
@@ -326,12 +326,12 @@ class MindFrame2_TailGrep
 	 */
 	protected function closeFileIfOpen()
 	{
-		if ($this->file_pointer !== null)
+		if ($this->file_pointer !== NULL)
 		{
 			return fclose($this->file_pointer);
 		}
 
-		return false;
+		return FALSE;
 	}
 }
 

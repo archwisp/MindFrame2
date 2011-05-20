@@ -9,6 +9,8 @@ set_include_path('..' . PATH_SEPARATOR . get_include_path());
 
 require_once '../MindFrame2/AutoLoad.php';
 
+MindFrame2_AutoLoad::install();
+
 $config = new Config();
 $config_loader = new ConfigLoader($config);
 $config_loader->loadErrorHandler();
@@ -20,7 +22,7 @@ $connection = new MindFrame2_Dbms_Connection_Rpc('localhost',
 
 $dbi = new MindFrame2_Dbms_Dbi_Single($connection);
 
-$sql = 'SELECT * FROM mysql.user;';
+$sql = 'SELECT * FROM Test_Database.User;';
 
 $data = $dbi->query($sql, MindFrame2_Dbms_Result::FETCH_ASSOC);
 

@@ -51,7 +51,7 @@ class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_Sqlite_Schema
       'varchar' => 'TEXT',
       'year' => 'TEXT'
    );
-   
+
    protected $index_keyword = 'INDEX';
 
    protected $index_type_map = array(
@@ -145,7 +145,7 @@ class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_Sqlite_Schema
 
       return $alter_table_sql;
    }
-   
+
    /**
     * Builds SQL CREATE statements for the entire database model
     *
@@ -154,10 +154,10 @@ class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_Sqlite_Schema
    public function buildCreateDatabaseSql()
    {
       $database_name = $this->getSharedModule()->getDatabase()->getName();
-      
+
       $sql = array();
 
-      $sql[] = sprintf('ATTACH DATABASE ":memory:" AS %s;', 
+      $sql[] = sprintf('ATTACH DATABASE ":memory:" AS %s;',
          $this->getSharedModule()->escapeDbElementName($database_name));
 
       foreach ($this->getSharedModule()->getDatabase()->getTables() as $table)
@@ -170,7 +170,7 @@ class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_Sqlite_Schema
 
       return $sql;
    }
-   
+
    /**
     * Builds an SQL CREATE TABLE statement for the table specified
     *
@@ -198,7 +198,7 @@ class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_Sqlite_Schema
          $database_name,
          $this->getSharedModule()->escapeDbElementName($table_name),
          join(",\n", $fields));
-      
+
       $indexes = $this->buildCreateTableSqlIndexDefinitions($table_name);
 
       foreach ($indexes as $index)
@@ -208,19 +208,19 @@ class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_Sqlite_Schema
 
       return $sql;
    }
-   
+
    protected function buildCreateTableSqlIndexDefinitions($table_name)
    {
       $indexes = $this->getSharedModule()->
          getDatabase()->getTableIndexes($table_name);
 
       $index_definitions = array();
-      
+
       foreach ($indexes as $index)
       {
          $index_definitions[] = $this->buildDatabaseLevelIndexDefinitionSql($table_name, $index);
       }
-      
+
       return $index_definitions;
    }
 
@@ -240,7 +240,7 @@ class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_Sqlite_Schema
 
       return $sql;
    }
-   
+
    /**
     * Builds the field definition portion of an SQL statement
     *
@@ -261,7 +261,7 @@ class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_Sqlite_Schema
 
       return $sql;
    }
-   
+
    /**
     * Builds the field type and length portion of an SQL field definition
     *

@@ -58,7 +58,7 @@ abstract class MindFrame2_Xhtml_AbstractContainerElement
    /**
     * Adds content the beginning of the collection
     *
-    * @param mixed $content Content to be added to the beginning of the 
+    * @param mixed $content Content to be added to the beginning of the
     * collection
     *
     * @return void
@@ -73,7 +73,7 @@ abstract class MindFrame2_Xhtml_AbstractContainerElement
     *
     * @return string
     *
-    * @throws UnexpectedValueException If an object which does not implement 
+    * @throws UnexpectedValueException If an object which does not implement
     * MindFrame2_Xhtml_Interface is encountered
     * @throws UnexpectedValueException If an array is encountered
     */
@@ -127,7 +127,7 @@ abstract class MindFrame2_Xhtml_AbstractContainerElement
    }
 
    /**
-    * Searches through the contents collection and tries looks for an element 
+    * Searches through the contents collection and tries looks for an element
     * with the specified tag
     *
     * @param string $tag The tag to search for
@@ -151,7 +151,7 @@ abstract class MindFrame2_Xhtml_AbstractContainerElement
    }
 
    /**
-    * Searches through the contents collection and tries looks for an element 
+    * Searches through the contents collection and tries looks for an element
     * with the specified id
     *
     * @param string $element_id The ID to search for

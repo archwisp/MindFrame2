@@ -27,17 +27,17 @@ abstract class MindFrame2_Controller
     * @var array
     */
    private $_xml_rpc_methods = array();
-   
+
    /**
-    * Controller execution entry point. Executed as part of the MVC command 
+    * Controller execution entry point. Executed as part of the MVC command
     * pattern chain by the MindFrame2_Application object.
     *
     * @return void
     */
    public abstract function run();
-   
+
    /**
-    * Builds the underlying structure for the object. This function is called 
+    * Builds the underlying structure for the object. This function is called
     * from the construct
     *
     * @return void
@@ -49,7 +49,7 @@ abstract class MindFrame2_Controller
    /**
     * Sets the application config parameter
     *
-    * @param MindFrame2_Application_Config_Interface $application_config 
+    * @param MindFrame2_Application_Config_Interface $application_config
     * Application configuration
     * @param array $application_arguments Arguments passed to the application
     */

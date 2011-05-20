@@ -30,7 +30,7 @@ class MindFrame2_Dbms_Schema_Adapter_ToSql_Sqlite
 
       $this->setDataModule(
          new MindFrame2_Dbms_Schema_Adapter_ToSql_Package_Sqlite_Data($shared));
-      
+
       $this->setQueryModule(
          new MindFrame2_Dbms_Schema_Adapter_ToSql_Package_Sqlite_Query($shared));
 

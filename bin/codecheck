@@ -1,10 +1,15 @@
 #!/bin/bash
 
+WD="`/usr/bin/dirname $0`/../";
+echo Changing to working directory: $WD;
+cd $WD;
+
 if [ -z $1 ]; then
 	DIR='.';
 else
 	DIR=$1;
 fi
 
-phpmd $DIR text codesize,unusedcode,naming,design
-phpcs --standard=MindFrame2 --ignore=doxygen $DIR
+phpmd --exclude Sniffs $DIR text codesize,unusedcode,naming,design
+phpcs --standard=`pwd`/Standards/MindFrame2 --ignore=doxygen --ignore=Standards --ignore=Sniffs $DIR
+phpcs --report=source --standard=`pwd`/Standards/MindFrame2 --ignore=doxygen --ignore=Standards --ignore=Sniffs $DIR

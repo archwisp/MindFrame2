@@ -14,8 +14,8 @@
 interface MindFrame2_Dbms_Schema_Adapter_ToSql_Interface
 {
    /**
-    * Builds an SQL ALTER TABLE satement which would convert the table 
-    * specified by $create_table_sql into the specifications of the database 
+    * Builds an SQL ALTER TABLE satement which would convert the table
+    * specified by $create_table_sql into the specifications of the database
     * model.
     *
     * @param string $table_name Name of the table
@@ -31,7 +31,7 @@ interface MindFrame2_Dbms_Schema_Adapter_ToSql_Interface
     * @return string
     */
    public function buildCreateDatabaseSql();
-   
+
    /**
     * Builds an SQL CREATE TABLE statement for the table specified
     *
@@ -39,10 +39,10 @@ interface MindFrame2_Dbms_Schema_Adapter_ToSql_Interface
     *
     * @return string
     */
-   public function buildCreateTableSql($table_name);
+   public function buildCreateTableSql($database_name, $table_name);
 
    /**
-    * Builds an SQL DELETE statement out of the database model with the 
+    * Builds an SQL DELETE statement out of the database model with the
     * specified data
     *
     * @param string $table_name Name of the table
@@ -71,7 +71,7 @@ interface MindFrame2_Dbms_Schema_Adapter_ToSql_Interface
    public function buildDropTemporaryTableSql($table_name);
 
    /**
-    * Builds the SQL statement for granting full priveleges to the specified 
+    * Builds the SQL statement for granting full priveleges to the specified
     * user with the specified password
     *
     * @param string $username Username
@@ -83,7 +83,7 @@ interface MindFrame2_Dbms_Schema_Adapter_ToSql_Interface
 
    /**
     * Builds an SQL INSERT statement for an ad-hoc table. The database model is
-    * not utilized for table name or field name validation so be careful that 
+    * not utilized for table name or field name validation so be careful that
     * it is only used with input from a query that has already been validated.
     *
     * @param string $table_name Table to insert the data into
@@ -94,7 +94,7 @@ interface MindFrame2_Dbms_Schema_Adapter_ToSql_Interface
    public function buildInsertAdHocTableSql($table_name, $insert_data);
 
    /**
-    * Builds an SQL INSERT statement out of the database model with the 
+    * Builds an SQL INSERT statement out of the database model with the
     * specified data
     *
     * @param string $table_name Name of the table the data will be inserted into
@@ -160,7 +160,7 @@ interface MindFrame2_Dbms_Schema_Adapter_ToSql_Interface
    public function buildShowCreateTableSql($table_name);
 
    /**
-    * Builds an SQL UPDATE statement out of the database model with the 
+    * Builds an SQL UPDATE statement out of the database model with the
     * specified data
     *
     * @param string $table_name Name of the table being updated

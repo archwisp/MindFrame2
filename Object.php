@@ -26,7 +26,7 @@ abstract class MindFrame2_Object
    }
 
    /**
-    * Asserts that the specified object property is not empty. This is 
+    * Asserts that the specified object property is not empty. This is
     * especially useful when implementing template objects with protected
     * properties to be defined in sub-classes.
     *

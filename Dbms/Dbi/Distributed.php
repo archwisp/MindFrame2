@@ -111,7 +111,7 @@ class MindFrame2_Dbms_Dbi_Distributed implements MindFrame2_Dbms_Dbi_Interface
       $total_affected = $primary_dbi->exec($sql);
 
       $partners = $this->_cluster->getRelationshipsForNode($primary_node_id);
-      
+
       if ($partners !== FALSE)
       {
          foreach ($partners as $partner)
@@ -172,12 +172,12 @@ class MindFrame2_Dbms_Dbi_Distributed implements MindFrame2_Dbms_Dbi_Interface
 
       $merge_table_name = $this->_buildMergeTableName();
       $data = array();
-      
+
       // Create a temporary merge table from the first query into which
       // the results from all of the remaining queries will be inserted
       // and the final query will pull from.
 
-      $dbis = $this->_dbis; 
+      $dbis = $this->_dbis;
       $merge_dbi = array_shift($dbis);
 
       $merge_table_sql = $this->_adapter->
@@ -193,7 +193,7 @@ class MindFrame2_Dbms_Dbi_Distributed implements MindFrame2_Dbms_Dbi_Interface
          {
             $insert_sql = $this->_adapter->
                buildInsertAdHocTableSql($merge_table_name, $row);
-            
+
             $merge_dbi->exec($insert_sql);
          }
          // end foreach // ($merge_data as $row) //

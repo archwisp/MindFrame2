@@ -51,7 +51,7 @@ abstract class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_AbstractData
 
    /**
     * Builds an SQL INSERT statement for an ad-hoc table. The database model is
-    * not utilized for table name or field name validation so be careful that 
+    * not utilized for table name or field name validation so be careful that
     * it is only used with input from a query that has already been validated.
     *
     * @param string $table_name Table to insert the data into
@@ -286,7 +286,7 @@ abstract class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_AbstractData
    }
 
    /**
-    * Builds the WHERE clause of an SQL UPDATE statement. Returns FALSE if 
+    * Builds the WHERE clause of an SQL UPDATE statement. Returns FALSE if
     * no primary key is defined.
     *
     * @param string $table_name Name of the table being updated

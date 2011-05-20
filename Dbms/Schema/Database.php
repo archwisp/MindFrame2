@@ -84,7 +84,7 @@ class MindFrame2_Dbms_Schema_Database
     *
     * @return array
     *
-    * @throws InvalidArgumentException If the specified table is not defined in 
+    * @throws InvalidArgumentException If the specified table is not defined in
     * the database model
     */
    public function getTableByName($name)
@@ -97,7 +97,7 @@ class MindFrame2_Dbms_Schema_Database
 
       return $this->_tables[$name];
    }
-   
+
    /**
     * Returns the collection of field objects from the specified table in the
     * database model.
@@ -170,7 +170,7 @@ class MindFrame2_Dbms_Schema_Database
    {
       return $this->getTableByName($table_name)->getPrimaryKey();
    }
-   
+
    /**
     * Returns an array containing the names of the fields defined as the primary
     * key for the specified table.

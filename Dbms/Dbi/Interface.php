@@ -45,7 +45,7 @@ interface MindFrame2_Dbms_Dbi_Interface
 
    /**
     * Executes the specified query against the database and returns the
-    * results. If fetch mode is NULL, the result object will be returned, 
+    * results. If fetch mode is NULL, the result object will be returned,
     * otherwise, the data from the resulting fetch will be returned.
     *
     * @param string $sql Statement to be executed

@@ -3,11 +3,11 @@
 /**
  * @file
  *
- * Interface for SQL adapter data functionality modules 
+ * Interface for SQL adapter data functionality modules
  */
 
 /**
- * Interface for SQL adapter data functionality modules 
+ * Interface for SQL adapter data functionality modules
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
  * @since 2011-01-24

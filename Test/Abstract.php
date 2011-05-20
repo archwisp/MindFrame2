@@ -29,13 +29,13 @@ abstract class MindFrame2_Test_Abstract extends PHPUnit_Framework_TestCase
       if (!$this->_database_model instanceof MindFrame2_Dbms_Schema_Database)
       {
          $factory = new MindFrame2_Dbms_Schema_Builder_FromXml_Database();
-         
+
          $this->_database_model = $factory->
             loadFromFile('./MindFrame2/Test/fixtures/database.xml');
       }
 
       return $this->_database_model;
-   } 
+   }
 
    /**
     * Returns the database model adapter
@@ -47,7 +47,7 @@ abstract class MindFrame2_Test_Abstract extends PHPUnit_Framework_TestCase
       if (!$this->_dbms_schema_adapter
          instanceof MindFrame2_Dbms_Schema_Adapter_ToSql_Interface)
       {
-         $this->_dbms_schema_adapter = 
+         $this->_dbms_schema_adapter =
             new MindFrame2_Dbms_Schema_Adapter_ToSql_Sqlite(
                $this->getDatabaseModel(), ':');
       }
@@ -78,12 +78,12 @@ abstract class MindFrame2_Test_Abstract extends PHPUnit_Framework_TestCase
    protected function getSingleDbi()
    {
       if (!$this->_single_dbi instanceof MindFrame2_Dbms_Dbi_Interface)
-      { 
+      {
          $this->_single_dbi = new MindFrame2_Dbms_Dbi_Single($this->getDbmsConnectionModel());
       }
 
       return $this->_single_dbi;
-   } 
+   }
 
    /**
     * Returns a distributed DBI instance

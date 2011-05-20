@@ -52,10 +52,10 @@ class MindFrame2_XmlRpc_Fault
    }
 
    /**
-    * Encodes the array as an XML-RPC message. The goal here is to duplicate 
-    * the functionality of xmlrpc_encode so in the event that the xmlrpc 
-    * library is not installed, proper XML-RPC faults will still be sent back 
-    * to the client. If not, the XML-RPC client has no way of determining 
+    * Encodes the array as an XML-RPC message. The goal here is to duplicate
+    * the functionality of xmlrpc_encode so in the event that the xmlrpc
+    * library is not installed, proper XML-RPC faults will still be sent back
+    * to the client. If not, the XML-RPC client has no way of determining
     * whether the response is a fatal error, or a normal response.
     *
     * @param array $fault The fault definition

@@ -46,7 +46,7 @@ abstract class MindFrame2_Dbms_Record_Mapper_Abstract extends MindFrame2_Object
     * @var MindFrame2_Dbms_Record_MapperPool
     */
    private $_pool;
-   
+
    /**
     * @var string
     */
@@ -440,8 +440,8 @@ abstract class MindFrame2_Dbms_Record_Mapper_Abstract extends MindFrame2_Object
    }
 
    /**
-    * Generates a string composed of a unix timestamp followed by a decimal 
-    * point and 6 digits representing microseconds. 
+    * Generates a string composed of a unix timestamp followed by a decimal
+    * point and 6 digits representing microseconds.
     *
     * @return string
     */
@@ -583,7 +583,7 @@ abstract class MindFrame2_Dbms_Record_Mapper_Abstract extends MindFrame2_Object
 
       return $this->_dbi->exec($sql);
    }
-   
+
    protected function setDefualtOrderByColumns(array $default_order_by_columns)
    {
       $this->_default_order_by_columns = $default_order_by_columns;
@@ -593,7 +593,7 @@ abstract class MindFrame2_Dbms_Record_Mapper_Abstract extends MindFrame2_Object
    {
       $this->_model_class = $model_class;
    }
-   
+
    protected function setTableName($table_name)
    {
       $this->_table_name = $table_name;

@@ -19,7 +19,7 @@ class MindFrame2_Dbms_Query
    const FUNCTION_AVG = 'AVG';
    const FUNCTION_STDDEV = 'STDDEV';
    const FUNCTION_SUM = 'SUM';
-   
+
    /**
     * @var string
     */
@@ -112,7 +112,7 @@ class MindFrame2_Dbms_Query
    {
       return $this->_from_database;
    }
-   
+
    /**
     * Retreives the name of the table which is to be queried
     *

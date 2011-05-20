@@ -126,7 +126,7 @@ class MindFrame2_Dbms_Schema_Field
    {
       return $this->_default_value;
    }
-   
+
    /**
     * Returns the name of the table
     *

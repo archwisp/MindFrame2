@@ -19,7 +19,7 @@ class MindFrame2_CryptoTest extends PHPUnit_Framework_TestCase
    public function setUp()
    {
       $this->_instance = new MindFrame2_Crypto(
-         MindFrame2_Crypto::RIJNDAEL_256, 
+         MindFrame2_Crypto::RIJNDAEL_256,
          MindFrame2_Crypto::MODE_CBC);
    }
 
@@ -27,8 +27,8 @@ class MindFrame2_CryptoTest extends PHPUnit_Framework_TestCase
    {
       $plaintext = $this->_instance->decrypt(
          base64_decode('k8xz1hVUYUAe9qg2gebMgViyHOEji2q1KUXwUnwHPwk='),
-         'Easy Key', base64_decode($this->_encoded_iv)); 
-      
+         'Easy Key', base64_decode($this->_encoded_iv));
+
       $padded = $this->_instance->padWithNulls('FooBar ');
       $this->assertEquals($padded, $plaintext);
 
@@ -39,11 +39,11 @@ class MindFrame2_CryptoTest extends PHPUnit_Framework_TestCase
    public function testEncrypt()
    {
       $ciphertext = $this->_instance->encrypt(
-         'FooBar ', 'Easy Key', base64_decode($this->_encoded_iv)); 
-      
+         'FooBar ', 'Easy Key', base64_decode($this->_encoded_iv));
+
        $this->assertEquals('k8xz1hVUYUAe9qg2gebMgViyHOEji2q1KUXwUnwHPwk=', base64_encode($ciphertext));
    }
-   
+
    public function testGenerateIvLength()
    {
       $iv = $this->_instance->generateIv();
@@ -51,7 +51,7 @@ class MindFrame2_CryptoTest extends PHPUnit_Framework_TestCase
 
       $second_iv = $this->_instance->generateIv();
       $this->assertEquals(32, strlen($iv));
-      
+
       $this->assertNotEquals($iv, $second_iv);
    }
 }

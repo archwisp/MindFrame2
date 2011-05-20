@@ -93,7 +93,7 @@ abstract class MindFrame2_Dbms_Record_Mapper_AbstractSimpleLookup
    }
 
    /**
-    * Converts the model data into the array format which is expected by the 
+    * Converts the model data into the array format which is expected by the
     * adapter
     *
     * @param MindFrame2_Dbms_Schema_Abstract $model The Status model

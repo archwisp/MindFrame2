@@ -6,10 +6,10 @@
  */
 
 /**
- * PAM authentication module. Implementing PAM authentication in your web 
- * application comes with the risk of exposing your shaddow file because the 
- * web server needs to be able to read the file. You will also need to do some 
- * configuration of /etc/pam.d for this to work. See the PECL PAM 
+ * PAM authentication module. Implementing PAM authentication in your web
+ * application comes with the risk of exposing your shaddow file because the
+ * web server needs to be able to read the file. You will also need to do some
+ * configuration of /etc/pam.d for this to work. See the PECL PAM
  * documentation.
  *
  * @author Bryan Geraghty <bryan@ravensight.org>

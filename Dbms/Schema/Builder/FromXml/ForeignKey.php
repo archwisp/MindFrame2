@@ -17,9 +17,9 @@ class MindFrame2_Dbms_Schema_Builder_FromXml_ForeignKey extends MindFrame2_Dbms_
     * Create a MindFrame2_Dbms_Schema_ForeignKey object from an XML definition
     *
     * @param SimpleXMLElement $xml XML foreign key definition
-    * @param MindFrame2_Dbms_Schema_Table $table Table model in which the referenced 
+    * @param MindFrame2_Dbms_Schema_Table $table Table model in which the referenced
     * field objects exist
-    * @param MindFrame2_Dbms_Schema_Database $database Database model in which the 
+    * @param MindFrame2_Dbms_Schema_Database $database Database model in which the
     * referenced table objects exist
     *
     * @return MindFrame2_Dbms_Schema_ForeignKey

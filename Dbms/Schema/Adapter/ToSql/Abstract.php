@@ -64,7 +64,7 @@ abstract class MindFrame2_Dbms_Schema_Adapter_ToSql_Abstract
    {
       return $this->_schema_module->buildCreateDatabaseSql();
    }
-   
+
    /**
     * Builds an SQL CREATE TABLE statement for the table specified
     *
@@ -72,9 +72,9 @@ abstract class MindFrame2_Dbms_Schema_Adapter_ToSql_Abstract
     *
     * @return string
     */
-   public function buildCreateTableSql($table_name)
+   public function buildCreateTableSql($database_name, $table_name)
    {
-      return $this->_schema_module->buildCreateTableSql($table_name);
+      return $this->_schema_module->buildCreateTableSql($database_name, $table_name);
    }
 
    /**

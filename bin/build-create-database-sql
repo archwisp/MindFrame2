@@ -18,9 +18,11 @@ $password = $argv[4];
 ini_set('display_errors', 1);
 set_include_path(getcwd() . PATH_SEPARATOR . get_include_path());
 chdir(dirname($argv[0]));
-set_include_path('..' . PATH_SEPARATOR . get_include_path());
+set_include_path('../..' . PATH_SEPARATOR . get_include_path());
 
 require_once '../AutoLoad.php';
+
+MindFrame2_AutoLoad::install();
 
 $loader = new MindFrame2_Dbms_Schema_Builder_FromXml_Database();
 $model = $loader->loadFromFile($file_name);

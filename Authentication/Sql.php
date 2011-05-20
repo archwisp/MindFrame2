@@ -16,15 +16,15 @@ class MindFrame2_Authentication_Sql implements MindFrame2_Authentication_Interfa
    private $_adapter;
    private $_crypto_module;
    private $_dbi;
-   private $_encryption_key; 
+   private $_encryption_key;
    private $_password_field;
    private $_iv_field;
    private $_table;
    private $_username_field;
 
-   public function __construct(MindFrame2_Dbms_Dbi_Interface $dbi, 
+   public function __construct(MindFrame2_Dbms_Dbi_Interface $dbi,
       MindFrame2_Dbms_Schema_Adapter_ToSql_Interface $adapter,
-      MindFrame2_Crypto $crypto_module, $encryption_key, 
+      MindFrame2_Crypto $crypto_module, $encryption_key,
       $table, $username_field, $password_field, $iv_field)
    {
       $this->_adapter = $adapter;
@@ -55,7 +55,7 @@ class MindFrame2_Authentication_Sql implements MindFrame2_Authentication_Interfa
       }
 
       $iv = base64_decode($record[$this->_iv_field]);
-      
+
       $ciphertext = $this->_crypto_module->encrypt(
          $password, $this->_encryption_key, $iv);
 
@@ -78,7 +78,7 @@ class MindFrame2_Authentication_Sql implements MindFrame2_Authentication_Interfa
    public function setPassword($username, $password)
    {
       $iv = $this->_crypto_module->generateIv();
-      
+
       $ciphertext = $this->_crypto_module->encrypt(
          $password, $this->_encryption_key, $iv);
 

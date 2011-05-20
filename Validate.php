@@ -14,7 +14,7 @@
 class MindFrame2_Validate
 {
    /**
-    * Validates a boolean argument and throws a structured exception on 
+    * Validates a boolean argument and throws a structured exception on
     * failure.
     *
     * @param int $value Value to be validated
@@ -37,7 +37,7 @@ class MindFrame2_Validate
    }
 
    /**
-    * Validates a boolean argument and throws a structured exception on 
+    * Validates a boolean argument and throws a structured exception on
     * failure.
     *
     * @param int $value Value to be validated
@@ -61,7 +61,7 @@ class MindFrame2_Validate
    }
 
    /**
-    * Validates an integer argument and throws a structured exception on 
+    * Validates an integer argument and throws a structured exception on
     * failure.
     *
     * @param int $value Value to be validated
@@ -84,7 +84,7 @@ class MindFrame2_Validate
    }
 
    /**
-    * Validates an integer argument and throws a structured exception on 
+    * Validates an integer argument and throws a structured exception on
     * failure.
     *
     * @param int $value Value to be validated

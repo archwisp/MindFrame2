@@ -34,7 +34,7 @@ class MindFrame2_ViewHelper_CheckboxForm
    }
 
    /**
-    * Builds a form with the css class of FieldsetForm in which fields are 
+    * Builds a form with the css class of FieldsetForm in which fields are
     * encapsulated within dl elements.
     *
     * @param string $caption Form caption
