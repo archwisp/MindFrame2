@@ -52,7 +52,6 @@ abstract class MindFrame2_Dbms_Record_Mapper_Abstract extends MindFrame2_Object
     */
    private $_table_name;
 
-
    /**
     * Construct
     *
@@ -65,12 +64,14 @@ abstract class MindFrame2_Dbms_Record_Mapper_Abstract extends MindFrame2_Object
       MindFrame2_Dbms_Schema_Adapter_ToSql_Interface $adapter,
       MindFrame2_Dbms_Record_MapperPool $pool = NULL)
    {
-      $this->assertPropertyIsNotEmpty('model_class');
-      $this->assertPropertyIsNotEmpty('table_name');
-
       $this->_dbi = $dbi;
       $this->_adapter = $adapter;
       $this->_pool = $pool;
+
+      $this->init();
+
+      $this->assertPropertyIsNotEmpty('model_class');
+      $this->assertPropertyIsNotEmpty('table_name');
    }
 
    /**
