@@ -9,7 +9,6 @@
  * MVC view for pass-through images
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
- * @since 2010-11-05
  */
 abstract class MindFrame2_View_Image extends MindFrame2_View_Abstract
 {

@@ -10,7 +10,6 @@
  * DES, the default mode of htpasswd encryption.
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
- * @since 2010-01-06
  */
 class MindFrame2_Authentication_File_Htpasswd
    extends MindFrame2_Authentication_File_Abstract

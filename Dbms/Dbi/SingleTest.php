@@ -9,7 +9,6 @@
  * Test class for MindFrame2_Dbms_Dbi_Single
  *
  * @author Bryan C. Geraghty <bryan@ravensight.org>
- * @since 2010-12-14
  */
 class MindFrame2_Dbms_Dbi_SingleTest extends MindFrame2_Test_Abstract
 {

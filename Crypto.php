@@ -3,8 +3,24 @@
 /**
  * Encryption/decryption module
  *
- * @author Bryan C. Geraghty <bryan@ravensight.org>
- * @since 2011-05-19
+ * PHP Version 5
+ *
+ * @category  PHP
+ * @package   MindFrame2
+ * @author    Bryan C. Geraghty <bryan@ravensight.org>
+ * @copyright 2005-2011 Bryan C. Geraghty
+ * @license   http://www.gnu.org/licenses/lgpl-3.0.txt GNU LGPL
+ * @link      https://github.com/archwisp/MindFrame2
+ */
+
+/**
+ * Encryption/decryption module
+ * 
+ * @category PHP
+ * @package  MindFrame2
+ * @author   Bryan C. Geraghty <bryan@ravensight.org>
+ * @license  http://www.gnu.org/licenses/lgpl-3.0.txt GNU LGPL
+ * @link     https://github.com/archwisp/MindFrame2
  */
 class MindFrame2_Crypto
 {
@@ -22,12 +38,14 @@ class MindFrame2_Crypto
 
    public function encrypt($plaintext, $key, $iv)
    {
-      return mcrypt_encrypt($this->_algorithm, $key, $plaintext, $this->_mode, $iv);
+      return mcrypt_encrypt($this->_algorithm,
+         $key, $plaintext, $this->_mode, $iv);
    }
 
    public function decrypt($ciphertext, $key, $iv)
    {
-      return mcrypt_decrypt($this->_algorithm, $key, $ciphertext, $this->_mode, $iv);
+      return mcrypt_decrypt($this->_algorithm,
+         $key, $ciphertext, $this->_mode, $iv);
    }
 
    public function getBlockSize()

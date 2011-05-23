@@ -13,7 +13,6 @@
  * to a parent object will apply to all of its children.
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
- * @since 2008-03-01
  */
 class MindFrame2_Authorization
 {

@@ -9,7 +9,6 @@
  * Test class for MindFrame2_Dbms_Result
  *
  * @author Bryan C. Geraghty <bryan@ravensight.org>
- * @since 2010-12-16
  */
 class MindFrame2_Dbms_ResultTest extends MindFrame2_Test_Abstract
 {

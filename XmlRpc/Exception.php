@@ -9,7 +9,6 @@
  * Exception class for XML-RPC errors
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
- * @since 2009-09-23
  */
 class MindFrame2_XmlRpc_Exception extends Exception
 {

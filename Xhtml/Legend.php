@@ -9,7 +9,6 @@
  * Xhtml element builder
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
- * @since 2009-09-16
  */
 class MindFrame2_Xhtml_Legend extends MindFrame2_Xhtml_AbstractContainerElement
 {

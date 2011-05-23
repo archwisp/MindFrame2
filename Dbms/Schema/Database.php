@@ -9,7 +9,6 @@
  * Database model
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
- * @since 2008-10-15
  */
 class MindFrame2_Dbms_Schema_Database
 {

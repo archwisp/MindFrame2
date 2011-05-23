@@ -9,7 +9,6 @@
  * Core functions which could be added to PHP's standard library
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
- * @since 2010-08-13
  */
 class MindFrame2_Core
 {

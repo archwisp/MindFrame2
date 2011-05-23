@@ -10,7 +10,6 @@
  * Interface for SQL adapter SELECT modules
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
- * @since 2011-01-24
  */
 abstract class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_AbstractSelect
    extends MindFrame2_Dbms_Schema_Adapter_ToSql_Package_Abstract

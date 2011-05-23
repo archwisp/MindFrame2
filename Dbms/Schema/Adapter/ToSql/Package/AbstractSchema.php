@@ -10,7 +10,6 @@
  * Abstract implementation of SQL adapter schema functionality module
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
- * @since 2011-01-25
  */
 abstract class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_AbstractSchema
    extends MindFrame2_Dbms_Schema_Adapter_ToSql_Package_Abstract

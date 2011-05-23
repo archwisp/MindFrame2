@@ -10,7 +10,6 @@
  * Abstract implementation of the SQL adapter query module
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
- * @since 2011-01-24
  */
 abstract class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_AbstractQuery
    extends MindFrame2_Dbms_Schema_Adapter_ToSql_Package_Abstract

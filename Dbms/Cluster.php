@@ -8,7 +8,6 @@
 /**
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
- * @since
  */
 class MindFrame2_Dbms_Cluster
 {

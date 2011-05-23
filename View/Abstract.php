@@ -9,7 +9,6 @@
  * Abstract MVC view
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
- * @since 2009-12-01
  */
 abstract class MindFrame2_View_Abstract implements MindFrame2_View_Interface
 {

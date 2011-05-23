@@ -9,7 +9,6 @@
  * Renders an image containing text
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
- * @since 2011-01-19
  */
 class MindFrame2_TextImage
 {

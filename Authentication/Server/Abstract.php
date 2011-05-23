@@ -9,7 +9,6 @@
  * Abstract server authentication module
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
- * @since 2010-01-06
  */
 abstract class MindFrame2_Authentication_Server_Abstract
    extends MindFrame2_Authentication_Abstract

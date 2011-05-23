@@ -9,7 +9,6 @@
  * Xhtml element builder
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
- * @since 2009-09-16
  */
 abstract class MindFrame2_Xhtml_AbstractContainerElement
    extends MindFrame2_Xhtml_Abstract

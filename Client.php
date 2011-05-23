@@ -9,7 +9,6 @@
  * Client data utility
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
- * @since 2010-07-26
  */
 class MindFrame2_Client
 {

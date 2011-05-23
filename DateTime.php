@@ -9,7 +9,6 @@
  * Date/Time Utility
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
- * @since 2010-08-31
  */
 class MindFrame2_DateTime
 {

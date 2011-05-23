@@ -9,7 +9,6 @@
  * Adapter for automatically creating an XHTML form out of a database model
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
- * @since 2009-09-16
  */
 class MindFrame2_Dbms_Schema_Adapter_ToForm extends MindFrame2_Dbms_Schema_Adapter_Abstract
 {

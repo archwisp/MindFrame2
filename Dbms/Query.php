@@ -11,7 +11,6 @@
  * MindFrame2_Dbms_Schema_Adapter_ToSql_Interface::buildQuerySql()
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
- * @since 2011-01-21
  */
 class MindFrame2_Dbms_Query
 {

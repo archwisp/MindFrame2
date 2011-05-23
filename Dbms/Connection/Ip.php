@@ -9,7 +9,6 @@
  * DBMS connection model for IP networked servers
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
- * @since 2010-12-09
  */
 class MindFrame2_Dbms_Connection_Ip
    implements MindFrame2_Dbms_Connection_Interface

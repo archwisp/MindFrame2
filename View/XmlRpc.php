@@ -10,7 +10,6 @@
  * MVC controller via XML-RPC.
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
- * @since 2009-12-01
  */
 class MindFrame2_View_XmlRpc extends MindFrame2_View_Abstract
 {

@@ -41,7 +41,7 @@ class MindFrame2_Sniffs_WhiteSpace_ScopeIndentSniff extends Generic_Sniffs_White
      *
      * @var int
      */
-    public $indent = 4;
+    public $indent = 3;
 
     /**
      * Does the indent need to be exactly right.
@@ -51,7 +51,7 @@ class MindFrame2_Sniffs_WhiteSpace_ScopeIndentSniff extends Generic_Sniffs_White
      *
      * @var bool
      */
-    public $exact = true;
+    public $exact = false;
 
     /**
      * Any scope openers that should not cause an indent.

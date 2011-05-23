@@ -9,7 +9,6 @@
  * Abstract base object functionality
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
- * @since 2008-03-01
  */
 abstract class MindFrame2_Object
 {

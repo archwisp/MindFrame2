@@ -13,7 +13,6 @@
  * documentation.
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
- * @since 2010-01-06
  */
 class MindFrame2_Authentication_PAM extends MindFrame2_Authentication_Abstract
 {

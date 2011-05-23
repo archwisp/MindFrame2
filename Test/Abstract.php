@@ -9,7 +9,6 @@
  * Abstract test case
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
- * @since 2010-02-18
  */
 abstract class MindFrame2_Test_Abstract extends PHPUnit_Framework_TestCase
 {

@@ -9,7 +9,6 @@
  * Database interface
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
- * @since 2010-12-09
  */
 class MindFrame2_Dbms_Dbi_Single implements MindFrame2_Dbms_Dbi_Interface
 {

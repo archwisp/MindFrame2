@@ -9,7 +9,6 @@
  * Authentication module interface
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
- * @since 2010-01-06
  */
 interface MindFrame2_Authentication_Interface
 {

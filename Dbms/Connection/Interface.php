@@ -9,7 +9,6 @@
  * DBMS connection interface
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
- * @since 2010-12-09
  */
 interface MindFrame2_Dbms_Connection_Interface
 {

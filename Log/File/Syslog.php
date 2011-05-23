@@ -9,7 +9,6 @@
  * Syslog log handler
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
- * @since 2009-12-01
  */
 class MindFrame2_Log_File_Syslog extends MindFrame2_Log_File_Abstract
 {

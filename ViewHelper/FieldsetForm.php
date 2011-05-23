@@ -9,7 +9,6 @@
  * MVC View helper for building fieldset forms
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
- * @since 2010-06-10
  */
 class MindFrame2_ViewHelper_FieldsetForm
 {

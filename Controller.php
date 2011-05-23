@@ -9,7 +9,6 @@
  * Abstract MVC controller class for MindFrame2_Application
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
- * @since 2009-09-23
  */
 abstract class MindFrame2_Controller
 {

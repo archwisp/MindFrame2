@@ -9,7 +9,6 @@
  * Network node model
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
- * @since 2010-07-31
  */
 class MindFrame2_NetworkNode extends MindFrame2_Object
 {

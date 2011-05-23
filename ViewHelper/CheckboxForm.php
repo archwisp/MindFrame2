@@ -10,7 +10,6 @@
  * MVC View helper for building checkbox forms
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
- * @since 2010-08-16
  */
 class MindFrame2_ViewHelper_CheckboxForm
 {

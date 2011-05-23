@@ -9,7 +9,6 @@
  * Test class for MindFrame2_Hash
  *
  * @author Bryan C. Geraghty <bryan@ravensight.org>
- * @since 2010-12-16
  */
 class MindFrame2_HashTest extends PHPUnit_Framework_TestCase
 {

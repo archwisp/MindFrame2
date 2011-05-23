@@ -9,7 +9,6 @@
  * Test class for MindFrame2_Dbms_Connection_Ip
  *
  * @author Bryan C. Geraghty <bryan@ravensight.org>
- * @since 2010-12-14
  */
 class MindFrame2_Dbms_Connection_IpTest extends MindFrame2_Test_Abstract
 {

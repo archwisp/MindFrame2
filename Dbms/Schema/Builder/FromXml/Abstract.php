@@ -9,7 +9,6 @@
  * Abstract factory for creating model objects from XML definitions
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
- * @since 2009-09-14
  */
 abstract class MindFrame2_Dbms_Schema_Builder_FromXml_Abstract
 {

@@ -9,7 +9,6 @@
  * Factory for creating MindFrame2_Dbms_Schema_Index objects from XML definitions
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
- * @since 2009-09-14
  */
 class MindFrame2_Dbms_Schema_Builder_FromXml_Index extends MindFrame2_Dbms_Schema_Builder_FromXml_Abstract
 {

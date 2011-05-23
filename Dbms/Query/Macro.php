@@ -10,7 +10,6 @@
  * Macro model for use in queries
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
- * @since 2011-01-26
  */
 class MindFrame2_Dbms_Query_Macro
 {

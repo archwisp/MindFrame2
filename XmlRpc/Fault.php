@@ -9,7 +9,6 @@
 * Fault class for server-side XML-RPC errors
 *
 * @author Bryan Geraghty <bryan@ravensight.org>
- * @since 2010-02-09
  */
 class MindFrame2_XmlRpc_Fault
 {

@@ -9,7 +9,6 @@
  * Test class for MindFrame2_Crypto
  *
  * @author Bryan C. Geraghty <bryan@ravensight.org>
- * @since 2010-05-19
  */
 class MindFrame2_CryptoTest extends PHPUnit_Framework_TestCase
 {

@@ -11,7 +11,6 @@
  * A permission represents one specific action for authorization purposes
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
- * @since 2009-12-01
  */
 class MindFrame2_Model_Permission extends MindFrame2_Object
 {

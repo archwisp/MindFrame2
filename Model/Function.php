@@ -9,7 +9,6 @@
  * Function model
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
- * @since 2009-12-01
  */
 class MindFrame2_Model_Function implements MindFrame2_Dbms_Record_Interface
 {

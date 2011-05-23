@@ -9,7 +9,6 @@
  * Collection of filesystem functions
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
- * @since 2008-03-01
  */
 class MindFrame2_Filesystem
 {

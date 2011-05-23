@@ -9,7 +9,6 @@
  * Xhtml em element builder
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
- * @since 2009-09-16
  */
 class MindFrame2_Xhtml_Em extends MindFrame2_Xhtml_AbstractContainerElement
 {

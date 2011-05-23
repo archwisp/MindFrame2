@@ -8,7 +8,6 @@
  * DBMS DBI Interface
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
- * @since 2010-12-10
  */
 interface MindFrame2_Dbms_Dbi_Interface
 {

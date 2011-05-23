@@ -9,7 +9,6 @@
  * SQL authentication module
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
- * @since 2010-04-11
  */
 class MindFrame2_Authentication_Sql implements MindFrame2_Authentication_Interface
 {

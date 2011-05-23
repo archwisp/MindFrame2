@@ -10,7 +10,6 @@
  * mhash/mcrypt functions.
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
- * @since 2010-01-06
  */
 class MindFrame2_Hash
 {

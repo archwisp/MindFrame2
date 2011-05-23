@@ -9,7 +9,6 @@
  * Unit test for MindFrame2_Dbms_Schema_Adapter_ToSql_Mysql
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
- * @since 2010-02-18
  */
 class MindFrame2_Dbms_Schema_Adapter_ToSql_MysqlTest extends MindFrame2_Test_Abstract
 {

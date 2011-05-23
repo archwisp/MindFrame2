@@ -9,7 +9,6 @@
  * Record mapper pool
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
- * @since 2010-12-20
  */
 class MindFrame2_Dbms_Record_MapperPool
 {

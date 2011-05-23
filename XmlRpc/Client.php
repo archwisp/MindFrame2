@@ -9,7 +9,6 @@
  * XML-RPC client utility
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
- * @since 2009-12-01
  */
 class MindFrame2_XmlRpc_Client
 {

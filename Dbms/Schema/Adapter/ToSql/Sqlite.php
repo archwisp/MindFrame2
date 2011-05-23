@@ -9,7 +9,6 @@
  * Database model adapter for SQLite.
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
- * @since 2009-09-16
  */
 class MindFrame2_Dbms_Schema_Adapter_ToSql_Sqlite
    extends MindFrame2_Dbms_Schema_Adapter_ToSql_Abstract

@@ -9,7 +9,6 @@
  * Abstract database schema model adapter
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
- * @since 2009-09-16
  */
 abstract class MindFrame2_Dbms_Schema_Adapter_Abstract
 {

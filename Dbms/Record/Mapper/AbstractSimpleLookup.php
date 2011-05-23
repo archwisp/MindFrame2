@@ -11,7 +11,6 @@
  * conversion and vice versa
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
- * @since 2010-08-11
  */
 abstract class MindFrame2_Dbms_Record_Mapper_AbstractSimpleLookup
    extends MindFrame2_Dbms_Record_Mapper_Abstract

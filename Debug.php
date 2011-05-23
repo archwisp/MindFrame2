@@ -9,7 +9,6 @@
  * Debug class
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
- * @since 2008-10-08
  */
 class MindFrame2_Debug extends Exception
 {

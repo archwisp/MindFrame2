@@ -9,7 +9,6 @@
  * DBMS connection model for file-based databases
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
- * @since 2010-12-09
  */
 class MindFrame2_Dbms_Connection_File
    implements MindFrame2_Dbms_Connection_Interface

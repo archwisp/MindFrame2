@@ -9,7 +9,6 @@
  * MVC View helper for building a link list
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
- * @since 2010-08-13
  */
 class MindFrame2_ViewHelper_LinkList
 {

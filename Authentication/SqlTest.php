@@ -4,7 +4,6 @@
  * Test case for MindFrame2_Authentication_Sql
  *
  * @author Bryan C. Geraghty <bryan@ravensight.org>
- * @since 2011-05-16
  */
 class MindFrame2_Authentication_SqlTest extends MindFrame2_Test_Abstract
 {

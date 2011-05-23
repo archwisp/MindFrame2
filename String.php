@@ -9,7 +9,6 @@
  * String handling utility
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
- * @since 2010-06-18
  */
 class MindFrame2_String
 {

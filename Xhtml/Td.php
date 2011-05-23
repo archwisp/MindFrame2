@@ -9,7 +9,6 @@
  * Xhtml td element builder
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
- * @since 2010-01-12
  */
 class MindFrame2_Xhtml_Td extends MindFrame2_Xhtml_AbstractContainerElement
 {

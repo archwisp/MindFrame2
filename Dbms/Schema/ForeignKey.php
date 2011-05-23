@@ -9,7 +9,6 @@
  * Foreign key model
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
- * @since 2009-09-04
  */
 class MindFrame2_Dbms_Schema_ForeignKey
 {

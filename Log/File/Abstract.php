@@ -9,7 +9,6 @@
  * Abstract log handler
  *
  * @author Bryan Geraghty <bryan@ravensight.org>
- * @since 2009-12-01
  */
 abstract class MindFrame2_Log_File_Abstract extends MindFrame2_Log_Abstract
 {
