@@ -76,7 +76,7 @@ class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_Mysql_Schema
     */
    public function buildAlterTableSql($table_name, $create_table_sql)
    {
-      $new_create_table_sql = $this->buildCreateTableSql($table_name);
+      $new_create_table_sql = $this->buildCreateTableSql(NULL, $table_name);
 
       $old_field_names =
          $this->_extractElementNamesFromCreateTableSql($create_table_sql);
