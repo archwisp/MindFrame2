@@ -1,4 +1,5 @@
-<?php
+<?php // vim:ts=3:sts=3:sw=3:et:
+
 /**
  * MindFrame2_Sniffs_Whitespace_ScopeIndentSniff.
  *
@@ -14,7 +15,8 @@
  * @link      http://pear.php.net/package/PHP_CodeSniffer
  */
 
-if (class_exists('Generic_Sniffs_WhiteSpace_ScopeIndentSniff', true) === false) {
+if (class_exists('Generic_Sniffs_WhiteSpace_ScopeIndentSniff', TRUE) === FALSE)
+{
     $error = 'Class Generic_Sniffs_WhiteSpace_ScopeIndentSniff not found';
     throw new PHP_CodeSniffer_Exception($error);
 }
@@ -34,7 +36,8 @@ if (class_exists('Generic_Sniffs_WhiteSpace_ScopeIndentSniff', true) === false) 
  * @version   Release: 1.1.0
  * @link      http://pear.php.net/package/PHP_CodeSniffer
  */
-class MindFrame2_Sniffs_WhiteSpace_ScopeIndentSniff extends Generic_Sniffs_WhiteSpace_ScopeIndentSniff
+class MindFrame2_Sniffs_WhiteSpace_ScopeIndentSniff
+    extends Generic_Sniffs_WhiteSpace_ScopeIndentSniff
 {
     /**
      * The number of spaces code should be indented.
@@ -51,7 +54,7 @@ class MindFrame2_Sniffs_WhiteSpace_ScopeIndentSniff extends Generic_Sniffs_White
      *
      * @var bool
      */
-    public $exact = false;
+    public $exact = FALSE;
 
     /**
      * Any scope openers that should not cause an indent.
@@ -60,6 +63,3 @@ class MindFrame2_Sniffs_WhiteSpace_ScopeIndentSniff extends Generic_Sniffs_White
      */
     public $nonIndentingScopes = array();
 }
-//end class
-
-?>

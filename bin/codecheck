@@ -10,8 +10,6 @@ else
 	DIR=$1;
 fi
 
-# phpmd --exclude Sniffs $DIR text codesize,unusedcode,naming,design
-phpcs --standard=`pwd`/Standards/MindFrame2 --ignore=doxygen --ignore=Standards --ignore=Sniffs $DIR
-# phpcs --report=source --standard=`pwd`/Standards/MindFrame2 --ignore=doxygen --ignore=Standards --ignore=Sniffs $DIR
-
-# phpcs --standard=`pwd`/Standards/MindFrame2 --ignore=doxygen --ignore=Standards --ignore=Sniffs --sniffs=PEAR.Commenting.FileComment $DIR
+phpmd --exclude Sniffs $DIR text codesize,unusedcode,naming,design
+phpcs --standard=`pwd`/Standards/MindFrame2 $DIR
+phpcs --report=source --standard=`pwd`/Standards/MindFrame2 $DIR
