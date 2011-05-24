@@ -174,12 +174,19 @@ class MindFrame2_Sniffs_NamingConventions_ValidVariableNameSniff extends PHP_Cod
       $varName     = ltrim($tokens[$stackPtr]['content'], '$');
       $memberProps = $phpcsFile->getMemberProperties($stackPtr);
       $public      = ($memberProps['scope'] === 'public');
+      $protected      = ($memberProps['scope'] === 'protected');
 
       if ($public === TRUE)
       {
+            $error = "Public member variables (\"$varName\") are forbidden";
+            $phpcsFile->addError($error, $stackPtr);
+            return;
+      }
+      elseif ($protected === TRUE)
+      {
          if (substr($varName, 0, 1) === '_')
          {
-            $error = "Public member variable \"$varName\" must not contain a leading underscore";
+            $error = "Protected member variable \"$varName\" must not contain a leading underscore";
             $phpcsFile->addError($error, $stackPtr);
             return;
          }

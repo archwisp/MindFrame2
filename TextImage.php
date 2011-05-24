@@ -1,14 +1,27 @@
 <?php // vim:ts=3:sts=3:sw=3:et:
 
 /**
- * @file
  * Renders an image containing text
+ *
+ * PHP Version 5
+ *
+ * @category  PHP
+ * @package   MindFrame2
+ * @author    Bryan C. Geraghty <bryan@ravensight.org>
+ * @copyright 2005-2011 Bryan C. Geraghty
+ * @license   http://www.gnu.org/licenses/lgpl-3.0.txt GNU LGPL
+ * @link      https://github.com/archwisp/MindFrame2
  */
 
 /**
  * Renders an image containing text
  *
- * @author Bryan Geraghty <bryan@ravensight.org>
+ * @category PHP
+ * @package  MindFrame2
+ * @author   Bryan C. Geraghty <bryan@ravensight.org>
+ * @license  http://www.gnu.org/licenses/lgpl-3.0.txt GNU LGPL
+ * @link     https://github.com/archwisp/MindFrame2
+ * @todo     Enable customization of text size
  */
 class MindFrame2_TextImage
 {
@@ -26,6 +39,10 @@ class MindFrame2_TextImage
       $this->_width = $width;
    }
 
+   /**
+    * @todo Enable color customization
+    * @todo Remove magic numbers
+    */
    public function build($text)
    {
       $image = imagecreate($this->_width, $this->_height);
@@ -76,12 +93,14 @@ class MindFrame2_TextImage
 
    private function _calculateColumnCount()
    {
-      return round($this->_width/$this->_char_width, 0) - ($this->_padding * 2) - 1;
+      return round($this->_width/$this->_char_width, 0) -
+         ($this->_padding * 2) - 1;
    }
 
    private function _calculateLineCount()
    {
-      return round($this->_height/$this->_char_height, 0) - ($this->_padding * 2) - 1;
+      return round($this->_height/$this->_char_height, 0) -
+         ($this->_padding * 2) - 1;
    }
 
    private function _calculateXPosition($column_count, $text)
