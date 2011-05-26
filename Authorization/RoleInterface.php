@@ -47,6 +47,13 @@ interface MindFrame2_Authorization_RoleInterface
    public function getPermissions();
 
    /**
+    * Retreives the permission object with the specified id if it exists
+    *
+    * @return MindFrame2_Authorization_PermissionInterface or FALSE
+    */
+   public function getPermissionById($permission_id)
+
+   /**
     * Assignes the role to the specified organization
     *
     * @return void
