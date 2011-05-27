@@ -66,7 +66,6 @@ class MindFrame2_Dbms_Schema_Field
     *
     * @throws InvalidArgumentException If the name agument is empty
     * @throws InvalidArgumentException If the type agument is empty
-    * @throws InvalidArgumentException If the length is not an intege
     * @throws InvalidArgumentException If the allow null is not a boolean
     * @throws InvalidArgumentException If the auto increment is not a boolean
     */
@@ -75,7 +74,6 @@ class MindFrame2_Dbms_Schema_Field
    {
       MindFrame2_Validate::argumentIsNotEmpty($name, 1, $name);
       MindFrame2_Validate::argumentIsNotEmpty($type, 2, $type);
-      MindFrame2_Validate::argumentIsIntOrNull($length, 3, $length);
       MindFrame2_Validate::argumentIsBool($allow_null, 4, $allow_null);
       MindFrame2_Validate::argumentIsBool(
          $is_auto_increment, 6, $is_auto_increment);

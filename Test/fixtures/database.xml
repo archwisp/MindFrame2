@@ -4,6 +4,8 @@
       <field name="Username" type="varchar" length="16" />
       <field name="Display_Name" type="varchar" length="16" allow_null="true" />
       <field name="Email_Address" type="varchar" length="128" />
+      <field name="Position" type="enum" length="'Secretary', 'Manager', 'CEO'" allow_null="false" />
+      <field name="Hire_Date" type="date" allow_null="false" />
       <field name="Last_Login" type="datetime" allow_null="true" />
       <field name="Login_Count" type="smallint" length="5" default_value="0" />
       <field name="Status" type="bit" length="1" default_value="1" />

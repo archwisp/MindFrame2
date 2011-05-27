@@ -17,6 +17,8 @@ CREATE TABLE `Test_Database`.`User` (
   `Username` TEXT NOT NULL,
   `Display_Name` TEXT DEFAULT NULL,
   `Email_Address` TEXT NOT NULL,
+  `Position` TEXT NOT NULL,
+  `Hire_Date` TEXT NOT NULL,
   `Last_Login` TEXT DEFAULT NULL,
   `Login_Count` INTEGER NOT NULL DEFAULT 0,
   `Status` INTEGER NOT NULL DEFAULT 1,
@@ -53,8 +55,8 @@ GRANT ALL ON `Test_Database`.* TO 'User'@'localhost' IDENTIFIED BY 'Pass';
 -- //* testBuildInsertTableSql *//
 
 INSERT INTO `Test_Database`.`User`
-(`Username`, `Display_Name`, `Email_Address`, `Last_Login`, `Login_Count`, `Status`, `Fk_User_Id_Supervisor`)
-VALUES('Test', NULL, NULL, '2010-01-01 22:55:33', 8, NULL, NULL);
+(`Username`, `Display_Name`, `Email_Address`, `Position`, `Hire_Date`, `Last_Login`, `Login_Count`, `Status`, `Fk_User_Id_Supervisor`)
+VALUES('Test', NULL, NULL, NULL, NULL, '2010-01-01 22:55:33', 8, NULL, NULL);
 
 -- //* testBuildSelectIntoTemporaryTableSql *//
 
@@ -68,6 +70,8 @@ SELECT
   `User`.`Username`,
   `User`.`Display_Name`,
   `User`.`Email_Address`,
+  `User`.`Position`,
+  `User`.`Hire_Date`,
   `User`.`Last_Login`,
   `User`.`Login_Count`,
   BIN(`User`.`Status`) AS Status,

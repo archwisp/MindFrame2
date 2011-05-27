@@ -72,7 +72,7 @@ class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_Mysql_Schema
       'unique' => 'UNIQUE'
    );
 
-   protected $no_length_field_types = array('blob', 'datetime',
+   protected $no_length_field_types = array('blob', 'datetime', 'date',
       'float', 'longblob', 'longtext', 'mediumblob', 'mediumtext',
       'smallblob', 'smalltext', 'text');
 
