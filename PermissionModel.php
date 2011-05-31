@@ -1,7 +1,7 @@
 <?php // vim:ts=3:sts=3:sw=3:et:
 
 /**
- * Function model
+ * Permission model
  *
  * PHP Version 5
  *
@@ -14,7 +14,7 @@
  */
 
 /**
- * Function model
+ * Permission model
  *
  * @category PHP
  * @package  MindFrame2
@@ -22,12 +22,14 @@
  * @license  http://www.gnu.org/licenses/lgpl-3.0.txt GNU LGPL
  * @link     https://github.com/archwisp/MindFrame2
  */
-class MindFrame2_Model_Function implements MindFrame2_Dbms_Record_Interface
+class MindFrame2_PermissionModel 
+   implements MindFrame2_Dbms_Record_Interface,
+      MindFrame2_Authorization_PermissionInterface
 {
    /**
     * @var int
     */
-   private $_function_id;
+   private $_permission_id;
 
    /**
     * @var string
@@ -35,35 +37,35 @@ class MindFrame2_Model_Function implements MindFrame2_Dbms_Record_Interface
    private $_label;
 
    /**
-    * Initializes the functionname property
+    * Initializes the permissionname property
     *
-    * @param string $function_id Function ID
-    * @param string $label Function name
+    * @param string $permission_id Permission ID
+    * @param string $label Permission name
     *
-    * @throws InvalidArgumentException If function id argument is empty
+    * @throws InvalidArgumentException If permission id argument is empty
     * @throws InvalidArgumentException If label argument is empty
     */
-   public function __construct($function_id, $label)
+   public function __construct($permission_id, $label)
    {
-      MindFrame2_Validate::argumentIsNotEmpty($function_id, 1, 'function_id');
+      MindFrame2_Validate::argumentIsNotEmpty($permission_id, 1, 'permission_id');
       MindFrame2_Validate::argumentIsNotEmpty($label, 1, 'label');
 
-      $this->_function_id = $function_id;
+      $this->_permission_id = $permission_id;
       $this->_label = $label;
    }
 
    /**
-    * Returns the function's id
+    * Returns the permission's id
     *
     * @return string
     */
-   public function getFunctionId()
+   public function getPermissionId()
    {
-      return $this->_function_id;
+      return $this->_permission_id;
    }
 
    /**
-    * Returns the function's label
+    * Returns the permission's label
     *
     * @return string
     */
@@ -73,13 +75,13 @@ class MindFrame2_Model_Function implements MindFrame2_Dbms_Record_Interface
    }
 
    /**
-    * Wraps getFunctionId() to conform with MindFrame2_Dbms_Record_Interface
+    * Wraps getPermissionId() to conform with MindFrame2_Dbms_Record_Interface
     *
     * @return string
     */
    public function getPrimaryKey()
    {
-      return $this->getFunctionId();
+      return $this->getPermissionId();
    }
 
    /**

@@ -22,20 +22,24 @@
  * @license  http://www.gnu.org/licenses/lgpl-3.0.txt GNU LGPL
  * @link     https://github.com/archwisp/MindFrame2
  */
-class MindFrame2_RoleModel implements
-   MindFrame2_Authorization_RoleInterface, MindFrame2_Dbms_Record_Interface
+class MindFrame2_RoleModel
+   implements MindFrame2_Dbms_Record_Interface,
+      MindFrame2_Authorization_RoleInterface
 {
    private $_role_id;
    private $_label;
    private $_permissions = array();
+   private $_organization;
 
-   public function __construct($role_id, $label)
+   public function __construct($role_id, $label,
+      MindFrame2_Authorization_OrganizationInterface $organization)
    {
-      $this->setRoleId($role_id);
       $this->setLabel($label);
+      $this->setOrganization($organization);
+      $this->setRoleId($role_id);
    }
 
-   public function addPermission(MindFrame2_Model_Permission $permission)
+   public function addPermission(MindFrame2_Authorization_PermissionInterface $permission)
    {
       $this->_functions[$permission->getPermissionId()] = $permission;
    }
@@ -48,6 +52,11 @@ class MindFrame2_RoleModel implements
    public function getLabel()
    {
       return $this->_label;
+   }
+
+   public function getOrganization()
+   {
+      return $this->_organization;
    }
 
    public function getPermissions()
@@ -100,6 +109,12 @@ class MindFrame2_RoleModel implements
       MindFrame2_Validate::argumentIsNotEmpty($label, 1, 'label');
 
       $this->_label = $label;
+   }
+
+   public function setOrganization(
+      MindFrame2_Authorization_OrganizationInterface $organization)
+   {
+      $this->_organization = $organization;
    }
 
    public function setPrimaryKey($role_id)

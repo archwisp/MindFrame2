@@ -51,7 +51,7 @@ interface MindFrame2_Authorization_RoleInterface
     *
     * @return MindFrame2_Authorization_PermissionInterface or FALSE
     */
-   public function getPermissionById($permission_id)
+   public function getPermissionById($permission_id);
 
    /**
     * Assignes the role to the specified organization

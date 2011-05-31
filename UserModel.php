@@ -26,8 +26,32 @@ class MindFrame2_UserModel
    implements MindFrame2_Authorization_UserInterface,
       MindFrame2_Dbms_Record_Interface
 {
+   private $_display_name;
+   private $_email_address;
    private $_roles = array();
    private $_user_id;
+   private $_username;
+
+   public function __construct($user_id, $username, $display_name, $email_address)
+   {
+      MindFrame2_Validate::argumentIsNotEmpty($username, 2, 'displayname');
+      
+      $this->_username = $username;
+      
+      $this->setDisplayName($display_name);
+      $this->setEmailAddress($email_address);
+      $this->setUserId($user_id);
+   }
+
+   public function getDisplayName()
+   {
+      return $this->display_name;
+   }
+
+   public function getEmailAddress()
+   {
+      return $this->_email_address;
+   }
 
    public function getRoles()
    {
@@ -44,18 +68,37 @@ class MindFrame2_UserModel
       return $this->_user_id;
    }
 
+   public function getUsername()
+   {
+      return $this->_username;
+   }
+
+   public function setDisplayName($display_name)
+   {
+      MindFrame2_Validate::argumentIsNotEmpty($display_name, 1, 'display_name');
+
+      $this->_display_name = $display_name;
+   }
+
+   public function setEmailAddress($email_address)
+   {
+      $this->_email_address = $email_address;
+   }
+
    public function setPrimaryKey($user_id)
    {
       return $this->setUserId($user_id);
    }
 
-   public function addRole(MindFrame2_Authorization_RoleInterface $role);
+   public function addRole(MindFrame2_Authorization_RoleInterface $role)
    {
       $this->_roles[] = $role;
    }
 
    public function setUserId($user_id)
    {
-      return $this->_user_id = $user_id;
+      MindFrame2_Validate::argumentIsNotEmpty($user_id, 1, 'user_id');
+      
+      $this->_user_id = $user_id;
    }
 }

@@ -30,4 +30,22 @@ interface MindFrame2_Authorization_OrganizationInterface
     * @reutn mixed
     */
    public function getOrganizationId();
+
+   /**
+    * Returns the parent organization if one exists
+    *
+    * @return MindFrame2_Authorization_OrganizationInterface or NULL
+    */
+   public function getParentOrganization();
+
+   /**
+    * Sets the parent organization
+    *
+    * @param MindFrame2_Authorization_OrganizationInterface $parent_organization
+    * Parent Organization
+    *
+    * @return void
+    */
+   public function setParentOrganization(
+      MindFrame2_Authorization_OrganizationInterface $parent_organization);
 }
