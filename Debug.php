@@ -24,7 +24,25 @@
  */
 class MindFrame2_Debug extends Exception
 {
-   public static $Log_File;
+   private static $_log_file;
+
+   public static function install($log_file)
+   {
+      self::$_log_file = $log_file;
+      set_exception_handler(array('MindFrame2_Debug', 'exceptionHandler'));
+      set_error_handler(array('MindFrame2_Debug', 'errorHandler'));
+   }
+
+   public static function errorHandler($severity, $message, $filepath, $line)
+   {
+      new MindFrame2_Debug($message);
+   }
+
+   public static function exceptionHandler(Exception $exception)
+   {
+      new MindFrame2_Debug($exception);
+      exit;
+   }
 
    /**
     * Parses and outputs the debug message
@@ -51,20 +69,21 @@ class MindFrame2_Debug extends Exception
       }
       elseif (is_bool($message))
       {
-         $output = $header . (($message === TRUE) ? '{TRUE}' : '{FALSE}') . "\n";
+         $output = $header . (($message === TRUE)
+            ? '{TRUE}' : '{FALSE}') . "\n";
       }
       else
       {
          $output = $header . print_r($message, TRUE) . "\n";
       }
 
-      if (!empty(self::$Log_File))
+      if (!empty(self::$_log_file))
       {
-         file_put_contents(self::$Log_File, $output . "\n", FILE_APPEND);
+         file_put_contents(self::$_log_file, $output . "\n", FILE_APPEND);
       }
       elseif (isset($_SERVER['HTTP_USER_AGENT']))
       {
-         echo '<pre class="Debug">' . htmlentities($output) . '</pre>';
+         echo '<pre class="Debug" style="clear: both;">' . htmlentities($output) . '</pre>';
       }
       else
       {
