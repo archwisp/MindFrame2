@@ -426,7 +426,7 @@ abstract class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_AbstractSelect
    {
       if ($limit !== 0)
       {
-         $sql = sprintf("\nLIMIT %d,%d",$offset, $limit);
+         $sql = sprintf("\nLIMIT %d, %d",$offset, $limit);
       }
       else
       {

@@ -91,5 +91,5 @@ WHERE
   AND `User`.`Fk_User_Id_Supervisor` IS NULL
   AND `Fk_Supervisor`.`Username` LIKE 'Test%'
 ORDER BY `User`.`Username` ASC
-LIMIT 1;
+LIMIT 0, 1;
 

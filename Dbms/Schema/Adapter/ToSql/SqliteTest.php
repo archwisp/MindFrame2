@@ -232,7 +232,7 @@ class MindFrame2_Dbms_Schema_Adapter_ToSql_SqliteTest extends MindFrame2_Test_Ab
          ),
          array(
             'User:Username' => 'ASC'
-         ), 1));
+         ), 0, 1));
    }
 
    /**
