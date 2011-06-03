@@ -260,7 +260,7 @@ abstract class MindFrame2_Dbms_Record_Mapper_Abstract extends MindFrame2_Object
 
       $search_data = $this->_buildPrimaryKeySearchData($value);
 
-      $records = $this->fetchRecords($search_data, array(), 0);
+      $records = $this->fetchRecords($search_data, array(), 0, 0);
 
       if ($records !== FALSE)
       {
@@ -431,11 +431,10 @@ abstract class MindFrame2_Dbms_Record_Mapper_Abstract extends MindFrame2_Object
     * @return array
     */
    protected function fetchRecords(
-      array $search_data, $order_by_columns, $limit)
+      array $search_data, $order_by_columns, $offset, $limit)
    {
       $sql = $this->_adapter->buildSelectTableSql(
-         $this->getTableName(), $search_data, $order_by_columns, $limit);
-
+         $this->getTableName(), $search_data, $order_by_columns, $offset, $limit);
       $query = $this->_dbi->query($sql, NULL);
       $data = $query->fetchAll(MindFrame2_Dbms_Result::FETCH_ASSOC);
 
@@ -447,6 +446,21 @@ abstract class MindFrame2_Dbms_Record_Mapper_Abstract extends MindFrame2_Object
       return $data;
    }
 
+   protected function countRecords(
+      array $search_data)
+   {        
+      $sql = $this->_adapter->buildCountRowsTableSql($this->getTableName(),$search_data,$this->getPrimaryKeyFieldNames());
+      $query = $this->_dbi->query($sql, NULL);
+      $data = $query->fetchAll(MindFrame2_Dbms_Result::FETCH_ASSOC);
+
+      if (empty($data))
+      {
+         return FALSE;
+      }
+
+      return $data[0]['count'];
+   }
+      
    /**
     * Generates a string composed of a unix timestamp followed by a decimal
     * point and 6 digits representing microseconds.

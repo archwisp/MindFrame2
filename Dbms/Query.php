@@ -28,6 +28,7 @@ class MindFrame2_Dbms_Query
    const FUNCTION_AVG = 'AVG';
    const FUNCTION_STDDEV = 'STDDEV';
    const FUNCTION_SUM = 'SUM';
+   const FUNCTION_COUNT = 'COUNT';
 
    /**
     * @var string
