@@ -419,6 +419,26 @@ abstract class MindFrame2_Dbms_Record_Mapper_Abstract extends MindFrame2_Object
 
       return $this->_dbi->exec($sql);
    }
+    
+   /**
+    * Excutes the specified query and returns the results.
+    *
+    * @param string $sql The SQL query to be executed
+    *
+    * @return array or FALSE
+    */
+   protected function fetchAdHocRecords($sql)
+   {
+      $query = $this->_dbi->query($sql, NULL);
+      $data = $query->fetchAll(MindFrame2_Dbms_Result::FETCH_ASSOC);
+
+      if (empty($data))
+      {
+         return FALSE;
+      }
+
+      return $data;
+   }
 
    /**
     * Searches the specified table with the specified search data and returns
@@ -428,7 +448,7 @@ abstract class MindFrame2_Dbms_Record_Mapper_Abstract extends MindFrame2_Object
     * @param array $order_by_columns How the results should be ordered
     * @param int $limit How many records to retreive
     *
-    * @return array
+    * @return array or FALSE
     */
    protected function fetchRecords(
       array $search_data, $order_by_columns, $offset, $limit)
