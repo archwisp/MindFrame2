@@ -117,11 +117,11 @@ abstract class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_AbstractSelect
     * @return string
     */
    public function buildSelectTableSql($table_name,
-      array $select_data, array $order_by_columns, $limit)
-   {
+      array $select_data, array $order_by_columns, $offset, $limit)
+   {                                             
       return $this->_buildSelectDatabaseTableSql(
          $this->getSharedModule()->getDatabase()->getName(),
-         $table_name, $select_data, $order_by_columns, $limit);
+         $table_name, $select_data, $order_by_columns, $offset, $limit);
    }
 
    /**
@@ -156,10 +156,11 @@ abstract class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_AbstractSelect
     * @throws Exception If the user doesn't have select permissions on the table
     */
    private function _buildSelectDatabaseTableSql($database_name, $table_name,
-      array $select_data, array $order_by_columns, $limit)
+      array $select_data, array $order_by_columns, $offset, $limit)
    {
       MindFrame2_Validate::argumentIsNotEmpty($database_name, 1, 'database_name');
       MindFrame2_Validate::argumentIsNotEmpty($table_name, 2, 'table_name');
+      MindFrame2_Validate::argumentIsInt($offset, 4, 'offset');
       MindFrame2_Validate::argumentIsInt($limit, 4, 'limit');
 
       $skel = "SELECT\n  %s\nFROM\n  %s.%s\n%s%s%s%s;";
@@ -173,7 +174,7 @@ abstract class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_AbstractSelect
          $this->_buildSelectTableSqlWhereClause($table_name, $select_data),
          $this->_buildSelectTableSqlOrderByClause(
             $table_name, $order_by_columns),
-         $this->_buildSelectTableSqlLimitClause($limit));
+         $this->_buildSelectTableSqlLimitClause($offset, $limit));
 
       return $sql;
    }
@@ -322,8 +323,8 @@ abstract class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_AbstractSelect
       {
          $input_field_name = $table_name . $this->getSharedModule()->
             getFieldDelimiter() . $field->getName();
-
-         if (!empty($select_data[$input_field_name]))
+                                                     
+         if (array_key_exists($input_field_name,$select_data))
          {
             $field_value = $select_data[$input_field_name];
 
@@ -375,7 +376,7 @@ abstract class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_AbstractSelect
     */
    private function _buildSelectTableSqlOrderByClause(
       $table_name, array $order_by_columns)
-   {
+   {                          
       $fields = $this->getSharedModule()->
          getDatabase()->getTableFields($table_name);
 
@@ -421,11 +422,11 @@ abstract class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_AbstractSelect
     *
     * @return string
     */
-   private function _buildSelectTableSqlLimitClause($limit)
+   private function _buildSelectTableSqlLimitClause($offset,$limit)
    {
       if ($limit !== 0)
       {
-         $sql = sprintf("\nLIMIT %d", $limit);
+         $sql = sprintf("\nLIMIT %d, %d",$offset, $limit);
       }
       else
       {

@@ -222,11 +222,24 @@ abstract class MindFrame2_Dbms_Schema_Adapter_ToSql_Abstract
     * @return string
     */
    public function buildSelectTableSql($table_name,
-      array $select_data, array $order_by_columns, $limit)
+      array $select_data, array $order_by_columns, $offset, $limit)
    {
       return $this->_select_module->buildSelectTableSql(
-         $table_name, $select_data, $order_by_columns, $limit);
+         $table_name, $select_data, $order_by_columns, $offset, $limit);
    }
+   
+   public function buildCountRowsTableSql(
+      $table_name, array $select_data, array $primaryKey){
+      $query= new MindFrame2_Dbms_Query($this->getDatabase()->getName(),$table_name);
+      foreach($primaryKey as $field){
+        $query->select(new MindFrame2_Dbms_Query_Select($table_name,$field,MindFrame2_Dbms_Query::FUNCTION_COUNT,'count'));          
+      }
+      foreach($select_data as $field=>$value){
+        $query->where(new MindFrame2_Dbms_Query_Where($table_name,$field,'=',$value));
+      }
+      $query = $this->_query_module->buildQuerySql($query);
+      return $query;
+      }   
 
    /**
     * Builds the statement for extracting the CREATE statement for the existing

@@ -232,7 +232,7 @@ class MindFrame2_Dbms_Schema_Adapter_ToSql_MysqlTest extends MindFrame2_Test_Abs
          ),
          array(
             'User:Username' => 'ASC'
-         ), 1));
+         ), 0, 1));
    }
 
    /**

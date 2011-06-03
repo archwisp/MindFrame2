@@ -130,7 +130,7 @@ class MindFrame2_Authentication_Sql implements MindFrame2_Authentication_Interfa
       $prefix = $this->_buildFieldPrefix();
 
       $sql = $this->_adapter->buildSelectTableSql($this->_table,
-         array($prefix . $this->_username_field => $username), array(), 1);
+         array($prefix . $this->_username_field => $username), array(), 0, 1);
 
       $result = $this->_dbi->query($sql, NULL);
 

@@ -158,7 +158,10 @@ interface MindFrame2_Dbms_Schema_Adapter_ToSql_Interface
     * @throws RuntimeException If limit is not an integer
     */
    public function buildSelectTableSql(
-      $table_name, array $select_data, array $order_by_columns, $limit);
+      $table_name, array $select_data, array $order_by_columns, $offset, $limit);   
+   
+   public function buildCountRowsTableSql(
+      $table_name, array $select_data, array $primaryKey);
 
    /**
     * Builds the statement for extracting the CREATE statement for the existing

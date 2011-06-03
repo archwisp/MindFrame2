@@ -61,7 +61,11 @@ abstract class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_AbstractQuery
 
          case MindFrame2_Dbms_Query::FUNCTION_SUM:
 
-            return sprintf('SUM(%s)', $input);
+            return sprintf('SUM(%s)', $input);         
+         
+         case MindFrame2_Dbms_Query::FUNCTION_COUNT:
+
+            return sprintf('COUNT(%s)', $input);
 
          default:
 
