@@ -28,7 +28,7 @@ class MindFrame2_View_XmlRpc extends MindFrame2_View_Abstract
    /**
     * @var MindFrame2_XmlRpc_Server
     */
-   protected $xmlrpc_server;
+   private $_xmlrpc_server;
 
    /**
     * View execution entry point. Executed as part of the MVC command pattern
@@ -38,7 +38,7 @@ class MindFrame2_View_XmlRpc extends MindFrame2_View_Abstract
     */
    public function run()
    {
-      echo $this->xmlrpc_server->run();
+      echo $this->_xmlrpc_server->run();
    }
 
    /**
@@ -48,6 +48,6 @@ class MindFrame2_View_XmlRpc extends MindFrame2_View_Abstract
     */
    protected function init()
    {
-      $this->xmlrpc_server = $this->getController()->createXmlRpcServer();
+      $this->_xmlrpc_server = $this->getController()->createXmlRpcServer();
    }
 }

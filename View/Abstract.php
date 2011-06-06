@@ -27,8 +27,19 @@ abstract class MindFrame2_View_Abstract implements MindFrame2_View_Interface
    /**
     * @var MindFrame2_Controller
     */
-   protected $controller;
+   private $_controller;
 
+   /**
+    * Construct
+    *
+    * @param MindFrame2_Controller $controller The MVC controller object
+    */
+   public function __construct(MindFrame2_Controller $controller)
+   {
+      $this->_controller = $controller;
+      $this->init();
+   }
+   
    /**
     * Builds the underlying structure for the object. This function is called
     * from the construct
@@ -40,23 +51,12 @@ abstract class MindFrame2_View_Abstract implements MindFrame2_View_Interface
    }
 
    /**
-    * Construct
-    *
-    * @param MindFrame2_Controller $controller The MVC controller object
-    */
-   public function __construct(MindFrame2_Controller $controller)
-   {
-      $this->controller = $controller;
-      $this->init();
-   }
-
-   /**
     * Returns the controller object
     *
     * @return MindFrame2_Controller
     */
    protected function getController()
    {
-      return $this->controller;
+      return $this->_controller;
    }
 }

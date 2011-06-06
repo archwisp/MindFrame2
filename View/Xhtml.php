@@ -27,17 +27,17 @@ class MindFrame2_View_Xhtml extends MindFrame2_View_Abstract
    /**
     * @var Xhtml_Html
     */
-   protected $html;
+   private $_html;
 
    /**
     * @var Xhtml_Head
     */
-   protected $head;
+   private $_head;
 
    /**
     * @var Xhtml_Body
     */
-   protected $body;
+   private $_body;
 
    /**
     * View execution entry point. Executed as part of the MVC command pattern
@@ -57,22 +57,22 @@ class MindFrame2_View_Xhtml extends MindFrame2_View_Abstract
     */
    protected function init()
    {
-      $this->html = new MindFrame2_Xhtml_Html(NULL,
+      $this->_html = new MindFrame2_Xhtml_Html(NULL,
          array('xmlns' => 'http://www.w3.org/1999/xhtml', 'xml:lang' => 'en'));
 
-      $this->html->addContent(
-         $this->head = new MindFrame2_Xhtml_Head(NULL, array()));
+      $this->_html->addContent(
+         $this->_head = new MindFrame2_Xhtml_Head(NULL, array()));
 
-      $this->html->addContent(
-         $this->body = new MindFrame2_Xhtml_Body(NULL, array()));
+      $this->_html->addContent(
+         $this->_body = new MindFrame2_Xhtml_Body(NULL, array()));
 
-      $this->head->addContent(new MindFrame2_Xhtml_Title(NULL, array()));
+      $this->_head->addContent(new MindFrame2_Xhtml_Title(NULL, array()));
 
-      $this->head->addContent(new MindFrame2_Xhtml_Meta(array(
+      $this->_head->addContent(new MindFrame2_Xhtml_Meta(array(
          'http-equiv' => 'content-type',
          'content' => 'text/html; charset=UTF-8')));
 
-      $this->head->addContent(new MindFrame2_Xhtml_Meta(
+      $this->_head->addContent(new MindFrame2_Xhtml_Meta(
          array('http-equiv' => 'content-language', 'content' => 'en-us')));
    }
 
@@ -88,14 +88,14 @@ class MindFrame2_View_Xhtml extends MindFrame2_View_Abstract
       {
          $xhtml = NULL;
 
-         foreach ($this->html as $element)
+         foreach ($this->_html as $element)
          {
             $xhtml .= $element->render();
          }
       }
       else
       {
-         $xhtml = $this->html->render();
+         $xhtml = $this->_html->render();
       }
 
       echo preg_replace('/\n(\n)/', '\1', $xhtml) . "\n";
@@ -108,7 +108,7 @@ class MindFrame2_View_Xhtml extends MindFrame2_View_Abstract
     */
    protected function getHead()
    {
-      return $this->head;
+      return $this->_head;
    }
 
    /**
@@ -118,7 +118,7 @@ class MindFrame2_View_Xhtml extends MindFrame2_View_Abstract
     */
    protected function getBody()
    {
-      return $this->body;
+      return $this->_body;
    }
 
    /**
@@ -182,6 +182,6 @@ class MindFrame2_View_Xhtml extends MindFrame2_View_Abstract
     */
    protected function replaceHtml($content)
    {
-      $this->html = $content;
+      $this->_html = $content;
    }
 }
