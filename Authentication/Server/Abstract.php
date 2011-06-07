@@ -67,7 +67,7 @@ abstract class MindFrame2_Authentication_Server_Abstract
     */
    public function __construct($hostname, $username, $password)
    {
-      MindFrame2_Validate::argumentIsNotEmpty($hostname, 1, 'hostname');
+      MindFrame2_Core::assertArgumentIsNotBlank($hostname, 1, 'hostname');
 
       $this->_hostname = $hostname;
       $this->_username = $username;

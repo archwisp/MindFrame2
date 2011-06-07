@@ -220,7 +220,7 @@ abstract class MindFrame2_Dbms_Record_Mapper_Abstract extends MindFrame2_Object
     */
    public function loadAll($limit)
    {
-      MindFrame2_Validate::argumentIsInt($limit, 1, 'limit');
+      MindFrame2_Core::assertArgumentIsInt($limit, 1, 'limit');
 
       $order_by_columns = $this->buildDefaultOrderByColumns();
       $records = $this->fetchRecords(array(), $order_by_columns, $limit);
@@ -251,7 +251,7 @@ abstract class MindFrame2_Dbms_Record_Mapper_Abstract extends MindFrame2_Object
     */
    public function loadByPrimaryKey($value)
    {
-      MindFrame2_Validate::argumentIsNotEmpty($value, 1, 'value');
+      MindFrame2_Core::assertArgumentIsNotBlank($value, 1, 'value');
 
       if (($offspring = $this->getOffspring($value)) !== FALSE)
       {
@@ -282,10 +282,10 @@ abstract class MindFrame2_Dbms_Record_Mapper_Abstract extends MindFrame2_Object
     */
    public function loadRecent($timestamp, $limit)
    {
-      MindFrame2_Validate::argumentIsIntOrNull($timestamp, 1, 'timestamp');
-      MindFrame2_Validate::argumentIsInt($limit, 2, 'limit');
+      MindFrame2_Core::assertArgumentIsInt($timestamp, 1, 'timestamp');
+      MindFrame2_Core::assertArgumentIsInt($limit, 2, 'limit');
 
-      if ($timestamp !== NULL)
+      if ($timestamp !== 0)
       {
          $prefix = $this->buildFieldPrefix();
          $search_data = array(

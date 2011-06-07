@@ -158,10 +158,10 @@ abstract class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_AbstractSelect
    private function _buildSelectDatabaseTableSql($database_name, $table_name,
       array $select_data, array $order_by_columns, $offset, $limit)
    {
-      MindFrame2_Validate::argumentIsNotEmpty($database_name, 1, 'database_name');
-      MindFrame2_Validate::argumentIsNotEmpty($table_name, 2, 'table_name');
-      MindFrame2_Validate::argumentIsInt($offset, 4, 'offset');
-      MindFrame2_Validate::argumentIsInt($limit, 4, 'limit');
+      MindFrame2_Core::assertArgumentIsNotBlank($database_name, 1, 'database_name');
+      MindFrame2_Core::assertArgumentIsNotBlank($table_name, 2, 'table_name');
+      MindFrame2_Core::assertArgumentIsInt($offset, 4, 'offset');
+      MindFrame2_Core::assertArgumentIsInt($limit, 4, 'limit');
 
       $skel = "SELECT\n  %s\nFROM\n  %s.%s\n%s%s%s%s;";
 

@@ -123,7 +123,7 @@ class MindFrame2_DateTime
     */
    public static function buildSyslogDateTime($timestamp)
    {
-      MindFrame2_Validate::argumentIsInt($timestamp, 1, 'timestamp');
+      MindFrame2_Core::assertArgumentIsInt($timestamp, 1, 'timestamp');
 
       return sprintf('%s %s %s',
          date('M', $timestamp),
@@ -144,7 +144,7 @@ class MindFrame2_DateTime
     */
    public static function getSignificantDateTime($timestamp)
    {
-      MindFrame2_Validate::argumentIsInt($timestamp, 1, 'timestamp');
+      MindFrame2_Core::assertArgumentIsInt($timestamp, 1, 'timestamp');
 
       if (date('Y-m-d', $timestamp) === date('Y-m-d'))
       {
@@ -158,5 +158,31 @@ class MindFrame2_DateTime
       {
          return date('Y-m-d H:i', $timestamp);
       }
+   }
+
+   /**
+    * Validates a UNIX timestamp
+    *
+    * @param int $timestamp Timestamp to validate
+    *
+    * @return bool
+    */
+   public static function isValidTimestamp($timestamp)
+   {
+      MindFrame2_Code::assetArgumentIsInt($timestamp, 1, 'timestamp');
+
+      $year = date('Y', $timestamp);
+      $month = date('m', $timestamp);
+      $day = date('d', $timestamp);
+
+      $valid = checkdate($month, $day, $year);
+
+      if ($valid === FALSE)
+      {
+         return FALSE;
+      }
+      // end if // (!$valid) //
+
+      return TRUE;
    }
 }

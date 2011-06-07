@@ -48,7 +48,7 @@ class MindFrame2_Hash
     */
    public static function generateSalt($bytes)
    {
-      MindFrame2_Validate::argumentIsInt($bytes, 1, 'bytes');
+      MindFrame2_Core::assertArgumentIsInt($bytes, 1, 'bytes');
 
       $salt = substr(mcrypt_create_iv($bytes, MCRYPT_DEV_URANDOM), 0, $bytes);
 

@@ -34,7 +34,7 @@ class MindFrame2_UserModel
 
    public function __construct($user_id, $username, $display_name, $email_address)
    {
-      MindFrame2_Validate::argumentIsNotEmpty($username, 2, 'displayname');
+      MindFrame2_Core::assertArgumentIsNotBlank($username, 2, 'displayname');
       
       $this->_username = $username;
       
@@ -75,7 +75,7 @@ class MindFrame2_UserModel
 
    public function setDisplayName($display_name)
    {
-      MindFrame2_Validate::argumentIsNotEmpty($display_name, 1, 'display_name');
+      MindFrame2_Core::assertArgumentIsNotBlank($display_name, 1, 'display_name');
 
       $this->_display_name = $display_name;
    }
@@ -97,7 +97,7 @@ class MindFrame2_UserModel
 
    public function setUserId($user_id)
    {
-      MindFrame2_Validate::argumentIsNotEmpty($user_id, 1, 'user_id');
+      MindFrame2_Core::assertArgumentIsNotBlank($user_id, 1, 'user_id');
       
       $this->_user_id = $user_id;
    }

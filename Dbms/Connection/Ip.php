@@ -61,9 +61,9 @@ class MindFrame2_Dbms_Connection_Ip
     */
    public function __construct($dbms, $host, $port, $username, $password)
    {
-      MindFrame2_Validate::argumentIsNotEmpty($dbms, 1, 'dbms');
-      MindFrame2_Validate::argumentIsNotEmpty($host, 2, 'host');
-      MindFrame2_Validate::argumentIsInt($port, 3, 'port');
+      MindFrame2_Core::assertArgumentIsNotBlank($dbms, 1, 'dbms');
+      MindFrame2_Core::assertArgumentIsNotBlank($host, 2, 'host');
+      MindFrame2_Core::assertArgumentIsInt($port, 3, 'port');
 
       $this->_dbms = $dbms;
       $this->_host = $host;

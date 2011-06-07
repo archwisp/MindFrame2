@@ -25,6 +25,123 @@
 class MindFrame2_Core
 {
    /**
+    * Validates a boolean argument and throws a structured exception on
+    * failure.
+    *
+    * @param int $value Value to be validated
+    * @param int $position Argument number
+    * @param strin $name Argument name
+    *
+    * @return void
+    *
+    * @throws InvalidArgumentException on failure
+    */
+   public static function assertArgumentIsBool($value, $position, $name)
+   {
+      if (!is_bool($value))
+      {
+         $skel = 'Expected boolean value for argument #%d (%s), %s given';
+         $message = sprintf($skel, $position, $name, gettype($value));
+
+         throw new InvalidArgumentException($message);
+      }
+   }
+   
+   /**
+    * Validates an integer argument and throws a structured exception on
+    * failure.
+    *
+    * @param int $value Value to be validated
+    * @param int $position Argument number
+    * @param strin $name Argument name
+    *
+    * @return void
+    *
+    * @throws InvalidArgumentException on failure
+    */
+   public static function assertArgumentIsInt($value, $position, $name)
+   {
+      if (!is_int($value))
+      {
+         $skel = 'Expected integer value for argument #%d (%s), %s given';
+         $message = sprintf($skel, $position, $name, gettype($value));
+
+         throw new InvalidArgumentException($message);
+      }
+   }
+   
+   /**
+    * Validates that an argument is not blank and throws a structured exception
+    * on failure. If the value is a string, it will be trimmed before 
+    * checking. 
+    *
+    * @param mixed $value Value to be validated
+    * @param int $position Argument number
+    * @param strin $name Argument name
+    *
+    * @return void
+    *
+    * @throws InvalidArgumentException on failure
+    */
+   public static function assertArgumentIsNotBlank($value, $position, $name)
+   {
+      if (trim($value) === '')
+      {
+         $skel = 'Argument #%d (%s) cannot be blank';
+         $message = sprintf($skel, $position, $name);
+
+         throw new InvalidArgumentException($message);
+      }
+   }
+   
+   /**
+    * Validates that an argument is not empty and throws a structured exception
+    * on failure. If the value is a string, it will be trimmed before 
+    * checking. 
+    *
+    * @param mixed $value Value to be validated
+    * @param int $position Argument number
+    * @param strin $name Argument name
+    *
+    * @return void
+    *
+    * @throws InvalidArgumentException on failure
+    */
+   public static function assertArgumentIsNotEmpty($value, $position, $name)
+   {
+      if (empty($value))
+      {
+         $skel = 'Argument #%d (%s) cannot be empty';
+         $message = sprintf($skel, $position, $name);
+
+         throw new InvalidArgumentException($message);
+      }
+   }
+   
+   /**
+    * Validates a string argument and throws a structured exception on
+    * failure.
+    *
+    * @param int $value Value to be validated
+    * @param int $position Argument number
+    * @param strin $name Argument name
+    *
+    * @return void
+    *
+    * @throws InvalidArgumentException on failure
+    */
+   public static function assertArgumentIsString($value, $position, $name)
+   {
+      if (!is_string($value))
+      {
+         $skel = 'Expected string value for argument #%d (%s), %s given';
+         $message = sprintf($skel, $position, $name, gettype($value));
+
+         throw new InvalidArgumentException($message);
+      }
+   }
+
+   /**
     * Returns the first argument value which is not empty
     *
     * @return mixed or FALSE

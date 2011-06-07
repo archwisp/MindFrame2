@@ -47,8 +47,8 @@ class MindFrame2_PermissionModel
     */
    public function __construct($permission_id, $label)
    {
-      MindFrame2_Validate::argumentIsNotEmpty($permission_id, 1, 'permission_id');
-      MindFrame2_Validate::argumentIsNotEmpty($label, 1, 'label');
+      MindFrame2_Core::assertArgumentIsNotBlank($permission_id, 1, 'permission_id');
+      MindFrame2_Core::assertArgumentIsNotBlank($label, 1, 'label');
 
       $this->_permission_id = $permission_id;
       $this->_label = $label;

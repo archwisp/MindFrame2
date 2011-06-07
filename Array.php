@@ -124,7 +124,7 @@ class MindFrame2_Array
     */
    public static function explodeElement($delimiter, array $input, $index)
    {
-      MindFrame2_Validate::argumentIsInt($index, 3, 'index');
+      MindFrame2_Core::assertArgumentIsInt($index, 3, 'index');
 
       if (!array_key_exists($index, $input))
       {
@@ -163,7 +163,7 @@ class MindFrame2_Array
     */
    public static function pregSanitizeElement($pattern, array $input, $index)
    {
-      MindFrame2_Validate::argumentIsInt($index, 3, 'index');
+      MindFrame2_Core::assertArgumentIsInt($index, 3, 'index');
 
       if (!array_key_exists($index, $input))
       {

@@ -43,8 +43,8 @@ class MindFrame2_Dbms_Connection_File
     */
    public function __construct($dbms, $file_name)
    {
-      MindFrame2_Validate::argumentIsNotEmpty($dbms, 1, 'dbms');
-      MindFrame2_Validate::argumentIsNotEmpty($file_name, 2, 'file_name');
+      MindFrame2_Core::assertArgumentIsNotBlank($dbms, 1, 'dbms');
+      MindFrame2_Core::assertArgumentIsNotBlank($file_name, 2, 'file_name');
 
       $this->_dbms = $dbms;
       $this->_file_name = $file_name;

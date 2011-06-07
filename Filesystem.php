@@ -24,6 +24,24 @@
  */
 class MindFrame2_Filesystem
 {
+   public static function assertFileExists($file_name)
+   {
+      if (!file_exists($file_name))
+      {
+         throw new RuntimeException(
+            sprintf('The specified file does not exist (%s)', $file_name));
+      }
+   }
+
+   public static function assertFileIsReadable($file_name)
+   {
+      if (!is_readable($file_name))
+      {
+         throw new RuntimeException(
+            sprintf('Could not read the specified file (%s)', $file_name));
+      }
+   }
+
    /**
     * Returns a directory listing filtered by the specified regular
     * expression

@@ -32,10 +32,10 @@ class MindFrame2_OrganizationModel
 
    public function __construct($organization_id, $label)
    {
-      MindFrame2_Validate::argumentIsNotEmpty(
+      MindFrame2_Core::assertArgumentIsNotBlank(
          $organization_id, 1, 'organization_id');
 
-      MindFrame2_Validate::argumentIsNotEmpty($label, 1, 'label');
+      MindFrame2_Core::assertArgumentIsNotBlank($label, 1, 'label');
 
       $this->_organization_id = $organization_id;
       $this->_label = $label;

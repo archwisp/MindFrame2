@@ -72,10 +72,10 @@ class MindFrame2_Dbms_Schema_Field
    public function __construct($name, $type, $length,
       $allow_null, $default_value, $is_auto_increment)
    {
-      MindFrame2_Validate::argumentIsNotEmpty($name, 1, $name);
-      MindFrame2_Validate::argumentIsNotEmpty($type, 2, $type);
-      MindFrame2_Validate::argumentIsBool($allow_null, 4, $allow_null);
-      MindFrame2_Validate::argumentIsBool(
+      MindFrame2_Core::assertArgumentIsNotBlank($name, 1, $name);
+      MindFrame2_Core::assertArgumentIsNotBlank($type, 2, $type);
+      MindFrame2_Core::assertArgumentIsBool($allow_null, 4, $allow_null);
+      MindFrame2_Core::assertArgumentIsBool(
          $is_auto_increment, 6, $is_auto_increment);
 
       $this->_name = $name;

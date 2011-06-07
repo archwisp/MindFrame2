@@ -49,8 +49,8 @@ class MindFrame2_Dbms_Connection_Rpc
     */
    public function __construct($dbms, $url, $username, $password)
    {
-      MindFrame2_Validate::argumentIsNotEmpty($dbms, 1, 'dbms');
-      MindFrame2_Validate::argumentIsNotEmpty($url, 2, 'url');
+      MindFrame2_Core::assertArgumentIsNotBlank($dbms, 1, 'dbms');
+      MindFrame2_Core::assertArgumentIsNotBlank($url, 2, 'url');
 
       $this->_dbms = $dbms;
       $this->_url = $url;

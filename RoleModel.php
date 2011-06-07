@@ -106,7 +106,7 @@ class MindFrame2_RoleModel
 
    public function setLabel($label)
    {
-      MindFrame2_Validate::argumentIsNotEmpty($label, 1, 'label');
+      MindFrame2_Core::assertArgumentIsNotBlank($label, 1, 'label');
 
       $this->_label = $label;
    }
@@ -124,7 +124,7 @@ class MindFrame2_RoleModel
 
    public function setRoleId($role_id)
    {
-      MindFrame2_Validate::argumentIsNotEmpty($role_id, 1, 'role_id');
+      MindFrame2_Core::assertArgumentIsNotBlank($role_id, 1, 'role_id');
 
       $this->_role_id =  $role_id;
    }
