@@ -35,7 +35,7 @@ class MindFrame2_Debug extends Exception
 
    public static function errorHandler($severity, $message, $filepath, $line)
    {
-      new MindFrame2_Debug($message);
+      new MindFrame2_Debug(sprintf('%s:%s %s', $filepath, $line, $message));
    }
 
    public static function exceptionHandler(Exception $exception)
