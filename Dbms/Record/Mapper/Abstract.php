@@ -509,7 +509,7 @@ abstract class MindFrame2_Dbms_Record_Mapper_Abstract extends MindFrame2_Object
     */
    protected function getDbi()
    {
-      return $this->_ddbi;
+      return $this->_dbi;
    }
 
    /**
