@@ -208,7 +208,11 @@ class MindFrame2_Application
     */
    protected function buildViewClassName()
    {
-      if ($this->isXmlRpcRequest())
+      if ($this->isXmlHttpRequest())
+      {
+         $class_name = 'MindFrame2_View_XmlHttp';
+      }
+      elseif ($this->isXmlRpcRequest())
       {
          $class_name = 'MindFrame2_View_XmlRpc';
       }
@@ -219,6 +223,17 @@ class MindFrame2_Application
       }
 
       return $class_name;
+   }
+   
+   public function isXmlHttpRequest()
+   {
+      if (array_key_exists('HTTP_X_REQUESTED_WITH', $_SERVER)
+         && (strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'))
+      {
+         return true;
+      }
+
+      return FALSE;
    }
 
    /**
