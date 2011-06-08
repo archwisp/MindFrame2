@@ -83,15 +83,14 @@ class MindFrame2_Controller
 
       if ($this->config_loader instanceof MindFrame2_ConfigLoader_Interface)
       {
-         $username = $this->_config_loader->load('xml-rpc', 'username');
-         $password = $this->_config_loader->load('xml-rpc', 'password');
+         $config = $this->_config_loader->load('xml-rpc', 'authentication');
+
+         $username = $config['username'];
+         $password = $config['password'];
       }
 
       return  new MindFrame2_XmlRpc_Server(
-         $this, $this->_xml_rpc_methods,
-         $this->_application_config->getXmlRpcUsername(),
-         $this->_application_config->getXmlRpcPassword()
-      );
+         $this, $this->_xml_rpc_methods, $username, $password);
    }
 
    /**

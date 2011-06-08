@@ -1,0 +1,4 @@
+<environment>
+    <database dbms="mysql" host="localhost"
+        port="3306" username="MindFrame2" password="" />
+</environment>
