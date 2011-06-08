@@ -70,7 +70,7 @@ class MindFrame2_Authentication_Sql implements MindFrame2_Authentication_Interfa
       $ciphertext = $this->_crypto_module->encrypt(
          $password, $this->_encryption_key, $iv);
 
-      if ($ciphertext !== $record[$this->_password_field])
+      if ($ciphertext !== base64_decode($record[$this->_password_field]))
       {
          return FALSE;
       }
@@ -93,20 +93,23 @@ class MindFrame2_Authentication_Sql implements MindFrame2_Authentication_Interfa
       $ciphertext = $this->_crypto_module->encrypt(
          $password, $this->_encryption_key, $iv);
 
+      $encoded_ciphertext = base64_encode($ciphertext);
       $encoded_iv = base64_encode($iv);
 
       $record = $this->_fetchPasswordRecord($username);
 
       if ($record === FALSE)
       {
-         if ($this->_insertPasswordRecord($username, $ciphertext, $encoded_iv))
+         if ($this->_insertPasswordRecord(
+            $username, $encoded_ciphertext, $encoded_iv))
          {
             return TRUE;
          }
       }
       else
       {
-         if ($this->_updatePasswordRecord($username, $ciphertext, $encoded_iv))
+         if ($this->_updatePasswordRecord(
+            $username, $encoded_ciphertext, $encoded_iv))
          {
             return TRUE;
          }
