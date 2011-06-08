@@ -253,6 +253,9 @@ abstract class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_AbstractQuery
             {
                $value = $this->runMacro($value);
             }
+            if(!is_numeric($value)){
+                $value=sprintf('\'%s\'',$value);
+            }
 
             $sql[] = sprintf('%s %s %s', $alias, $condition->Operation, $value);
          }
