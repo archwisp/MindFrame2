@@ -25,9 +25,9 @@
 class MindFrame2_Application
 {
    /**
-    * @var MindFrame2_Application_Config_Interface
+    * @var MindFrame2_ConfigLoader_Interface
     */
-   private $_config;
+   private $_config_loader;
 
    /**
     * @var MindFrame2_Controller
@@ -37,12 +37,17 @@ class MindFrame2_Application
    /**
     * @var string
     */
-   private $_controller_prefix = 'Controller';
+   private $_controller_prefix;
 
    /**
     * @var string
     */
-   private $_default_module_name = 'Default';
+   private $_default_module;
+
+   /**
+    * @var string
+    */
+   private $_module_parameter;
 
    /**
     * @var MindFrame2_View_Interface
@@ -52,7 +57,21 @@ class MindFrame2_Application
    /**
     * @var string
     */
-   private $_view_prefix = 'View';
+   private $_view_prefix;
+
+   public function __construct(
+      $controller_prefix, $view_prefix, $module_parameter, $default_module)
+   {
+      MindFrame2_Core::assertArgumentIsNotBlank($controller_prefix, 1, 'controller_prefix');
+      MindFrame2_Core::assertArgumentIsNotBlank($view_prefix, 1, 'view_prefix');
+      MindFrame2_Core::assertArgumentIsNotBlank($module_parameter, 1, 'module_parameter');
+      MindFrame2_Core::assertArgumentIsNotBlank($default_module, 1, 'default_module');
+
+      $this->_controller_prefix = $controller_prefix;
+      $this->_view_prefix = $view_prefix;
+      $this->_module_parameter = $module_parameter;
+      $this->_default_module = $default_module;
+   }
 
    /**
     * Executes the command pattern chain
@@ -69,8 +88,18 @@ class MindFrame2_Application
       $this->createController();
       $this->createView();
 
-      $this->getController()->run();
-      $this->getView()->run();
+      $this->_controller->run();
+      $this->_view->run();
+   }
+
+   /**
+    * Sets the config loader to be passed down the stack
+    *
+    * @param MindFrame2_ConfigLoader_Interface $config_loader Config Loader
+    */
+   public function setConfigLoader(MindFrame2_ConfigLoader_Interface $config_loader)
+   {
+      $this->_config_loader = $config_loader;
    }
 
    /**
@@ -86,14 +115,18 @@ class MindFrame2_Application
       $controller_class = $this->buildControllerClassName();
       $arguments = $this->fetchArguments();
 
-      $this->_controller =
-         new $controller_class($this->getConfig(), $arguments);
+      $this->_controller = new $controller_class($arguments);
+
+      if ($this->_config_loader instanceof MindFrame2_ConfigLoader_Interface)
+      {
+         $this->_controller->setConfigLoader($this->_config_loader);
+      }
 
       if (!$this->_controller instanceof MindFrame2_Controller)
       {
          throw new UnexpectedValueException(sprintf(
-            'Controller object "%s" must be an instance of MindFrame2_Controller',
-            $controller_class));
+            'Controller object "%s" must be an instance of ' .
+            'MindFrame2_Controller', $controller_class));
       }
    }
 
@@ -106,7 +139,7 @@ class MindFrame2_Application
    {
       if (!$this->isCliRequest())
       {
-         $arguments = $_REQUEST;
+         $arguments = array_merge($_GET, $_POST);
          $arguments = array_map(array($this, '_stripSlashes'), $arguments);
       }
       else
@@ -129,9 +162,10 @@ class MindFrame2_Application
    protected function fetchModuleName()
    {
       $arguments = $this->fetchArguments();
-
-      $module_name = isset($arguments['module'])
-         ? ucfirst($arguments['module']) : $this->getDefaultModuleName();
+      
+      $module_name = isset($arguments[$this->_module_parameter])
+         ? ucfirst($arguments[$this->_module_parameter])
+         : $this->_default_module;
 
       return $module_name;
    }
@@ -143,7 +177,7 @@ class MindFrame2_Application
     */
    protected function buildControllerClassName()
    {
-      return $this->getControllerPrefix() . '_' . $this->fetchModuleName();
+      return $this->_controller_prefix . '_' . $this->fetchModuleName();
    }
 
    /**
@@ -157,7 +191,7 @@ class MindFrame2_Application
    protected function createView()
    {
       $view_class = $this->buildViewClassName();
-      $this->_view = new $view_class($this->getController());
+      $this->_view = new $view_class($this->_controller);
 
       if (!$this->_view instanceof MindFrame2_View_Interface)
       {
@@ -181,7 +215,7 @@ class MindFrame2_Application
       else
       {
          $class_name =
-            $this->getViewPrefix() . '_' . $this->fetchModuleName();
+            $this->_view_prefix . '_' . $this->fetchModuleName();
       }
 
       return $class_name;
@@ -218,120 +252,6 @@ class MindFrame2_Application
       }
 
       return TRUE;
-   }
-
-   /**
-    * Returns the name of the default module
-    *
-    * @return string
-    */
-   public function getDefaultModuleName()
-   {
-      return $this->_default_module_name;
-   }
-
-   /**
-    * Returns the application configuration object
-    *
-    * @return MindFrame2_Application_Config_Interface
-    */
-   public function getConfig()
-   {
-      return $this->_config;
-   }
-
-   /**
-    * Returns the controller object
-    *
-    * @return MindFrame2_Controller
-    */
-   public function getController()
-   {
-      return $this->_controller;
-   }
-
-   /**
-    * Returns the prefix in which the controller classes exist. This will
-    * also be the controller class prefix.
-    *
-    * @return string
-    */
-   public function getControllerPrefix()
-   {
-      return $this->_controller_prefix;
-   }
-
-   /**
-    * Returns the view object
-    *
-    * @return MindFrame2_View
-    */
-   public function getView()
-   {
-      return $this->_view;
-   }
-
-   /**
-    * Returns the prefix in which the view classes exist. This will also be
-    * the view class prefix.
-    *
-    * @return string
-    */
-   public function getViewPrefix()
-   {
-      return $this->_view_prefix;
-   }
-
-   /**
-    * Sets the prefix for the controller classes. This will also determine the
-    * filesystem location of the class files as interpreted by the auto-loader.
-    *
-    * @param string $prefix Controller class prefix
-    *
-    * @return void
-    */
-   public function setControllerPrefix($prefix)
-   {
-      $this->_controller_prefix = $prefix;
-   }
-
-   /**
-    * Sets the name of the default module. The default module is loaded when no
-    * module is specified.
-    *
-    * @param string $module_name Name of the default module
-    *
-    * @return void
-    */
-   public function setDefaultModuleName($module_name)
-   {
-      $this->_default_module_name = $module_name;
-   }
-
-   /**
-    * Sets the prefix for the view classes. This will also determine the
-    * filesystem location of the class files as interpreted by the auto-loader.
-    *
-    * @param string $prefix View class prefix
-    *
-    * @return void
-    */
-   public function setViewPrefix($prefix)
-   {
-      $this->_view_prefix = $prefix;
-   }
-
-   /**
-    * Sets the config parameter which is passed to the controller upon
-    * creation. Can be used to create custom config objects.
-    *
-    * @param MindFrame2_Application_Config_Interface $config Config object
-    *
-    * @return void
-    */
-   public function setConfig(MindFrame2_Application_Config_Interface $config)
-   {
-      $this->_config = $config;
    }
 
    /**

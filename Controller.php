@@ -22,12 +22,12 @@
  * @license  http://www.gnu.org/licenses/lgpl-3.0.txt GNU LGPL
  * @link     https://github.com/archwisp/MindFrame2
  */
-abstract class MindFrame2_Controller
+class MindFrame2_Controller
 {
    /**
     * @var MindFrame2_Application_Config_Interface
     */
-   private $_application_config;
+   private $_config_loader;
 
    /**
     * @var array
@@ -45,7 +45,9 @@ abstract class MindFrame2_Controller
     *
     * @return void
     */
-   public abstract function run();
+   public function run()
+   {
+   }
 
    /**
     * Builds the underlying structure for the object. This function is called
@@ -60,15 +62,11 @@ abstract class MindFrame2_Controller
    /**
     * Sets the application config parameter
     *
-    * @param MindFrame2_Application_Config_Interface $application_config
-    * Application configuration
+    * @param MindFrame2_ConfigurationLoader $configuration_loader
     * @param array $application_arguments Arguments passed to the application
     */
-   public function __construct(
-      MindFrame2_Application_Config_Interface $application_config,
-      array $application_arguments)
+   public function __construct(array $application_arguments)
    {
-      $this->_application_config = $application_config;
       $this->_application_arguments = $application_arguments;
       $this->init();
    }
@@ -80,6 +78,15 @@ abstract class MindFrame2_Controller
     */
    public function createXmlRpcServer()
    {
+      $username = NULL;
+      $password = NULL;
+
+      if ($this->config_loader instanceof MindFrame2_ConfigLoader_Interface)
+      {
+         $username = $this->_config_loader->load('xml-rpc', 'username');
+         $password = $this->_config_loader->load('xml-rpc', 'password');
+      }
+
       return  new MindFrame2_XmlRpc_Server(
          $this, $this->_xml_rpc_methods,
          $this->_application_config->getXmlRpcUsername(),
@@ -92,9 +99,9 @@ abstract class MindFrame2_Controller
     *
     * @return mixed
     */
-   public function getApplicationConfig()
+   public function loadConfiguration($part)
    {
-      return $this->_application_config;
+      return $this->_configuration_loader->load($part);
    }
 
    /**
@@ -133,5 +140,15 @@ abstract class MindFrame2_Controller
    protected function registerXmlRpcMethod($method_name)
    {
       $this->_xml_rpc_methods[] = $method_name;
+   }
+   
+   /**
+    * Sets the config loader to be passed down the stack
+    *
+    * @param MindFrame2_ConfigLoader_Interface $config_loader Config Loader
+    */
+   public function setConfigLoader(MindFrame2_ConfigLoader_Interface $config_loader)
+   {
+      $this->_config_loader = $config_loader;
    }
 }

@@ -84,7 +84,7 @@ class MindFrame2_View_Xhtml extends MindFrame2_View_Abstract
     */
    protected function render()
    {
-      if (is_array($this->html))
+      if (is_array($this->_html))
       {
          $xhtml = NULL;
 
