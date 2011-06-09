@@ -134,7 +134,7 @@ class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_Mysql_Schema
          {
             $alter_table_sql .= sprintf(
                "%s  DROP PRIMARY KEY,\n  ADD %s",
-               $delimiter, trim($change));
+               $delimiter, trim(rtrim($change, ',')));
          }
          else
          {
@@ -148,8 +148,16 @@ class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_Mysql_Schema
             }
             // end else // if (in_array($field_name, $adds)) //
 
-            $alter_table_sql .= sprintf('%s  %s COLUMN %s',
-               $delimiter, $operation, trim(substr($change, 0, -1)));
+            if (strpos($change, 'KEY') !== FALSE)
+            {
+               $alter_table_sql .= sprintf('%s  %s %s',
+                  $delimiter, $operation, trim(rtrim($change, ',')));
+            }
+            else
+            {
+               $alter_table_sql .= sprintf('%s  %s COLUMN %s',
+                  $delimiter, $operation, trim(rtrim($change, ',')));
+            }
          }
          // end else // if $field_name === 'PRIMARY KEY') //
 
