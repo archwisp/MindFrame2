@@ -23,7 +23,7 @@
  * @link     https://github.com/archwisp/MindFrame2
  */
 class MindFrame2_Dbms_Schema_Adapter_ToModel
-extends MindFrame2_Dbms_Schema_Adapter_Abstract
+   extends MindFrame2_Dbms_Schema_Adapter_Abstract
 {
    /**
     * Builds a model for the specified database table
@@ -44,15 +44,19 @@ extends MindFrame2_Dbms_Schema_Adapter_Abstract
 
       $set_methods = $this->
          _buildTableModelSetMethods($table_name, $tab_spaces);
+      
+      $interface_methods = $this->
+         _buildTableModelInterfaceMethods($table_name, $tab_spaces);
 
       return sprintf(
          "class %s%s implements MindFrame2_Dbms_Record_Interface " .
-            "\n{\n%s\n\n%s\n\n%s\n}\n",
+            "\n{\n%s\n\n%s\n\n%s\n\n%s\n}\n",
          $class_prefix,
          $this->adjustClassName($table_name),
          join("\n", $properties),
          join("\n\n", $get_methods),
-         join("\n\n", $set_methods));
+         join("\n\n", $set_methods),
+         join("\n\n", $interface_methods));
    }
 
    private function _buildTableModelProperties($table_name, $tab_spaces)
@@ -77,11 +81,11 @@ extends MindFrame2_Dbms_Schema_Adapter_Abstract
    {
       $fields = $this->getDatabase()->getTableFields($table_name);
 
-      $properties = array();
+      $methods = array();
 
       foreach ($fields as $field)
       {
-         $properties[] = sprintf("%spublic function get%s()\n%s{\n%s%s\n%s}",
+         $methods[] = sprintf("%spublic function get%s()\n%s{\n%s%s\n%s}",
             str_repeat(' ', $tab_spaces),
             $this->adjustMethodName($field->getName()),
             str_repeat(' ', $tab_spaces),
@@ -93,19 +97,19 @@ extends MindFrame2_Dbms_Schema_Adapter_Abstract
       }
       // end foreach // ($fields as $field) //
 
-      sort($properties);
-      return $properties;
+      sort($methods);
+      return $methods;
    }
 
    private function _buildTableModelSetMethods($table_name, $tab_spaces)
    {
       $fields = $this->getDatabase()->getTableFields($table_name);
 
-      $properties = array();
+      $methods = array();
 
       foreach ($fields as $field)
       {
-         $properties[] = sprintf("%spublic function set%s($%s)\n%s{\n%s%s\n%s}",
+         $methods[] = sprintf("%spublic function set%s($%s)\n%s{\n%s%s\n%s}",
             str_repeat(' ', $tab_spaces),
             $this->adjustMethodName($field->getName()),
             $this->adjustParameterName($field->getName()),
@@ -119,7 +123,51 @@ extends MindFrame2_Dbms_Schema_Adapter_Abstract
       }
       // end foreach // ($fields as $field) //
 
-      return $properties;
+      return $methods;
+   }
+   
+   private function _buildTableModelInterfaceMethods($table_name, $tab_spaces)
+   {
+      $methods = array();
+      
+      $pk = $this->getDatabase()->getTablePrimaryKey($table_name);
+
+      if (!$pk instanceof MindFrame2_Dbms_Schema_Index)
+      {
+         return $methods;
+      }
+
+      $fields = $pk->getFields();
+
+      if (count($fields) !== 1)
+      {
+         throw new UnexpectedValueException('Complex primary keys have not be implemented in this builder.');
+         // return array();
+      }
+
+      $field = reset($fields);
+      
+      $methods[] = sprintf("%spublic function getPrimaryKey()\n%s{\n%s%s\n%s}",
+         str_repeat(' ', $tab_spaces),
+         str_repeat(' ', $tab_spaces),
+         str_repeat(' ', $tab_spaces * 2),
+         sprintf('return $this->get%s();',
+            $this->adjustMethodName($field->getName())),
+         str_repeat(' ', $tab_spaces),
+         str_repeat(' ', $tab_spaces));
+
+      $methods[] = sprintf("%spublic function setPrimaryKey($%s)\n%s{\n%s%s\n%s}",
+         str_repeat(' ', $tab_spaces),
+         $this->adjustParameterName($field->getName()),
+         str_repeat(' ', $tab_spaces),
+         str_repeat(' ', $tab_spaces * 2),
+         sprintf('return $this->set%s($%s);',
+         $this->adjustMethodName($field->getName()),
+         $this->adjustParameterName($field->getName())),
+         str_repeat(' ', $tab_spaces),
+         str_repeat(' ', $tab_spaces));
+
+      return $methods;
    }
 
    protected function adjustClassName($table_name)
