@@ -26,6 +26,7 @@ class MindFrame2_OrganizationModel
    implements MindFrame2_Dbms_Record_Interface,
       MindFrame2_Authorization_OrganizationInterface
 {
+   private $_child_organizations = array();
    private $_label;
    private $_organization_id;
    private $_parent_organization;
@@ -39,6 +40,25 @@ class MindFrame2_OrganizationModel
 
       $this->_organization_id = $organization_id;
       $this->_label = $label;
+   }
+
+   public function addChildOrganization(
+      MindFrame2_Authorization_OrganizationInterface $organization)
+   {
+      $this->_child_organizations[] = $organization;
+   }
+
+   public function getChildOrganizationById($organization_id)
+   {
+      foreach ($this->_child_organizations as $child)
+      {
+         if ($child->getOrganizationId() === $organization_id)
+         {
+            return $child;
+         }
+      }
+
+      return FALSE;
    }
 
    public function getOrganizationId()
@@ -62,9 +82,11 @@ class MindFrame2_OrganizationModel
    }
 
    public function setParentOrganization(
-      MindFrame2_Authorization_OrganizationInterface $parent_organization)
+      MindFrame2_Authorization_OrganizationInterface $organization)
    {
-      $this->_parent_organization = $parent_organization;
+      $this->_parent_organization = $organization;
+
+      $organization->addChildOrganization($this);
    }
 
    public function setPrimaryKey($value)

@@ -74,8 +74,8 @@ class MindFrame2_Authorization
 
          foreach ($roles as $role)
          {
-            if ($role->getOrganization()->
-               getOrganizationId() == $organization_id)
+            if ($this->_isRoleAssignedToOrganization(
+               $role, $organization_id) === TRUE)
             {
                if ($this->_doesRoleContainPermission(
                   $role, $permission_id) === TRUE)
@@ -89,6 +89,24 @@ class MindFrame2_Authorization
          // end foreach // ($roles as $role) //
       }
       // end if // ($user instanceof MindFrame2_Authorization_UserInterface) //
+
+      return FALSE;
+   }
+
+   private function _isRoleAssignedToOrganization(
+      MindFrame2_Authorization_RoleInterface $role, $organization_id)
+   {
+      if ($role->getOrganization()->
+         getOrganizationId() == $organization_id)
+      {
+         return TRUE;
+      }
+
+      if ($role->getOrganization()->
+         getChildOrganizationById($organization_id) !== FALSE)
+      {
+         return TRUE;
+      }
 
       return FALSE;
    }

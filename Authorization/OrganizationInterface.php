@@ -25,6 +25,17 @@
 interface MindFrame2_Authorization_OrganizationInterface
 {
    /**
+    * Sets the parent organization
+    *
+    * @param MindFrame2_Authorization_OrganizationInterface $parent_organization
+    * Parent Organization
+    *
+    * @return void
+    */
+   public function addChildOrganization(
+      MindFrame2_Authorization_OrganizationInterface $organization);
+
+   /**
     * Returns the identifier associated with the organization
     *
     * @reutn mixed
@@ -47,5 +58,5 @@ interface MindFrame2_Authorization_OrganizationInterface
     * @return void
     */
    public function setParentOrganization(
-      MindFrame2_Authorization_OrganizationInterface $parent_organization);
+      MindFrame2_Authorization_OrganizationInterface $organization);
 }

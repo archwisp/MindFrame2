@@ -28,27 +28,69 @@ class MindFrame2_AuthorizationTest extends PHPUnit_Framework_TestCase
 
    public function setUp()
    {
-      $acme = new MindFrame2_OrganizationModel(77, 'Acme');
-
-      $acme_tools = new MindFrame2_OrganizationModel(754, 'Acme Tools');
-      $acme_tools->setParentOrganization($acme);
-
-      $admin = new MindFrame2_RoleModel(rand(), 'Acme Tools - Admin', $acme_tools);
-
-      $admin->addPermission(new MindFrame2_PermissionModel(3, 'Add User'));
-      $admin->addPermission(new MindFrame2_PermissionModel(6, 'Edit Users'));
-      $admin->addPermission(new MindFrame2_PermissionModel(22, 'Reset Passwords'));
-
-      $read_only = new MindFrame2_RoleModel(rand(), 'Acme - Read-only', $acme);
-
-      $user = new MindFrame2_UserModel(2112, 'test', 'Foo Bar', NULL);
-      $user->addRole($admin);
-
       $this->_instance = new MindFrame2_Authorization();
+      
+      $this->_instance->setUser(
+         new MindFrame2_UserModel(1, 'test', 'Foo Bar', 'bryan@localhost')
+      );
    }
 
-   public function testSomething()
+   public function testDirectPermission()
    {
-      $this->assertEquals(TRUE, TRUE);
+      $acme = new MindFrame2_OrganizationModel(1, 'Acme');
+      $read_only = new MindFrame2_RoleModel(rand(), 'Acme - Read-only', $acme);
+      $read_only->addPermission(new MindFrame2_PermissionModel(1, 'List Users'));
+
+      $this->_instance->getUser()->addRole($read_only);
+
+      $this->assertEquals(TRUE,
+         $this->_instance->isUserAssignedPermission(1, 1));
+      
+      $this->assertEquals(FALSE,
+         $this->_instance->isUserAssignedPermission(1, 2));
+      
+      $this->assertEquals(FALSE,
+         $this->_instance->isUserAssignedPermission(2, 1));
+      
+      $this->assertEquals(FALSE,
+         $this->_instance->isUserAssignedPermission(2, 2));
+   }
+   
+   public function testInheritedPermission()
+   {
+      $acme = new MindFrame2_OrganizationModel(1, 'Acme');
+      $read_only = new MindFrame2_RoleModel(rand(), 'Acme - Read-only', $acme);
+      $read_only->addPermission(new MindFrame2_PermissionModel(1, 'List Users'));
+
+      $this->_instance->getUser()->addRole($read_only);
+
+      $acme_tools = new MindFrame2_OrganizationModel(2, 'Acme Tools');
+      $acme_tools->setParentOrganization($acme);
+      
+      $admin = new MindFrame2_RoleModel(rand(), 'Acme Tools - Admin', $acme_tools);
+      $admin->addPermission(new MindFrame2_PermissionModel(2, 'Edit Users'));
+      
+      $this->_instance->getUser()->addRole($admin);
+
+      $this->assertEquals(TRUE,
+         $this->_instance->isUserAssignedPermission(1, 1));
+      
+      $this->assertEquals(FALSE,
+         $this->_instance->isUserAssignedPermission(1, 2));
+      
+      $this->assertEquals(FALSE,
+         $this->_instance->isUserAssignedPermission(1, 3));
+      
+      $this->assertEquals(TRUE,
+         $this->_instance->isUserAssignedPermission(2, 1));
+      
+      $this->assertEquals(TRUE,
+         $this->_instance->isUserAssignedPermission(2, 2));
+      
+      $this->assertEquals(FALSE,
+         $this->_instance->isUserAssignedPermission(2, 3));
+      
+      $this->assertEquals(FALSE,
+         $this->_instance->isUserAssignedPermission(3, 1));
    }
 }

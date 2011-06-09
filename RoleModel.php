@@ -41,7 +41,7 @@ class MindFrame2_RoleModel
 
    public function addPermission(MindFrame2_Authorization_PermissionInterface $permission)
    {
-      $this->_functions[$permission->getPermissionId()] = $permission;
+      $this->_permissions[$permission->getPermissionId()] = $permission;
    }
 
    public function getRoleId()
