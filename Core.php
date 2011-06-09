@@ -71,6 +71,29 @@ class MindFrame2_Core
    }
    
    /**
+    * Validates an integer argument and throws a structured exception on
+    * failure.
+    *
+    * @param int $value Value to be validated
+    * @param int $position Argument number
+    * @param strin $name Argument name
+    *
+    * @return void
+    *
+    * @throws InvalidArgumentException on failure
+    */
+   public static function assertArgumentIsIntOrNull($value, $position, $name)
+   {
+      if (!is_int($value) && !is_null($value))
+      {
+         $skel = 'Expected integer value for argument #%d (%s), %s given';
+         $message = sprintf($skel, $position, $name, gettype($value));
+
+         throw new InvalidArgumentException($message);
+      }
+   }
+   
+   /**
     * Validates that an argument is not blank and throws a structured exception
     * on failure. If the value is a string, it will be trimmed before 
     * checking. 
