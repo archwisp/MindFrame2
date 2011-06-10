@@ -48,7 +48,7 @@ class MindFrame2_Dbms_Schema_Adapter_ToModel
       $interface_methods = $this->
          _buildTableModelInterfaceMethods($table_name, $tab_spaces);
 
-      return sprintf(
+      $class = sprintf(
          "class %s%s implements MindFrame2_Dbms_Record_Interface " .
             "\n{\n%s\n\n%s\n\n%s\n\n%s\n}\n",
          $class_prefix,
@@ -57,6 +57,16 @@ class MindFrame2_Dbms_Schema_Adapter_ToModel
          join("\n\n", $get_methods),
          join("\n\n", $set_methods),
          join("\n\n", $interface_methods));
+
+      $file_name = MindFrame2_AutoLoad::convertClassToPath(
+         $class_prefix . $this->adjustClassName($table_name));
+
+      $file_header = sprintf("<?php // vim:ts=%s:sts=%s:sw=%s:et:\n\n",
+         $tab_spaces, $tab_spaces, $tab_spaces);
+
+      file_put_contents($file_name, $file_header . $class);
+
+      return $class;
    }
 
    private function _buildTableModelProperties($table_name, $tab_spaces)

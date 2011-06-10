@@ -22,10 +22,11 @@ $tab_spaces = $argv[4];
 
 ini_set('display_errors', 1);
 set_include_path(getcwd() . PATH_SEPARATOR . get_include_path());
-chdir(dirname($argv[0]));
-set_include_path('../..' . PATH_SEPARATOR . get_include_path());
+set_include_path(dirname($argv[0]) . '/../' . PATH_SEPARATOR . get_include_path());
 
-require_once '../AutoLoad.php';
+echo get_include_path() . "\n";
+
+require_once 'AutoLoad.php';
 
 MindFrame2_AutoLoad::install();
 
@@ -38,6 +39,4 @@ foreach ($model->getTables() as $table)
 {
    echo $adapter->buildTableMapper($table->getName(),
       $mapper_prefix, $model_prefix, (int)$tab_spaces) . "\n";
-   
-   exit;
 }

@@ -21,10 +21,9 @@ $tab_spaces = $argv[3];
 
 ini_set('display_errors', 1);
 set_include_path(getcwd() . PATH_SEPARATOR . get_include_path());
-chdir(dirname($argv[0]));
-set_include_path('../..' . PATH_SEPARATOR . get_include_path());
+set_include_path(dirname($argv[0]) . '/../' . PATH_SEPARATOR . get_include_path());
 
-require_once '../AutoLoad.php';
+require_once 'AutoLoad.php';
 
 MindFrame2_AutoLoad::install();
 

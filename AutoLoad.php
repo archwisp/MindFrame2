@@ -38,7 +38,7 @@ class MindFrame2_AutoLoad
          return TRUE;
       }
 
-      $file_name = self::parseNameToPath($class_name);
+      $file_name = self::convertClassToPath($class_name);
 
       $include_paths = explode(PATH_SEPARATOR, get_include_path());
 
@@ -70,7 +70,7 @@ class MindFrame2_AutoLoad
     *
     * @return string
     */
-   protected static function parseNameToPath($class_name)
+   public static function convertClassToPath($class_name)
    {
       $path = str_replace('_', '/', $class_name) . '.php';
       return($path);
