@@ -6,16 +6,19 @@
  * it's a good idea at this point.
  */
 
-if ($argc !== 2)
+if ($argc !== 5)
 {
-   echo "Reads the specified XML file and builds the models "
+   echo "Reads the specified XML file and builds the mappers "
       . "for each table\n\n";
 
-   printf("Usage: %s <xml-file>\n", $argv[0]);
+   printf("Usage: %s <xml-file> <mapper-prefix> <model-prefix> <tab-spaces>\n", $argv[0]);
    exit;
 }
 
 $file_name = realpath($argv[1]);
+$mapper_prefix = $argv[2];
+$model_prefix = $argv[3];
+$tab_spaces = $argv[4];
 
 ini_set('display_errors', 1);
 set_include_path(getcwd() . PATH_SEPARATOR . get_include_path());
@@ -33,7 +36,8 @@ $adapter = new MindFrame2_Dbms_Schema_Adapter_ToMapper($model, ':', array());
 
 foreach ($model->getTables() as $table)
 {
-   echo $adapter->buildTableMapper(
-      $table->getName(), 'Fnot_Mapper_', 'Fnot_Model_', 3) . "\n";
+   echo $adapter->buildTableMapper($table->getName(),
+      $mapper_prefix, $model_prefix, (int)$tab_spaces) . "\n";
+   
    exit;
 }
