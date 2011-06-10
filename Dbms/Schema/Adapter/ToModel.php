@@ -191,15 +191,14 @@ class MindFrame2_Dbms_Schema_Adapter_ToModel
    protected function adjustMethodName($field_name)
    {
       $filtered = str_replace('_', NULL, $field_name);
+      $filtered = str_replace('fld', NULL, $filtered);
 
       return strtolower($filtered);
    }
 
    protected function adjustParameterName($field_name)
    {
-      $filtered = str_replace('fld', NULL, $field_name);
-
-      return strtolower($filtered);
+      return strtolower($field_name);
    }
 
    protected function adjustPropertyName($field_name)

@@ -43,14 +43,14 @@ class MindFrame2_Dbms_Schema_Adapter_ToMapper
       $load_method = $this->_buildTableMapperLoadMethod(
          $table_name, $model_prefix, $tab_spaces);
       
-      // $write_method = $this->
-         // _buildTableMapperWriteMethod($table_name, $tab_spaces);
+      $write_method = $this->_buildTableMapperWriteMethod(
+         $table_name, $tab_spaces);
 
       $class = sprintf(
          "class %s%s extends MindFrame2_Dbms_Record_Mapper_Abstract " .
-            "\n{\n%s\n\n%s\n}\n",
-         $class_prefix,
-         $this->adjustClassName($table_name), $init_method, $load_method);
+            "\n{\n%s\n\n%s\n\n%s\n}\n",
+            $class_prefix, $this->adjustClassName($table_name), 
+            $init_method, $load_method, $write_method);
 
       $file_name = MindFrame2_AutoLoad::convertClassToPath(
          $class_prefix . $this->adjustClassName($table_name));
@@ -81,7 +81,8 @@ class MindFrame2_Dbms_Schema_Adapter_ToMapper
       return $method;
    }
    
-   private function _buildTableMapperLoadMethod($table_name, $model_prefix, $tab_spaces)
+   private function _buildTableMapperLoadMethod($table_name,
+      $model_prefix, $tab_spaces)
    {
       $tab = str_repeat(' ', $tab_spaces);
       $content = array();
@@ -136,6 +137,33 @@ class MindFrame2_Dbms_Schema_Adapter_ToMapper
 
       return $method;
    }
+   
+   private function _buildTableMapperWriteMethod($table_name, $tab_spaces)
+   {
+      $tab = str_repeat(' ', $tab_spaces);
+      
+      $fields = $this->getDatabase()->getTableFields($table_name);
+      $elements = array();
+
+      foreach ($fields as $field)
+      {
+         $elements[] = sprintf("%s\$prefix . '%s' => \$model->get%s()", 
+            str_repeat($tab, 3), $field->getName(),
+            $this->adjustMethodName($field->getName()));
+      }
+      
+      $prefix = sprintf(
+         "%s\$prefix = \$this->buildFieldPrefix();", str_repeat($tab, 2));
+
+      $array = sprintf("%sreturn array(\n%s);", 
+         str_repeat($tab, 2), join(",\n", $elements));
+
+      $method = sprintf(
+         "%sprotected function buildWriteData(\$model)\n%s{\n%s\n\n%s\n%s}",
+          $tab, $tab, $prefix, $array, $tab);
+
+      return $method;
+   }
 
    protected function adjustClassName($table_name)
    {
@@ -148,15 +176,14 @@ class MindFrame2_Dbms_Schema_Adapter_ToMapper
    protected function adjustMethodName($field_name)
    {
       $filtered = str_replace('_', NULL, $field_name);
+      $filtered = str_replace('fld', NULL, $filtered);
 
       return strtolower($filtered);
    }
 
    protected function adjustParameterName($field_name)
    {
-      $filtered = str_replace('fld', NULL, $field_name);
-
-      return strtolower($filtered);
+      return strtolower($field_name);
    }
 
    protected function adjustPropertyName($field_name)
