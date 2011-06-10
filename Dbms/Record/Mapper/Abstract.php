@@ -144,7 +144,12 @@ abstract class MindFrame2_Dbms_Record_Mapper_Abstract extends MindFrame2_Object
 
       if ($simple_pk !== FALSE)
       {
-         if (is_null($model->getPrimaryKey()))
+         $pk_fields = $this->_adapter->getDatabase()->
+            getTablePrimaryKey($this->getTableName())->getFields();
+
+         $pk_field = reset($pk_fields);
+
+         if (!$pk_field->getIsAutoIncrement() && is_null($model->getPrimaryKey()))
          {
             // Note: $new_id variable is used later
 
