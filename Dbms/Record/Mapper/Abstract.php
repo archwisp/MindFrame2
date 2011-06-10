@@ -173,7 +173,7 @@ abstract class MindFrame2_Dbms_Record_Mapper_Abstract extends MindFrame2_Object
       }
       else
       {
-         return $result;
+         return $this->_dbi->lastInsertId();
       }
       // end else //
    }
