@@ -64,7 +64,10 @@ class MindFrame2_Dbms_Schema_Adapter_ToModel
       $file_header = sprintf("<?php // vim:ts=%s:sts=%s:sw=%s:et:\n\n",
          $tab_spaces, $tab_spaces, $tab_spaces);
 
-      file_put_contents($file_name, $file_header . $class);
+      if (!file_exists($file_name))
+      {
+         file_put_contents($file_name, $file_header . $class);
+      }
 
       return $class;
    }
