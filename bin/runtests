@@ -5,7 +5,7 @@ echo Changing to working directory: $WD;
 cd $WD;
 
 if [ -z $1 ]; then
-	TARGET="MindFrame2";
+	TARGET=" --coverage-html MindFrame2/coverage MindFrame2";
 else
 	TARGET="MindFrame2/$1";
 fi
