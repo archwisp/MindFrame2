@@ -26,7 +26,7 @@ class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_Mysql_Schema
    extends MindFrame2_Dbms_Schema_Adapter_ToSql_Package_AbstractSchema
    implements MindFrame2_Dbms_Schema_Adapter_ToSql_Package_SchemaInterface
 {
-   protected $auto_increment_keyword = 'auto_increment';
+   protected $auto_increment_keyword = 'AUTO_INCREMENT';
 
    protected $field_type_map = array(
       'bigint' => 'bigint',
@@ -106,6 +106,16 @@ class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_Mysql_Schema
 
       array_pop($changes);
 
+      // Drop foreign keys until support for them is added
+  
+      foreach ($drops as $index => $drop)
+      {
+         if ($drop === 'FOREIGN KEY')
+         {
+            unset($drops[$index]);
+         }
+      }
+
       if (count($changes) === 0 && count($drops) === 0)
       {
          return FALSE;
@@ -118,16 +128,16 @@ class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_Mysql_Schema
 
       $delimiter = NULL;
 
-      foreach ($drops as $index => $drop)
+      foreach ($drops as $drop)
       {
-         if ($drop === 'FOREIGN KEY')
-         {
-            unset($drops[$index]);
-            continue;
-         }
+         $matches = preg_grep('/' . $drop . '/', $old_elements);
+         $match = reset($matches);
 
-         $alter_table_sql .= sprintf('%s  DROP COLUMN %s',
-            $delimiter, $this->getSharedModule()->escapeDbElementName($drop));
+         $element = (strpos($match, 'KEY') !== FALSE) ? 'KEY' : 'COLUMN';
+
+         $alter_table_sql .= sprintf('%s  DROP %s %s',
+            $delimiter, $element, 
+            $this->getSharedModule()->escapeDbElementName($drop));
          
          $delimiter = ",\n";
       }

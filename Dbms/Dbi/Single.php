@@ -59,6 +59,26 @@ class MindFrame2_Dbms_Dbi_Single implements MindFrame2_Dbms_Dbi_Interface
    {
       $this->_connection_model = $connection_model;
    }
+   
+   /**
+    * Initiates a transaction 
+    *
+    * @return bool
+    */
+   public function beginTransaction()
+   {
+      return $this->_connectOnce()->beginTransaction();
+   }
+
+   /**
+    * Commits a transaction
+    *
+    * @return bool
+    */
+   public function commit()
+   {
+      return $this->_connectOnce()->commit();
+   }
 
    /**
     * Retrieves the error code associated with the last operation

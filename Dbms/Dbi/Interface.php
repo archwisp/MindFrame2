@@ -25,6 +25,20 @@
 interface MindFrame2_Dbms_Dbi_Interface
 {
    /**
+    * Initiates a transaction 
+    *
+    * @return bool
+    */
+   public function beginTransaction();
+
+   /**
+    * Commits a transaction
+    *
+    * @return bool
+    */
+   public function commit();
+
+   /**
     * Retrieves the error code associated with the last operation
     *
     * @return int or FALSE

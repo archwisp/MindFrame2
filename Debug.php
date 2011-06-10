@@ -83,7 +83,7 @@ class MindFrame2_Debug extends Exception
       }
       elseif (isset($_SERVER['HTTP_USER_AGENT']))
       {
-         echo '<pre class="Debug" style="clear: both;">' . htmlentities($output) . '</pre>';
+         echo '<pre class="Debug" style="background-color: #fff; clear: both; color: #000;">' . htmlentities($output) . '</pre>';
       }
       else
       {
