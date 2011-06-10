@@ -96,10 +96,13 @@ class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_Mysql_Schema
 
       $drops = array_diff($old_field_names, $new_field_names);
       $adds = array_diff($new_field_names, $old_field_names);
+      
+      $new_elements = explode("\n", $new_create_table_sql);
+      $old_elements = explode("\n", $create_table_sql);
 
       $changes = array_diff(
-         explode("\n", $new_create_table_sql),
-         explode("\n", $create_table_sql));
+         array_map('rtrim', $new_elements, array_fill(0, count($new_elements),  ',')),
+         array_map('rtrim', $old_elements, array_fill(0, count($old_elements), ',')));
 
       array_pop($changes);
 
@@ -115,10 +118,18 @@ class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_Mysql_Schema
 
       $delimiter = NULL;
 
-      foreach ($drops as $drop)
+      foreach ($drops as $index => $drop)
       {
+         if ($drop === 'FOREIGN KEY')
+         {
+            unset($drops[$index]);
+            continue;
+         }
+
          $alter_table_sql .= sprintf('%s  DROP COLUMN %s',
             $delimiter, $this->getSharedModule()->escapeDbElementName($drop));
+         
+         $delimiter = ",\n";
       }
 
       if (count($drops) !== 0)
@@ -150,8 +161,16 @@ class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_Mysql_Schema
 
             if (strpos($change, 'KEY') !== FALSE)
             {
-               $alter_table_sql .= sprintf('%s  %s %s',
-                  $delimiter, $operation, trim(rtrim($change, ',')));
+               if ($operation === 'ADD')
+               {
+                  $alter_table_sql .= sprintf('%s  %s %s',
+                     $delimiter, $operation, trim(rtrim($change, ',')));
+               }
+               else
+               {
+                  $alter_table_sql .= sprintf("%s  DROP KEY %s,\n  ADD %s",
+                     $delimiter, $field_name, trim(rtrim($change, ',')));
+               }
             }
             else
             {
@@ -294,6 +313,10 @@ class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_Mysql_Schema
       if (strpos($definition, 'PRIMARY KEY') !== FALSE)
       {
          $name = 'PRIMARY KEY';
+      }
+      elseif (strpos($definition, 'FOREIGN KEY') !== FALSE)
+      {
+         $name = 'FOREIGN KEY';
       }
       else
       {
