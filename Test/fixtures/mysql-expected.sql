@@ -15,7 +15,7 @@ CREATE DATABASE `Test_Database`;
 USE `Test_Database`;
 
 CREATE TABLE `User` (
-  `User_Id` int(11) NOT NULL auto_increment,
+  `User_Id` int(11) NOT NULL AUTO_INCREMENT,
   `Username` varchar(16) NOT NULL,
   `Display_Name` varchar(16) DEFAULT NULL,
   `Email_Address` varchar(128) NOT NULL,
