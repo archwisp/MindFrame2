@@ -70,7 +70,7 @@ abstract class MindFrame2_Dbms_Schema_Builder_FromXml_Abstract
     */
    public function loadFromFile($file_name)
    {
-      $xml = @simplexml_load_file($file_name);
+      $xml = simplexml_load_file($file_name);
 
       if (!$xml instanceof SimpleXMLElement)
       {

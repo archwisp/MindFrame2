@@ -10,6 +10,6 @@ else
 	DIR=$1;
 fi
 
-phpmd --exclude Sniffs $DIR text codesize,unusedcode,naming,design
-phpcs --standard=`pwd`/Standards/MindFrame2 $DIR
-phpcs --report=source --standard=`pwd`/Standards/MindFrame2 $DIR
+phpmd --exclude coverage $DIR text codesize,unusedcode,naming,design
+phpcs --ignore=coverage --standard=`pwd`/Standards/MindFrame2 $DIR
+phpcs --ignore=coverage --report=source --standard=`pwd`/Standards/MindFrame2 $DIR

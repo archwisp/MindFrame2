@@ -66,8 +66,8 @@ abstract class MindFrame2_Dbms_Record_Mapper_Abstract extends MindFrame2_Object
     * Construct
     *
     * @param MindFrame2_Dbms_Dbi_Interface $dbi Database interface
-    * @param MindFrame2_Dbms_Schema_Adapter_ToSql_Interface $adapter Database model
-    * adapter
+    * @param MindFrame2_Dbms_Schema_Adapter_ToSql_Interface $adapter Database
+    * model adapter
     * @param MindFrame2_Dbms_Record_MapperPool $pool Instance mapper
     */
    public function __construct(MindFrame2_Dbms_Dbi_Interface $dbi,
@@ -149,7 +149,8 @@ abstract class MindFrame2_Dbms_Record_Mapper_Abstract extends MindFrame2_Object
 
          $pk_field = reset($pk_fields);
 
-         if (!$pk_field->getIsAutoIncrement() && is_null($model->getPrimaryKey()))
+         if (!$pk_field->getIsAutoIncrement()
+            && is_null($model->getPrimaryKey()))
          {
             // Note: $new_id variable is used later
 
@@ -173,7 +174,10 @@ abstract class MindFrame2_Dbms_Record_Mapper_Abstract extends MindFrame2_Object
       }
       else
       {
-         return $this->_dbi->lastInsertId();
+         $inserted_id = $this->_dbi->lastInsertId();
+         $model->setPrimaryKey($inserted_id);
+
+         return $inserted_id;
       }
       // end else //
    }
@@ -219,16 +223,20 @@ abstract class MindFrame2_Dbms_Record_Mapper_Abstract extends MindFrame2_Object
     * Loads the specified number of records from the table. If no records are
     * retreived, FALSE is returned.
     *
+    * @param int $offset Offset for the limit clause
     * @param int $limit Number of records to retreive
     *
     * @return array or FALSE
     */
-   public function loadAll($limit)
+   public function loadAll($offset, $limit)
    {
-      MindFrame2_Core::assertArgumentIsInt($limit, 1, 'limit');
+      MindFrame2_Core::assertArgumentIsInt($offset, 1, 'offset');
+      MindFrame2_Core::assertArgumentIsInt($limit, 2, 'limit');
 
       $order_by_columns = $this->buildDefaultOrderByColumns();
-      $records = $this->fetchRecords(array(), $order_by_columns, $limit);
+      
+      $records = $this->fetchRecords(array(), 
+         $order_by_columns, $offset, $limit);
 
       if ($records !== FALSE)
       {
@@ -281,14 +289,16 @@ abstract class MindFrame2_Dbms_Record_Mapper_Abstract extends MindFrame2_Object
     * Creates an array of models by loading the record from the database
     *
     * @param int $timestamp Timestamp
+    * @param int $offset Offset for the limit clause
     * @param int $limit How many records to retreive
     *
     * @return array or FALSE
     */
-   public function loadRecent($timestamp, $limit)
+   public function loadRecent($timestamp, $offset, $limit)
    {
       MindFrame2_Core::assertArgumentIsInt($timestamp, 1, 'timestamp');
-      MindFrame2_Core::assertArgumentIsInt($limit, 2, 'limit');
+      MindFrame2_Core::assertArgumentIsInt($offset, 2, 'offset');
+      MindFrame2_Core::assertArgumentIsInt($limit, 3, 'limit');
 
       if ($timestamp !== 0)
       {
@@ -303,7 +313,9 @@ abstract class MindFrame2_Dbms_Record_Mapper_Abstract extends MindFrame2_Object
       }
 
       $order_by_columns = $this->buildRecentOrderByColumns();
-      $records = $this->fetchRecords($search_data, $order_by_columns, $limit);
+
+      $records = $this->fetchRecords(
+         $search_data, $order_by_columns, $offset, $limit);
 
       if ($records !== FALSE)
       {
@@ -424,7 +436,7 @@ abstract class MindFrame2_Dbms_Record_Mapper_Abstract extends MindFrame2_Object
 
       return $this->_dbi->exec($sql);
    }
-    
+
    /**
     * Excutes the specified query and returns the results.
     *
@@ -451,6 +463,7 @@ abstract class MindFrame2_Dbms_Record_Mapper_Abstract extends MindFrame2_Object
     *
     * @param array $search_data Data to search with
     * @param array $order_by_columns How the results should be ordered
+    * @param int $offset Offset for the limit clause
     * @param int $limit How many records to retreive
     *
     * @return array or FALSE
@@ -458,8 +471,9 @@ abstract class MindFrame2_Dbms_Record_Mapper_Abstract extends MindFrame2_Object
    protected function fetchRecords(
       array $search_data, $order_by_columns, $offset, $limit)
    {
-      $sql = $this->_adapter->buildSelectTableSql(
-         $this->getTableName(), $search_data, $order_by_columns, $offset, $limit);
+      $sql = $this->_adapter->buildSelectTableSql($this->getTableName(),
+         $search_data, $order_by_columns, $offset, $limit);
+
       $query = $this->_dbi->query($sql, NULL);
       $data = $query->fetchAll(MindFrame2_Dbms_Result::FETCH_ASSOC);
 
@@ -473,8 +487,10 @@ abstract class MindFrame2_Dbms_Record_Mapper_Abstract extends MindFrame2_Object
 
    protected function countRecords(
       array $search_data)
-   {        
-      $sql = $this->_adapter->buildCountRowsTableSql($this->getTableName(),$search_data,$this->getPrimaryKeyFieldNames());
+   {
+      $sql = $this->_adapter->buildCountRowsTableSql($this->getTableName(),
+         $search_data, $this->getPrimaryKeyFieldNames());
+
       $query = $this->_dbi->query($sql, NULL);
       $data = $query->fetchAll(MindFrame2_Dbms_Result::FETCH_ASSOC);
 
@@ -485,7 +501,7 @@ abstract class MindFrame2_Dbms_Record_Mapper_Abstract extends MindFrame2_Object
 
       return $data[0]['count'];
    }
-      
+
    /**
     * Generates a string composed of a unix timestamp followed by a decimal
     * point and 6 digits representing microseconds.
@@ -631,9 +647,9 @@ abstract class MindFrame2_Dbms_Record_Mapper_Abstract extends MindFrame2_Object
       return $this->_dbi->exec($sql);
    }
 
-   protected function setDefualtOrderByColumns(array $default_order_by_columns)
+   protected function setDefualtOrderByColumns(array $default_order)
    {
-      $this->_default_order_by_columns = $default_order_by_columns;
+      $this->_default_order_by_columns = $default_order;
    }
 
    protected function setModelClass($model_class)
@@ -657,7 +673,8 @@ abstract class MindFrame2_Dbms_Record_Mapper_Abstract extends MindFrame2_Object
     * @throws InvalidArgumentException if the class of the model does not match
     * the model class of the factory
     */
-   protected function validateModelClass(MindFrame2_Dbms_Record_Interface $model)
+   protected function validateModelClass(
+      MindFrame2_Dbms_Record_Interface $model)
    {
       $expected_model_class = $this->_model_class;
 
