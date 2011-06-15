@@ -96,6 +96,6 @@ class MindFrame2_PermissionModel
     */
    public function setPrimaryKey($value)
    {
-      throw RuntimeException('Atempting to change a read-only property');
+      throw new RuntimeException('Atempting to change a read-only property');
    }
 }

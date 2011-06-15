@@ -33,9 +33,6 @@ class MindFrame2_OrganizationModel
 
    public function __construct($organization_id, $label)
    {
-      MindFrame2_Core::assertArgumentIsNotBlank(
-         $organization_id, 1, 'organization_id');
-
       MindFrame2_Core::assertArgumentIsNotBlank($label, 1, 'label');
 
       $this->_organization_id = $organization_id;
@@ -81,6 +78,13 @@ class MindFrame2_OrganizationModel
       return $this->getOrganizationId();
    }
 
+   public function setLabel($label)
+   {
+      MindFrame2_Core::assertArgumentIsNotBlank($label, 1, 'label');
+
+      $this->_label = $label;
+   }
+
    public function setParentOrganization(
       MindFrame2_Authorization_OrganizationInterface $organization)
    {
@@ -91,6 +95,6 @@ class MindFrame2_OrganizationModel
 
    public function setPrimaryKey($value)
    {
-      throw RuntimeException('Atempting to change a read-only property');
+      $this->_organization_id = $value;
    }
 }

@@ -124,8 +124,6 @@ class MindFrame2_RoleModel
 
    public function setRoleId($role_id)
    {
-      MindFrame2_Core::assertArgumentIsNotBlank($role_id, 1, 'role_id');
-
       $this->_role_id =  $role_id;
    }
 }

@@ -56,8 +56,8 @@ class MindFrame2_Authorization
    }
 
    /**
-    * Fetches whether or not a user is assigned the specified permission
-    * in the specified organization.
+    * Determines whether or not a user is assigned the specified permission
+    * for the specified organization.
     *
     * @param string $organization_id Organization id to check for
     * @param string $permission_id Permission id to check for

@@ -141,16 +141,11 @@ abstract class MindFrame2_Dbms_Record_Mapper_Abstract extends MindFrame2_Object
       // them at the model construct or over-ride this method.
 
       $simple_pk = $this->getSimplePrimaryKeyFieldName();
+      $is_auto_increment = $this->_hasAutoIncrementPrimaryKey();
 
-      if ($simple_pk !== FALSE)
+      if ($simple_pk !== FALSE && $is_auto_increment === FALSE)
       {
-         $pk_fields = $this->_adapter->getDatabase()->
-            getTablePrimaryKey($this->getTableName())->getFields();
-
-         $pk_field = reset($pk_fields);
-
-         if (!$pk_field->getIsAutoIncrement()
-            && is_null($model->getPrimaryKey()))
+         if (is_null($model->getPrimaryKey()))
          {
             // Note: $new_id variable is used later
 
@@ -163,21 +158,20 @@ abstract class MindFrame2_Dbms_Record_Mapper_Abstract extends MindFrame2_Object
 
       $data = $this->buildWriteData($model);
       $result = $this->insertRecord($data);
-
+      
       if ($result === FALSE)
       {
          return FALSE;
       }
-      elseif (isset($new_id))
+      else 
       {
-         return $new_id;
-      }
-      else
-      {
-         $inserted_id = $this->_dbi->lastInsertId();
-         $model->setPrimaryKey($inserted_id);
+         if ($is_auto_increment)
+         {
+            $inserted_id = $this->_dbi->lastInsertId();
+            $model->setPrimaryKey($inserted_id);
+         }
 
-         return $inserted_id;
+         return $model->getPrimaryKey();
       }
       // end else //
    }
@@ -738,5 +732,25 @@ abstract class MindFrame2_Dbms_Record_Mapper_Abstract extends MindFrame2_Object
       // end else // elseif (is_array($value)) //
 
       return $search_data;
+   }
+
+   private function _hasAutoIncrementPrimaryKey()
+   {
+      $primary_key = $this->_adapter->getDatabase()->
+         getTablePrimaryKey($this->getTableName());
+
+      if (!$primary_key instanceof MindFrame2_Dbms_Schema_Index)
+      {
+         return FALSE;
+      }
+      
+      $pk_fields = $primary_key->getFields();
+
+      if (count($pk_fields) !== 1)
+      {
+         return FALSE;
+      }
+
+      return reset($pk_fields)->getIsAutoIncrement();
    }
 }
