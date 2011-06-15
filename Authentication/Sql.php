@@ -66,6 +66,11 @@ class MindFrame2_Authentication_Sql implements MindFrame2_Authentication_Interfa
       }
 
       $iv = base64_decode($record[$this->_iv_field]);
+      
+      if (strlen($iv) !== $this->_crypto_module->getBlockSize())
+      {
+         throw new UnexpectedValueException('Invalid IV encountered');
+      }
 
       $ciphertext = $this->_crypto_module->encrypt(
          $password, $this->_encryption_key, $iv);
