@@ -40,7 +40,7 @@ class MindFrame2_Debug extends Exception
       new MindFrame2_Debug($output);
       error_log($output);
 
-      if ($severity >= E_ERROR)
+      if ($severity <= E_ERROR)
       {
          die();
       }
