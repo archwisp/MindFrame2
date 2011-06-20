@@ -168,7 +168,7 @@ abstract class MindFrame2_Dbms_Record_Mapper_Abstract extends MindFrame2_Object
          if ($is_auto_increment)
          {
             $inserted_id = $this->_dbi->lastInsertId();
-            $model->setPrimaryKey($inserted_id);
+            $model->setPrimaryKey((int)$inserted_id);
          }
 
          return $model->getPrimaryKey();
