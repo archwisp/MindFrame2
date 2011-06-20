@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
+<?xml version="1.0" encoding="UTF-8" ?>
 <!ELEMENT database (table*)>
 <!ELEMENT table (field+, primary_key?, index*, foreign_key*)>
 <!ELEMENT field EMPTY>

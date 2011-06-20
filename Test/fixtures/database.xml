@@ -1,4 +1,6 @@
-<database name="Test_Database">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE database SYSTEM "../../Dbms/Schema/Database.dtd">
+<database name="Test_Database" >
 	<table name="User">
       <field name="User_Id" type="int" length="11" is_auto_increment="true" />
       <field name="Username" type="varchar" length="16" />
