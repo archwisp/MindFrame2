@@ -36,13 +36,20 @@ class MindFrame2_Debug extends Exception
    public static function errorHandler($severity, $message, $filepath, $line)
    {
       $output = sprintf('%s:%s %s', $filepath, $line, $message);
-         
-      new MindFrame2_Debug($output);
-      error_log($output);
-
-      if ($severity <= E_ERROR)
+      
+      if (ini_get('display_errors') === '1')
       {
-         die();
+         new MindFrame2_Debug($output);
+      }
+
+      if (ini_get('log_errors') === '1')
+      {
+         error_log($output);
+      }
+
+      if ($severity === E_ERROR)
+      {
+         die($output);
       }
    }
 
@@ -91,8 +98,7 @@ class MindFrame2_Debug extends Exception
       }
       elseif (isset($_SERVER['HTTP_USER_AGENT']))
       {
-         echo '<pre class="Debug" style="background-color: #fff; clear: both; ' .
-            'color: #000; overflow: scroll;">' . htmlentities($output) . '</pre>';
+         printf("<pre class=\"Debug\">\n%s</pre>\n", htmlentities($output));
       }
       else
       {
