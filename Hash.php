@@ -36,7 +36,7 @@ class MindFrame2_Hash
     */
    public static function generateToken($key, $salt, $bytes)
    {
-      return base64_encode(mhash_keygen_s2k(MHASH_SHA256, $key, $salt, $bytes));
+      return mhash_keygen_s2k(MHASH_SHA256, $key, $salt, $bytes);
    }
 
    /**
