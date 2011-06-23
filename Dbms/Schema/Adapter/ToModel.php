@@ -35,6 +35,14 @@ class MindFrame2_Dbms_Schema_Adapter_ToModel
    public function buildTableModel($table_name, $class_prefix, $tab_spaces)
    {
       MindFrame2_Core::assertArgumentIsInt($tab_spaces, 3, 'tab_spaces');
+      
+      $file_name = MindFrame2_AutoLoad::convertClassToPath(
+         $class_prefix . $this->adjustClassName($table_name));
+
+      if (file_exists($file_name))
+      {
+         return FALSE;
+      }
 
       $properties = $this->
          _buildTableModelProperties($table_name, $tab_spaces);
@@ -58,17 +66,11 @@ class MindFrame2_Dbms_Schema_Adapter_ToModel
          join("\n\n", $set_methods),
          join("\n\n", $interface_methods));
 
-      $file_name = MindFrame2_AutoLoad::convertClassToPath(
-         $class_prefix . $this->adjustClassName($table_name));
-
       $file_header = sprintf("<?php // vim:ts=%s:sts=%s:sw=%s:et:\n\n",
          $tab_spaces, $tab_spaces, $tab_spaces);
 
-      if (!file_exists($file_name))
-      {
-         file_put_contents($file_name, $file_header . $class);
-      }
-
+      file_put_contents($file_name, $file_header . $class);
+      
       return $class;
    }
 
@@ -154,29 +156,56 @@ class MindFrame2_Dbms_Schema_Adapter_ToModel
 
       if (count($fields) !== 1)
       {
-         throw new UnexpectedValueException('Complex primary keys have not be implemented in this builder.');
+         // throw new UnexpectedValueException('Complex primary keys have not be implemented in this builder.');
          // return array();
+
+         $field_names = $pk->getFieldNames();
+         $elements = array();
+
+         foreach ($field_names as $field_name)
+         {
+            $elements[] = sprintf('$this->%s->get%s()',
+               str_replace('_id', NULL, $this->adjustPropertyName($field_name)),
+               $this->adjustMethodName($field_name));
+
+         }
+         
+         $get_return_statement = sprintf(
+            'return array(%s);', join(", ", $elements));
+
+         $set_parameter_name = 'void';
+
+         $set_return_statement = 'throw new RuntimeException(\'Trying to set a read-only property\');';
+      }
+      else
+      {
+         $field = reset($fields);
+      
+         $get_return_statement = sprintf('return $this->get%s();',
+            $this->adjustMethodName($field->getName()));
+         
+         $set_parameter_name = $this->adjustParameterName($field->getName());
+            
+         $set_return_statement = sprintf('return $this->set%s($%s);',
+            $this->adjustMethodName($field->getName()),
+            $this->adjustParameterName($field->getName()));
+
       }
 
-      $field = reset($fields);
-      
       $methods[] = sprintf("%spublic function getPrimaryKey()\n%s{\n%s%s\n%s}",
          str_repeat(' ', $tab_spaces),
          str_repeat(' ', $tab_spaces),
          str_repeat(' ', $tab_spaces * 2),
-         sprintf('return $this->get%s();',
-            $this->adjustMethodName($field->getName())),
+         $get_return_statement,
          str_repeat(' ', $tab_spaces),
          str_repeat(' ', $tab_spaces));
 
       $methods[] = sprintf("%spublic function setPrimaryKey($%s)\n%s{\n%s%s\n%s}",
          str_repeat(' ', $tab_spaces),
-         $this->adjustParameterName($field->getName()),
+         $set_parameter_name,
          str_repeat(' ', $tab_spaces),
          str_repeat(' ', $tab_spaces * 2),
-         sprintf('return $this->set%s($%s);',
-         $this->adjustMethodName($field->getName()),
-         $this->adjustParameterName($field->getName())),
+         $set_return_statement,
          str_repeat(' ', $tab_spaces),
          str_repeat(' ', $tab_spaces));
 
@@ -193,6 +222,7 @@ class MindFrame2_Dbms_Schema_Adapter_ToModel
 
    protected function adjustMethodName($field_name)
    {
+      $filtered = $field_name;
       $filtered = str_replace('_', NULL, $field_name);
       $filtered = str_replace('fld', NULL, $filtered);
 

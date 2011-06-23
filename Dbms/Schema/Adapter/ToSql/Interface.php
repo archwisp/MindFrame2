@@ -160,8 +160,7 @@ interface MindFrame2_Dbms_Schema_Adapter_ToSql_Interface
    public function buildSelectTableSql(
       $table_name, array $select_data, array $order_by_columns, $offset, $limit);   
    
-   public function buildCountRowsTableSql(
-      $table_name, array $select_data, array $primaryKey);
+   public function buildCountRowsTableSql($table_name, array $select_data);
 
    /**
     * Builds the statement for extracting the CREATE statement for the existing

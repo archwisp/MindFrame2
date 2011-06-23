@@ -60,6 +60,11 @@ class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_Sqlite_Shared
       return '`'. $name . '`';
    }
 
+   public function escapeInput($value)
+   {
+      return sqlite_escape_string($value);
+   }
+
    /**
     * Input sanitization
     *

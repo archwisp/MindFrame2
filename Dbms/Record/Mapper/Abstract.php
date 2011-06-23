@@ -112,6 +112,11 @@ abstract class MindFrame2_Dbms_Record_Mapper_Abstract extends MindFrame2_Object
     */
    protected abstract function buildWriteData($model);
 
+   public function countAll()
+   {
+      return $this->countRecords(array());
+   }
+
    /**
     * Creates a time-based identifier if the record has a simple primary key
     * defined and that key is null, the model is passed through the abstract
@@ -482,18 +487,13 @@ abstract class MindFrame2_Dbms_Record_Mapper_Abstract extends MindFrame2_Object
    protected function countRecords(
       array $search_data)
    {
-      $sql = $this->_adapter->buildCountRowsTableSql($this->getTableName(),
-         $search_data, $this->getPrimaryKeyFieldNames());
+      $sql = $this->_adapter->buildCountRowsTableSql(
+         $this->getTableName(), $search_data);
 
       $query = $this->_dbi->query($sql, NULL);
-      $data = $query->fetchAll(MindFrame2_Dbms_Result::FETCH_ASSOC);
+      $data = $query->fetch(MindFrame2_Dbms_Result::FETCH_COLUMN);
 
-      if (empty($data))
-      {
-         return FALSE;
-      }
-
-      return $data[0]['count'];
+      return (is_numeric($data)) ? (int)$data : FALSE;
    }
 
    /**
@@ -641,7 +641,7 @@ abstract class MindFrame2_Dbms_Record_Mapper_Abstract extends MindFrame2_Object
       return $this->_dbi->exec($sql);
    }
 
-   protected function setDefualtOrderByColumns(array $default_order)
+   protected function setDefaultOrderByColumns(array $default_order)
    {
       $this->_default_order_by_columns = $default_order;
    }

@@ -34,6 +34,11 @@ $adapter = new MindFrame2_Dbms_Schema_Adapter_ToModel($model, ':', array());
 
 foreach ($model->getTables() as $table)
 {
-   echo $adapter->buildTableModel($table->getName(),
-      $model_prefix, (int)$tab_spaces) . "\n";
+   $class = $adapter->buildTableModel($table->getName(),
+      $model_prefix, (int)$tab_spaces);
+
+   if ($class !== FALSE)
+   {
+      echo "$class\n";
+   }
 }

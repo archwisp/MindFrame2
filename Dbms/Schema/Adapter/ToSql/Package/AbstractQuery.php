@@ -199,14 +199,23 @@ abstract class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_AbstractQuery
       {
          if ($parameter instanceof MindFrame2_Dbms_Query_Select)
          {
-            $table = $this->getSharedModule()->
-               escapeDbElementName($parameter->Table);
+            if ($parameter->Field === MindFrame2_Dbms_Query_Select::FIELD_ALL)
+            {
+               $qualified_field = $parameter->Field;
+            }
+            else
+            {
+               $table = $this->getSharedModule()->
+                  escapeDbElementName($parameter->Table);
 
-            $field = $this->getSharedModule()->
-               escapeDbElementName($parameter->Field);
+               $field = $this->getSharedModule()->
+                  escapeDbElementName($parameter->Field);
+               
+               $qualified_field = $table . '.' . $field;
+            }
 
             $qualified_field = $this->wrapWithFunction(
-               $table . '.' . $field, $parameter->Function);
+               $qualified_field, $parameter->Function);
 
             $alias = is_null($parameter->Alias) ? NULL :
                ' AS ' . $this->getSharedModule()->
@@ -253,11 +262,12 @@ abstract class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_AbstractQuery
             {
                $value = $this->runMacro($value);
             }
-            if(!is_numeric($value)){
-                $value=sprintf('\'%s\'',$value);
+            else
+            {
+               $value = $this->getSharedModule()->sanitizeSelectValue($value);
             }
 
-            $sql[] = sprintf('%s %s %s', $alias, $condition->Operation, $value);
+            $sql[] = sprintf('%s %s', $alias, $value);
          }
       }
 

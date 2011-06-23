@@ -24,6 +24,8 @@
  */
 class MindFrame2_Dbms_Query_Select
 {
+   const FIELD_ALL = '*';
+
    public $Alias;
    public $Field;
    public $Function;

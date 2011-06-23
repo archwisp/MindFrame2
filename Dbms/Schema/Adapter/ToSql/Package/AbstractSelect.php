@@ -35,17 +35,7 @@ abstract class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_AbstractSelect
     *
     * @return string or FALSE
     */
-   protected abstract function buildSelectTableSqlConvertFieldTypeSql(
-      $value, $type);
-
-   /**
-    * Select statement input sanitization
-    *
-    * @param string $value The value to be sanitized
-    *
-    * @return string
-    */
-   protected abstract function sanitizeSelectValue($value);
+   protected abstract function buildSelectTableSqlConvertFieldTypeSql($value, $type);
 
    /**
     * Converts an SQL SELECT statement into a statement that will pull from the
@@ -331,7 +321,7 @@ abstract class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_AbstractSelect
             $sql[] = sprintf('%s.%s %s',
                $this->getSharedModule()->escapeDbElementName($table_name),
                $this->getSharedModule()->escapeDbElementName($field->getName()),
-               $this->sanitizeSelectValue($field_value));
+               $this->getSharedModule()->sanitizeSelectValue($field_value));
          }
          // end if // (array_key_exists($field_name, $select_data)) //
       }
@@ -355,7 +345,7 @@ abstract class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_AbstractSelect
             $sql[] = sprintf('%s.%s %s',
                $this->getSharedModule()->escapeDbElementName($fk_name),
                $this->getSharedModule()->escapeDbElementName($field_name),
-               $this->sanitizeSelectValue($field_value));
+               $this->getSharedModule()->sanitizeSelectValue($field_value));
          }
          // end if // (array_key_exists($field_name, $select_data)) //
       }

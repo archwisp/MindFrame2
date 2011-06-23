@@ -24,4 +24,33 @@
  */
 interface MindFrame2_Dbms_Schema_Adapter_ToSql_Package_SharedInterface
 {
+   /**
+    * Escapes database object names for avoideance of reserved word naming
+    * collisions
+    *
+    * @param string $name Element name to be escaped
+    *
+    * @return string
+    */
+   public function escapeDbElementName($name);
+
+   public function escapeInput($value);
+   
+   /**
+    * Select statement input sanitization
+    *
+    * @param string $value The value to be sanitized
+    *
+    * @return string
+    */
+   public function sanitizeSelectValue($value);
+   
+   /**
+    * Input sanitization
+    *
+    * @param string $value The value to be sanitized
+    *
+    * @return string
+    */
+   public function sanitizeValue($value);
 }

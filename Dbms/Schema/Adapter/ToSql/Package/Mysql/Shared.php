@@ -60,6 +60,11 @@ class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_Mysql_Shared
       return '`'. $name . '`';
    }
 
+   public function escapeInput($value)
+   {
+      return mysql_escape_string($value);
+   }
+
    /**
     * Input sanitization
     *
@@ -77,7 +82,7 @@ class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_Mysql_Shared
       }
       elseif (!is_int($sanitized))
       {
-         $sanitized = "'" . mysql_escape_string($sanitized) . "'";
+         $sanitized = "'" . $this->escapeInput($sanitized) . "'";
       }
 
       return $sanitized;
