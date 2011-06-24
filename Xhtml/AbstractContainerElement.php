@@ -179,7 +179,8 @@ abstract class MindFrame2_Xhtml_AbstractContainerElement
             {
                return $element;
             }
-            elseif (($child = $element->getElementById($element_id)) !== FALSE)
+            elseif (($element instanceof MindFrame2_Xhtml_AbstractContainerElement)
+               && (($child = $element->getElementById($element_id)) !== FALSE))
             {
                return $child;
             }
