@@ -274,14 +274,13 @@ abstract class MindFrame2_Dbms_Record_Mapper_Abstract extends MindFrame2_Object
 
       $records = $this->fetchRecords($search_data, array(), 0, 0);
 
-      if ($records !== FALSE)
+      if ($records === FALSE)
       {
-         $record = reset($records);
-         return $this->load($record);
+         return FALSE;
       }
       // end if // ($records !== FALSE) //
 
-      return FALSE;
+      return $this->load(reset($records));
    }
 
    /**
