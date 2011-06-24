@@ -130,6 +130,13 @@ class MindFrame2_Controller
 
       return FALSE;
    }
+   
+   protected function getBaseUrl()
+   {
+      return sprintf('http%s://%s',
+         isset($_SERVER['HTTPS']) ? 's' : NULL,
+         $_SERVER['HTTP_HOST']);
+   }
 
    /**
     * Registers a public method for use via the XML-RPC server.
