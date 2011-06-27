@@ -1,7 +1,7 @@
 <?php // vim:ts=3:sts=3:sw=3:et:
 
 /**
- * Handles all authorization routines for the framework
+ * Hierarchical authorization module
  *
  * PHP Version 5
  *
@@ -14,11 +14,7 @@
  */
 
 /**
- * Handles all authorization routines for the framework. This class operates in
- * a similar manner as a file system. An ACL is created for each object as
- * necessary and permission entries are added to the ACL. This class also
- * supports cascading permission for parent/child objects. Permissions granted
- * to a parent object will apply to all of its children.
+ * Hierarchical authorization module
  *
  * @category PHP
  * @package  MindFrame2
@@ -59,14 +55,20 @@ class MindFrame2_Authorization
     * Determines whether or not a user is assigned the specified permission
     * for the specified organization.
     *
-    * @param string $organization_id Organization id to check for
+    * @param string $organization Organization to check against
     * @param string $permission_id Permission id to check for
     *
     * @return bool
     */
-   public function isUserAssignedPermission($organization_id, $permission_id)
+   public function checkForPermission(
+      MindFrame2_Authorization_OrganizationInterface $organization,
+      $permission_id)
    {
       $user = $this->getUser();
+
+      $ancestry = array_merge(
+         array($organization), $this->_getAncestry($organization)
+      );
 
       if ($user instanceof MindFrame2_Authorization_UserInterface)
       {
@@ -74,17 +76,21 @@ class MindFrame2_Authorization
 
          foreach ($roles as $role)
          {
-            if ($this->_isRoleAssignedToOrganization(
-               $role, $organization_id) === TRUE)
+            $permission = $role->getPermissionById($permission_id);
+
+            if ($permission !== FALSE)
             {
-               if ($this->_doesRoleContainPermission(
-                  $role, $permission_id) === TRUE)
+               foreach ($ancestry as $organization)
                {
-                  return TRUE;
+                  if ($role->getOrganization() === $organization)
+                  {
+                     return TRUE;
+                  }
+                  // end if // ($role->getOrganization() === $organization) //
                }
-               // end if // ($this->_doesRoleContainPermission($role, ... //
+               // end foreach // ($ancestry as $organization) //
             }
-            // end if // ($role->getOrganization()->getOrganizationId() ... //
+            // end if // ($permission !== FALSE) //
          }
          // end foreach // ($roles as $role) //
       }
@@ -93,34 +99,21 @@ class MindFrame2_Authorization
       return FALSE;
    }
 
-   private function _isRoleAssignedToOrganization(
-      MindFrame2_Authorization_RoleInterface $role, $organization_id)
+   private function _getAncestry(
+      MindFrame2_Authorization_OrganizationInterface $organization)
    {
-      if ($role->getOrganization()->
-         getOrganizationId() == $organization_id)
+      $ancestry = array();
+      $parent = $organization->getParentOrganization();
+
+      if (!$parent instanceof MindFrame2_Authorization_OrganizationInterface)
       {
-         return TRUE;
+         return $ancestry;
       }
 
-      if ($role->getOrganization()->
-         getChildOrganizationById($organization_id) !== FALSE)
-      {
-         return TRUE;
-      }
+      $ancestry[] = $parent;
 
-      return FALSE;
-   }
+      $ancestry = array_merge($ancestry, $this->_getAncestry($parent));
 
-   private function _doesRoleContainPermission(
-      MindFrame2_Authorization_RoleInterface $role, $permission_id)
-   {
-      $permission = $role->getPermissionById($permission_id);
-
-      if ($permission instanceof MindFrame2_Authorization_PermissionInterface)
-      {
-         return TRUE;
-      }
-
-      return FALSE;
+      return $ancestry;
    }
 }

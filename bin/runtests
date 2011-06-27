@@ -10,4 +10,4 @@ else
 	TARGET="MindFrame2/$1";
 fi
 
-phpunit --bootstrap MindFrame2/Test/Bootstrap.php $TARGET;
+phpunit --stop-on-failure --verbose --bootstrap MindFrame2/Test/Bootstrap.php $TARGET;

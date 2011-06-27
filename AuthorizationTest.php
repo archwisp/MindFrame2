@@ -44,16 +44,10 @@ class MindFrame2_AuthorizationTest extends PHPUnit_Framework_TestCase
       $this->_instance->getUser()->addRole($read_only);
 
       $this->assertEquals(TRUE,
-         $this->_instance->isUserAssignedPermission(1, 1));
+         $this->_instance->checkForPermission($acme, 1));
       
       $this->assertEquals(FALSE,
-         $this->_instance->isUserAssignedPermission(1, 2));
-      
-      $this->assertEquals(FALSE,
-         $this->_instance->isUserAssignedPermission(2, 1));
-      
-      $this->assertEquals(FALSE,
-         $this->_instance->isUserAssignedPermission(2, 2));
+         $this->_instance->checkForPermission($acme, 2));
    }
    
    public function testInheritedPermission()
@@ -72,25 +66,35 @@ class MindFrame2_AuthorizationTest extends PHPUnit_Framework_TestCase
       
       $this->_instance->getUser()->addRole($admin);
 
+      $acme_tools_sales = new MindFrame2_OrganizationModel(3, 'Acme Tools - Sales');
+      $acme_tools_sales->setParentOrganization($acme_tools);
+
+      // Check Acme for List Users permission. This check should pass.
+
       $this->assertEquals(TRUE,
-         $this->_instance->isUserAssignedPermission(1, 1));
-      
+         $this->_instance->checkForPermission($acme, 1));
+
+      // Check Acme for Edit Users function. It has been assigned to 
+      // Acme Tools, so this check should fail. 
+
       $this->assertEquals(FALSE,
-         $this->_instance->isUserAssignedPermission(1, 2));
+         $this->_instance->checkForPermission($acme, 2));
       
+      // Check Acme for an undefined function. This check should fail.
+            
       $this->assertEquals(FALSE,
-         $this->_instance->isUserAssignedPermission(1, 3));
+         $this->_instance->checkForPermission($acme, 3));
+
+      // Check Acme Tools for List Users functionality which should be 
+      // inherited from Acme.
+
+      $this->assertEquals(TRUE,
+         $this->_instance->checkForPermission($acme_tools, 1));
       
       $this->assertEquals(TRUE,
-         $this->_instance->isUserAssignedPermission(2, 1));
-      
-      $this->assertEquals(TRUE,
-         $this->_instance->isUserAssignedPermission(2, 2));
+         $this->_instance->checkForPermission($acme_tools, 2));
       
       $this->assertEquals(FALSE,
-         $this->_instance->isUserAssignedPermission(2, 3));
-      
-      $this->assertEquals(FALSE,
-         $this->_instance->isUserAssignedPermission(3, 1));
+         $this->_instance->checkForPermission($acme_tools, 3));
    }
 }
