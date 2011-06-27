@@ -145,20 +145,27 @@ abstract class MindFrame2_Xhtml_AbstractContainerElement
     *
     * @return Xhtml_Abstract
     */
-   public function getContentsByTagName($tag)
+   public function getElementsByTagName($tag)
    {
+      $elements = array();
+
       foreach ($this->contents as $element)
       {
          if ($element instanceof MindFrame2_Xhtml_Abstract)
          {
             if (strtolower($element->getTag()) == strtolower($tag))
             {
-               return $element;
+               $elements[] = $element;
+            }
+            elseif (($element instanceof MindFrame2_Xhtml_AbstractContainerElement)
+               && (($children = $element->getElementsByTagName($tag)) !== FALSE))
+            {
+               $elements = array_merge($elements, $children);
             }
          }
       }
 
-      return FALSE;
+      return !empty($elements) ? $elements : FALSE;
    }
 
    /**

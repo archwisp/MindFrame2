@@ -95,6 +95,21 @@ abstract class MindFrame2_Xhtml_Abstract implements MindFrame2_Xhtml_Interface
    {
       return $this->tag;
    }
+   
+   /**
+    * Sets an attribute
+    *
+    * @param string $name The key portion of the option
+    * @param string $value The value portion of the option
+    *
+    * @return bool
+    */
+   public function setAttribute($name, $value)
+   {
+      $this->options[$name] = $value;
+
+      return TRUE;
+   }
 
    /**
     * Sets an option
