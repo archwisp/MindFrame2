@@ -674,8 +674,8 @@ abstract class MindFrame2_Dbms_Record_Mapper_Abstract extends MindFrame2_Object
       if (!$model instanceof $expected_model_class)
       {
          throw new InvalidArgumentException(
-            sprintf('Expected instance of (%s), instance of (%s) given',
-            $expected_model_class, get_class($model)));
+            sprintf('Expected instance of (%s), instance of (%s) given in %s',
+            $expected_model_class, get_class($model), get_class($this)));
       }
    }
 
