@@ -59,7 +59,7 @@ foreach ($tables as $table)
       $adapter_class = get_class($adapter);
 
       if ((int)$exception->errorInfo[1]
-         !== $adapter_class::CODE_TABLE_DOESNT_EXIST)
+         !== constant($adapter_class . '::CODE_TABLE_DOESNT_EXIST'))
       {
          throw $exception;
       }
