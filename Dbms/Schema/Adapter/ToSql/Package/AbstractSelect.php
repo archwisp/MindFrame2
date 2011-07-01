@@ -367,31 +367,22 @@ abstract class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_AbstractSelect
    private function _buildSelectTableSqlOrderByClause(
       $table_name, array $order_by_columns)
    {                          
-      $fields = $this->getSharedModule()->
-         getDatabase()->getTableFields($table_name);
-
       $sql = array();
+      $delimiter = $this->getSharedModule()->getFieldDelimiter();
 
-      foreach ($fields as $field)
+      foreach ($order_by_columns as $input_field_name => $direction)
       {
-         $input_field_name = $table_name . $this->getSharedModule()->
-            getFieldDelimiter() . $field->getName();
+         list($table_name, $field_name) = explode($delimiter, $input_field_name);
 
-         if (isset($order_by_columns[$input_field_name]))
+         if (!in_array($direction, array('ASC', 'DESC')))
          {
-            $direction = $order_by_columns[$input_field_name];
-
-            if (!in_array($direction, array('ASC', 'DESC')))
-            {
-               throw new InvalidArgumentException('Invalid sort argument');
-            }
-
-            $sql[] = sprintf('%s.%s %s',
-               $this->getSharedModule()->escapeDbElementName($table_name),
-               $this->getSharedModule()->escapeDbElementName($field->getName()),
-               strtoupper($direction));
+            throw new InvalidArgumentException('Invalid sort argument');
          }
-         // end if // (array_key_exists($field_name, $select_data)) //
+
+         $sql[] = sprintf('%s.%s %s',
+            $this->getSharedModule()->escapeDbElementName($table_name),
+            $this->getSharedModule()->escapeDbElementName($field_name),
+            strtoupper($direction));
       }
       // end foreach // ($fields as $field) //
 
