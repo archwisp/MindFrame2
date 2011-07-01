@@ -50,9 +50,8 @@ class MindFrame2_Hash
    {
       MindFrame2_Core::assertArgumentIsInt($bytes, 1, 'bytes');
 
-
       $rand = (strtolower(substr(PHP_OS, 0, 3)) == 'win')
-         ? MCRYPT_DEV_RANDOM : MCRYPT_DEV_URANDOM;
+         ? MCRYPT_RAND : MCRYPT_DEV_URANDOM;
 
       $salt = substr(mcrypt_create_iv($bytes, $rand), 0, $bytes);
 
