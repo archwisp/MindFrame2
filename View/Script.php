@@ -26,9 +26,17 @@ abstract class MindFrame2_View_Script extends MindFrame2_View_Abstract
 {
    protected function captureScript($file_name)
    {
-      ob_flush();
-      ob_start();
       include $file_name;
       return ob_get_clean();
+   } 
+
+   /**
+    * Set up output buffering. This function is called from the construct. 
+    *
+    * @return void
+    */
+   protected function init()
+   {
+      ob_start();
    }
 }
