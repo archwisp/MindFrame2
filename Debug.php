@@ -39,7 +39,7 @@ class MindFrame2_Debug extends Exception
       
       if (ini_get('display_errors') === '1')
       {
-         new MindFrame2_Debug($output);
+         new MindFrame2_Debug(new exception($output));
       }
 
       if (ini_get('log_errors') === '1')
@@ -47,9 +47,9 @@ class MindFrame2_Debug extends Exception
          error_log($output);
       }
 
-      if ($severity === E_ERROR)
+      if (!in_array($severity, array(E_STRICT, E_NOTICE, E_USER_NOTICE)))
       {
-         die($output);
+         exit($severity);
       }
    }
 
