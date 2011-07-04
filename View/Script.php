@@ -24,8 +24,20 @@
  */
 abstract class MindFrame2_View_Script extends MindFrame2_View_Abstract
 {
-   protected function captureScript($file_name)
+   /**
+    * Expands the $data array keys into local variables, buffers and includes 
+    * the specified file, and returns the captured output.
+    */
+   protected function captureScript($file_name, array $data = array())
    {
+      // For array('foo' => 'bar'), you will have variable $foo available 
+      // to your view script with a value of 'bar'.
+
+      foreach ($data as $variable => $value)
+      {
+           $$variable = $value;
+      }
+
       include $file_name;
       return ob_get_clean();
    } 
