@@ -173,6 +173,16 @@ class MindFrame2_Dbms_Dbi_Single implements MindFrame2_Dbms_Dbi_Interface
 
       return $result->fetchAll($fetch_mode);
    }
+   
+   /**
+    * Rolls back the current transaction
+    *
+    * @return bool
+    */
+   public function rollBack()
+   {
+      return $this->_connectOnce()->rollBack();
+   }
 
    /**
     * Sets the connection attribute to be used when getConnection() is called.

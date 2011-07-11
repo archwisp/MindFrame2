@@ -80,4 +80,11 @@ interface MindFrame2_Dbms_Dbi_Interface
     * @return MindFrame2_Dbms_Result
     */
    public function query($sql, $fetch_mode);
+
+   /**
+    * Rolls back the current transaction
+    *
+    * @return bool
+    */
+   public function rollBack();
 }
