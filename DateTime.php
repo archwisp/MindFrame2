@@ -169,7 +169,7 @@ class MindFrame2_DateTime
     */
    public static function isValidTimestamp($timestamp)
    {
-      MindFrame2_Code::assetArgumentIsInt($timestamp, 1, 'timestamp');
+      MindFrame2_Core::assertArgumentIsInt($timestamp, 1, 'timestamp');
 
       $year = date('Y', $timestamp);
       $month = date('m', $timestamp);
