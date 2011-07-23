@@ -74,7 +74,7 @@ class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_Mysql_Schema
 
    protected $no_length_field_types = array('blob', 'datetime', 'date', 
       'double', 'float', 'longblob', 'longtext', 'mediumblob', 'mediumtext',
-      'smallblob', 'smalltext', 'text');
+      'smallblob', 'smalltext', 'text', 'timestamp');
 
    /**
     * Builds an SQL ALTER TABLE satement which would convert the table specified
