@@ -44,7 +44,7 @@ class MindFrame2_AutoLoad
 
       foreach ($include_paths as $include_path)
       {
-         $full_path = $include_path . '/'. $file_name;
+         $full_path = $include_path . DIRECTORY_SEPARATOR . $file_name;
 
          if (file_exists($full_path))
          {
@@ -72,7 +72,6 @@ class MindFrame2_AutoLoad
     */
    public static function convertClassToPath($class_name)
    {
-      $path = str_replace('_', '/', $class_name) . '.php';
-      return($path);
+      return str_replace('_', DIRECTORY_SEPARATOR, $class_name) . '.php';
    }
 }
