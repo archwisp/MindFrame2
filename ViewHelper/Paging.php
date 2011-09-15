@@ -38,7 +38,7 @@ class MindFrame2_ViewHelper_Paging
         // Calculate the initial page count by rounding and then, if there 
         // is a remainder, add an aditional page.
 
-        $page_count = round($item_total / $per_page, 0);
+        $page_count = floor($item_total / $per_page);
         $page_count += ($item_total % $per_page === 0) ? 0 : 1;
 
         $pages = range(1, $page_count);
