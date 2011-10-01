@@ -141,6 +141,25 @@ class MindFrame2_Dbms_Dbi_Single implements MindFrame2_Dbms_Dbi_Interface
    {
       return $this->_connection_failed;
    }
+   
+   /**
+    * Builds a prepared statement
+    *
+    * @return MindFrame2_Dbms_Result or FALSE
+    */
+   public function prepare($sql, array $options)
+   {
+      $connection = $this->_connectOnce();
+
+      if ($connection instanceof PDO)
+      {
+         return $connection->prepare($sql);
+      }
+      else
+      {
+         throw new RuntimeException('Please use PDO connections for prepared statement support');
+      }
+   }
 
    /**
     * Executes the specified query against the database and returns the

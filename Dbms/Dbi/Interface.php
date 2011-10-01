@@ -70,6 +70,13 @@ interface MindFrame2_Dbms_Dbi_Interface
    public function lastInsertId();
 
    /**
+    * Builds a prepared statement
+    *
+    * @return MindFrame2_Dbms_Result or FALSE
+    */
+   public function prepare($sql, array $options);
+
+   /**
     * Executes the specified query against the database and returns the
     * results. If fetch mode is NULL, the result object will be returned,
     * otherwise, the data from the resulting fetch will be returned.
