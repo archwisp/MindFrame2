@@ -21,7 +21,9 @@ CREATE TABLE `User` (
   `Email_Address` varchar(128) NOT NULL,
   `Position` enum('Secretary', 'Manager', 'CEO') NOT NULL,
   `Hire_Date` date NOT NULL,
-  `Last_Login` datetime DEFAULT NULL,
+  `Registration_Date` datetime NOT NULL,
+  `Inactive_Date` datetime DEFAULT NULL,
+  `Last_Login` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `Login_Count` smallint(5) NOT NULL DEFAULT 0,
   `Status` bit(1) NOT NULL DEFAULT 1,
   `Fk_User_Id_Supervisor` int(11) DEFAULT NULL,
@@ -58,8 +60,8 @@ GRANT ALL ON `Test_Database`.* TO 'User'@'localhost' IDENTIFIED BY 'Pass';
 -- //* testBuildInsertTableSql *//
 
 INSERT INTO `Test_Database`.`User`
-(`Username`, `Display_Name`, `Email_Address`, `Position`, `Hire_Date`, `Last_Login`, `Login_Count`, `Status`, `Fk_User_Id_Supervisor`)
-VALUES('Test', NULL, NULL, NULL, NULL, '2010-01-01 22:55:33', 8, NULL, NULL);
+(`Username`, `Display_Name`, `Email_Address`, `Position`, `Hire_Date`, `Registration_Date`, `Inactive_Date`, `Last_Login`, `Login_Count`, `Status`, `Fk_User_Id_Supervisor`)
+VALUES('Test', NULL, NULL, NULL, NULL, NULL, NULL, '2010-01-01 22:55:33', 8, NULL, NULL);
 
 -- //* testBuildSelectIntoTemporaryTableSql *//
 
@@ -75,6 +77,8 @@ SELECT
   `User`.`Email_Address`,
   `User`.`Position`,
   `User`.`Hire_Date`,
+  `User`.`Registration_Date`,
+  `User`.`Inactive_Date`,
   `User`.`Last_Login`,
   `User`.`Login_Count`,
   BIN(`User`.`Status`) AS Status,

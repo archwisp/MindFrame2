@@ -38,6 +38,7 @@ class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_Sqlite_Schema
       'char' => 'TEXT',
       'date' => 'TEXT',
       'datetime' => 'TEXT',
+      'timestamp' => 'TEXT',
       'decimal' => 'REAL',
       'dec' => 'REAL',
       'double' => 'REAL',

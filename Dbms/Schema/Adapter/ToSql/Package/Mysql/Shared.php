@@ -37,12 +37,14 @@ class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_Mysql_Shared
     */
    public function buildGrantAllSql($username, $password)
    {
-      $skel = "GRANT ALL ON %s.* TO %s@'localhost' IDENTIFIED BY %s;";
 
+      $skel = "GRANT ALL ON %s.* TO %s@'localhost'%s;";
+
+      $identify = empty($password) ? NULL : sprintf(" IDENTIFIED BY %s", $this->sanitizeValue($password));
+      
       $sql = sprintf($skel,
          $this->escapeDbElementName($this->getDatabase()->getName()),
-         $this->sanitizeValue($username),
-         $this->sanitizeValue($password));
+         $this->sanitizeValue($username), $identify);
 
       return $sql;
    }

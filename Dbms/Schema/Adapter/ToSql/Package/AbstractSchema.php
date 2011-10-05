@@ -31,6 +31,9 @@ abstract class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_AbstractSchema
    protected $index_keyword;
    protected $index_type_map = array();
    protected $no_length_field_types = array();
+   protected $no_null_field_types = array();
+   protected $keywords = array('CURRENT_TIMESTAMP');
+
 
    /**
     * Builds SQL CREATE statements for the entire database model
@@ -232,11 +235,13 @@ abstract class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_AbstractSchema
    protected function buildFieldDefaultValueSql(MindFrame2_Dbms_Schema_Field $field)
    {
       $sql = NULL;
+      
       $default_value = $field->getDefaultValue();
 
       if (!is_null($default_value) && $default_value !== '')
       {
-         if (!is_numeric($default_value))
+         if (!is_numeric($default_value)
+            && !in_array($default_value, $this->keywords))
          {
             $default_value = "'". $default_value ."'";
          }
@@ -277,7 +282,10 @@ abstract class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_AbstractSchema
     */
    protected function buildFieldNullableSql(MindFrame2_Dbms_Schema_Field $field)
    {
-      $sql = ($field->getAllowNull()) ? NULL : 'NOT NULL';
+      $no_null_type = in_array(
+         strtolower($field->getType()), $this->no_null_field_types);
+
+      $sql = ($field->getAllowNull() && !$no_null_type) ? NULL : 'NOT NULL';
 
       if (is_null($sql))
       {

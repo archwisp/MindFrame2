@@ -38,6 +38,7 @@ class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_Mysql_Schema
       'char' => 'char',
       'date' => 'date',
       'datetime' => 'datetime',
+      'timestamp' => 'timestamp',
       'dec' => 'decimal',
       'decimal' => 'decimal',
       'double' => 'double',
@@ -76,6 +77,8 @@ class MindFrame2_Dbms_Schema_Adapter_ToSql_Package_Mysql_Schema
       'double', 'float', 'longblob', 'longtext', 'mediumblob', 'mediumtext',
       'smallblob', 'smalltext', 'text', 'timestamp');
 
+   protected $no_null_field_types = array('timestamp');
+   
    /**
     * Builds an SQL ALTER TABLE satement which would convert the table specified
     * by $create_table_sql into the specifications of the database model.
