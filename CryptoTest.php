@@ -54,15 +54,51 @@ class MindFrame2_CryptoTest extends PHPUnit_Framework_TestCase
 
        $this->assertEquals('k8xz1hVUYUAe9qg2gebMgViyHOEji2q1KUXwUnwHPwk=', base64_encode($ciphertext));
    }
+   
+   public function testEncryptInvalidIvLength()
+   {
+      $this->setExpectedException('Exception');
+      
+      $ciphertext = $this->_instance->encrypt(
+         'FooBar ', 'Easy Key', base64_decode('Short IV'));
+
+       $this->assertEquals('k8xz1hVUYUAe9qg2gebMgViyHOEji2q1KUXwUnwHPwk=', base64_encode($ciphertext));
+   }
 
    public function testGenerateIvLength()
    {
+      $block_size = $this->_instance->getBlockSize();
+      
       $iv = $this->_instance->generateIv();
-      $this->assertEquals(32, strlen($iv));
+      $this->assertEquals($block_size, strlen($iv));
 
       $second_iv = $this->_instance->generateIv();
-      $this->assertEquals(32, strlen($iv));
+      $this->assertEquals($block_size, strlen($iv));
 
       $this->assertNotEquals($iv, $second_iv);
+   }
+   
+   public function testGetBlockSize()
+   {
+      $this->assertEquals(32, $this->_instance->getBlockSize());
+   }
+   
+   public function testGetKeySize()
+   {
+      $this->assertEquals(32, $this->_instance->getKeySize());
+   }
+   
+   public function testPkcs7Padding()
+   {
+      $block_size = $this->_instance->getBlockSize();
+      $plaintext = "Foobar \x0";
+
+      $padded = $this->_instance->padWithPkcs7($plaintext);
+      
+      $this->assertNotEquals($plaintext, $padded);
+      $this->assertEquals($block_size, strlen($padded));
+      
+      $this->assertEquals($plaintext,
+         $this->_instance->trimPkcs7($padded));
    }
 }

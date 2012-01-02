@@ -58,13 +58,45 @@ class MindFrame2_Crypto
       return mcrypt_create_iv($this->getBlockSize(), MCRYPT_DEV_URANDOM);
    }
 
+   public function getKeySize()
+   {
+      return mcrypt_get_key_size($this->_algorithm, $this->_mode);
+   }
+
    public function padWithNulls($plaintext)
    {
       return str_pad($plaintext, $this->getBlockSize(), "\x0");
    }
 
+   public function padWithPkcs7($plaintext)
+   {
+      $block_size = $this->getBlockSize();
+
+      if ($block_size > 255)
+      {
+         throw new RuntimeException('PKCS7 padding is only well defined for block sizes smaller than 256 bits');
+      }
+
+      $pad_length = ($block_size - (strlen($plaintext) % $block_size));
+
+      return $plaintext . str_repeat(chr($pad_length), $pad_length);
+   }
+
    public function trimNulls($plaintext)
    {
       return rtrim($plaintext, "\x0");
+   }
+
+   public function trimPkcs7($plaintext)
+   {
+      $pad_char = substr($plaintext, -1);
+      $pad_length = ord($pad_char);
+
+      if (substr($plaintext, -$pad_length) !== str_repeat($pad_char, $pad_length))
+      {
+         throw new RuntimeException('Invalid pad value');
+      }
+
+      return substr($plaintext, 0, -$pad_length);
    }
 }
