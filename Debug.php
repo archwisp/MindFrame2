@@ -41,7 +41,7 @@ class MindFrame2_Debug extends Exception
       {
          new MindFrame2_Debug(new exception($output));
       }
-
+      
       if (ini_get('log_errors') === '1')
       {
          error_log($output);
@@ -49,14 +49,25 @@ class MindFrame2_Debug extends Exception
 
       if (!in_array($severity, array(E_STRICT, E_NOTICE, E_USER_NOTICE)))
       {
-         exit($severity);
+         die('Unhandled error');
       }
    }
 
    public static function exceptionHandler(Exception $exception)
    {
-      new MindFrame2_Debug($exception);
-      exit;
+      if (ini_get('display_errors') === '1')
+      {
+         new MindFrame2_Debug($exception);
+      }
+      
+      if (ini_get('log_errors') === '1')
+      {
+         error_log($exception->getMessage() . 
+            "\nStack Trace:" .
+            "\n" . $exception->getTraceAsString());
+      }
+      
+      die('Uncaught exception');
    }
 
    /**
