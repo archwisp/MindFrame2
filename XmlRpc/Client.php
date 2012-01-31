@@ -144,7 +144,7 @@ class MindFrame2_XmlRpc_Client
             CURLOPT_HTTPHEADER => $header,
             CURLOPT_POST => TRUE,
             CURLOPT_RETURNTRANSFER => TRUE,
-            CURLOPT_SSL_VERIFYPEER => FALSE,
+            CURLOPT_SSL_VERIFYPEER => TRUE,
             CURLOPT_USERAGENT => 'MindFrame2_XmlRpc_Client'
          ));
       }
