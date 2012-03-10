@@ -68,8 +68,38 @@ class MindFrame2_ImageMagick
          $resize = sprintf('-resize %d ', $size);
       }
 
-      $cmd = sprintf('%s %s %s-gravity center -crop %dx%d+0+0 %s',
+      $cmd = sprintf('%s "%s" %s-gravity center -crop %dx%d+0+0 "%s"',
          $this->convert, $source, $resize, $size, $size, $destination);
+
+      $output = array();
+      exec($cmd, $output);
+   }
+
+   /**
+    * Creates a preview
+    *
+    * @param string $source Source file
+    * @param string $destination Destination file
+    * @param int $size Size of thumbnail
+    *
+    * @return void
+    */
+   public function createPreview($source, $destination, $size)
+   {   
+      if (empty($source))
+      {   
+         throw new InvalidArgumentException('Argument #1 (source) cannot be empty');
+      }   
+         
+      if (empty($destination))
+      {   
+         throw new InvalidArgumentException('Argument #2 (destination) cannot be empty');
+      }   
+
+      $resize = sprintf('-resize %d', $size);
+
+      $cmd = sprintf('%s "%s" %s "%s"', 
+         $this->convert, $source, $resize, $destination);
 
       $output = array();
       exec($cmd, $output);
@@ -85,7 +115,7 @@ class MindFrame2_ImageMagick
    public function fetchImageData($image)
    {
       $output = array();
-      $cmd = sprintf('%s -verbose %s', $this->identify, $image);
+      $cmd = sprintf('%s -verbose "%s"', $this->identify, $image);
       exec($cmd, $output);
       $output = MindFrame2_Array::reKey($output, ':');
 

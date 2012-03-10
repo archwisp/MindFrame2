@@ -98,7 +98,7 @@ class MindFrame2_Filesystem
 
          if (is_dir($subdir))
          {
-            $files = array_merge($files, self::listRecursive($subdir, $filter));
+            $files = array_merge($files, self::lsRecursive($subdir, $filter));
          }
          // end if // (is_dir($subdir)) //
       }
