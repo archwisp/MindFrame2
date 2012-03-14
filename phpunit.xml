@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<phpunit bootstrap="Test/Bootstrap.php" stopOnError="true" stopOnFailure="true" verbose="true">
+  <logging />
+</phpunit>

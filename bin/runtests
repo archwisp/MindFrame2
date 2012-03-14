@@ -1,13 +1,24 @@
 #!/bin/bash
 
+CD=`pwd`;
 WD="`/usr/bin/dirname $0`/../../";
-echo Changing to working directory: $WD;
+
+echo "Changing to working directory: $WD";
 cd $WD;
 
 if [ -z $1 ]; then
-	TARGET=" --coverage-html MindFrame2/coverage MindFrame2";
+	TARGET="";
 else
-	TARGET="MindFrame2/$1";
+	TARGET="$1";
 fi
 
-phpunit --stop-on-failure --verbose --bootstrap MindFrame2/Test/Bootstrap.php $TARGET;
+if [ -z $2 ]; then
+    FILTER="";
+else
+	FILTER="--filter $2";
+fi
+
+REALPATH="$CD/$TARGET";
+echo "Testing: $REALPATH $FILTER";
+
+phpunit -c MindFrame2/phpunit.xml $FILTER $REALPATH;
